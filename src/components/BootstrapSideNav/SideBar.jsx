@@ -15,9 +15,7 @@ const SideBar = () => {
             <SideNav.Nav defaultSelected="home">
                 <NavItem eventKey="home" >
                     <NavIcon>
-
                         <BsPerson style={{ fontSize: '1.75em' }}/>
-
                     </NavIcon>
                     <NavText>
                         Hallo Admin
@@ -41,7 +39,6 @@ const SideBar = () => {
                         </NavText>
                     </NavItem>
                 </NavItem>
-
                 <NavItem eventKey="Settings">
                     <NavIcon>
                         <BsWrench style={{ fontSize: '1.75em' }} />
@@ -68,7 +65,6 @@ const SideBar = () => {
                         Logout
                     </NavText>
                 </NavItem>
-
             </SideNav.Nav>
         </SideNav>
     );
