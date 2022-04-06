@@ -1,20 +1,20 @@
 import {useContext} from "react";
 import {useQuery} from "react-query";
 import axios from "axios";
-import {UserContext} from "../../context/UserContext";
+import {UserContext} from "../../store/context/UserContext";
 
 
 export const useQuerySession = () => {
-    const {sid,setRoleId} = useContext(UserContext);
+    const {isAuth,setIsAuth} = useContext(UserContext);
     const body = {
         method: 'acl_session_info',
-        sid,
+        sid: isAuth.sid,
         data: {}
     }
-    const querySession = useQuery(['session', sid], async () => {
+    const querySession = useQuery(['session', isAuth.sid], async () => {
         const response = await axios.post(process.env.REACT_APP_API_URL, body);
 
         return response.data;
-    }, {enabled: !!sid, onSuccess: (data) => {console.log(data);setRoleId(data?.data?.payload?.role_id)}});
+    }, {enabled: !! isAuth.sid, onSuccess: (data) => {console.log(data);setIsAuth({role_id:data?.data?.payload?.role_id})}});
     return querySession;
 }

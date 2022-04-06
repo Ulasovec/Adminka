@@ -1,15 +1,15 @@
 import {useMutation} from "react-query";
 import axios from "axios";
 import {useContext} from "react";
-import {UserContext} from "../../context/UserContext";
+import {UserContext} from "../../store/context/UserContext";
 
 export default function useLogin() {
-    const {setSid} = useContext(UserContext);
+    const {setIsAuth} = useContext(UserContext);
 
     const mutationLogin = useMutation(credentials => {
         return axios.post(process.env.REACT_APP_API_URL, credentials);
     }, {
-        onSuccess: (data) => { setSid(data?.data?.data?.sid); console.log(data?.data.data)}
+        onSuccess: (data) => {console.log(data?.data?.data); setIsAuth({sid: data?.data?.data?.sid}); }
     });
     return mutationLogin;
 }

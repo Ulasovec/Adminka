@@ -7,24 +7,31 @@ import {Routes,Route,Outlet} from "react-router-dom";
 import UsersPage from "./pages/UsersPage";
 import AdminPage from "./pages/AdminPage";
 import SettingsPage from "./pages/SettingsPage";
-import {UserContext} from "./context/UserContext";
-import {useContext, useState} from "react";
+import {UserContext} from "./store/context/UserContext";
+import {useContext, useReducer, useState} from "react";
+import useIsAuthReducer from "./store/reducers/AuthReducer";
+
 
 const queryClient = new QueryClient();
 
 function App() {
     // context value
-const [sid, setSid] = useState(undefined);
-const [roleId, setRoleId] = useState(undefined);
-console.log(roleId);
+// // const [sid, setSid] = useState(undefined);
+// // const [roleId, setRoleId] = useState(undefined);
+// console.log(roleId);
+//      const [isAuth,setIsAuth] = useReducer((isAuth, action) => ({...isAuth, ...action}),
+//         {sid: '', role_id: ''})
+    const {isAuth,setIsAuth} = useIsAuthReducer();
+    console.log(isAuth);
   return (
       <QueryClientProvider client={queryClient}>
-          <UserContext.Provider value={{sid, setSid,roleId,setRoleId}}>
+          <UserContext.Provider value={{isAuth,setIsAuth}}>
           <Routes>
               <Route path="/" element={<Layout/>}>
                   <Route index element={<AdminPage/>}/>
                   <Route path="/users" element={<UsersPage/>} />
-                  <Route path="/settings" element={<SettingsPage/>} />
+                  <Route path="/settings" element={<SettingsPage/>}/>
+                  <Route path="/logout" element={<AdminPage/>}/>
               </Route>
           </Routes>
           </UserContext.Provider>
@@ -37,9 +44,9 @@ console.log(roleId);
 
 
 function Layout() {
-    const {sid} = useContext(UserContext);
+    const {isAuth} = useContext(UserContext);
     return (
-        (sid) ?
+        (isAuth.sid) ?
                 <div>
                     <SideBar/>
                     <main>

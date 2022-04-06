@@ -8,7 +8,7 @@ const AdminPage = () => {
     const queryRole = useQueryRole();
     return (
         <div style={{fontSize: '1.75em',textAlign:'center'}}>
-            ||| HomePage {queryRole?.data?.data?.name} |||
+            ||| Admin Role : {queryRole?.data?.data?.name} |||
 
         </div>
     );

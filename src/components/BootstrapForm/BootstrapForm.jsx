@@ -1,10 +1,13 @@
 import React, {useContext, useReducer} from 'react';
 import {Button, Container, Form} from "react-bootstrap";
 import useLogin from "../../hooks/fetch/Users";
+import Modal from "../BootstrapModal/Modal";
+import BootModal from "../BootstrapModal/Modal";
 
 
 const BootstrapForm = () => {
-    const [form, setForm] = useReducer((form, action) => ({...form, ...action}), {login: '', password: ''})
+    const [form, setForm] = useReducer((form, action) => ({...form, ...action}),
+        {login: '', password: ''})
     console.log(form);
     console.log('ENV: ', process.env.REACT_APP_API_URL)
     const usersLogin = useLogin();
@@ -24,7 +27,6 @@ const BootstrapForm = () => {
                 timeout: 10000.0
             }
         }
-        //usersLogin.mutate(form)
         usersLogin.mutate(body);
         setForm({login: '', password: ''});
 
@@ -33,7 +35,8 @@ const BootstrapForm = () => {
     return (
         <div>
             <Container>
-                <Form onSubmit={onsubmitHandler}>
+                <h1>Welcome to DataBase</h1>
+                <Form onSubmit={onsubmitHandler} style={{maxWidth: "50%"}}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Login</Form.Label>
                         <Form.Control type="text" placeholder="Enter login"
@@ -57,8 +60,10 @@ const BootstrapForm = () => {
                 </Form>
             </Container>
             <Container>
+                {/*{ usersLogin.isSuccess && usersLogin.data?.data?.result?.code !== 'OK' ?*/}
+                {/*    <div>{usersLogin.data?.data?.result?.code}</div> : null }*/}
                 { usersLogin.isSuccess && usersLogin.data?.data?.result?.code !== 'OK' ?
-                    <div>{usersLogin.data?.data?.result?.code}</div> : null }
+                    <BootModal/> : null }
             </Container>
         </div>
     );

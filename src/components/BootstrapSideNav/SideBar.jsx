@@ -32,14 +32,9 @@ const SideBar = () => {
                     <NavText>
                         Users
                     </NavText>
-                    <NavItem eventKey="users/info">
+                    <NavItem eventKey="users">
                         <NavText>
                             User info
-                        </NavText>
-                    </NavItem>
-                    <NavItem eventKey="users/role">
-                        <NavText>
-                            User role
                         </NavText>
                     </NavItem>
                 </NavItem>
@@ -50,11 +45,6 @@ const SideBar = () => {
                     <NavText>
                         Settings
                     </NavText>
-                    <NavItem eventKey="settings">
-                        <NavText>
-                            Admin prof
-                        </NavText>
-                    </NavItem>
                     <NavItem eventKey="settings">
                         <NavText>
                             Admin manager
