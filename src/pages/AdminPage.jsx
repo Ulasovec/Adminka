@@ -1,9 +1,15 @@
 import React from 'react';
+import {useQuerySession} from "../hooks/fetch/QuerySession";
+import {useQueryRole} from "../hooks/fetch/QueryRole";
 
 const AdminPage = () => {
+
+    const querySession = useQuerySession();
+    const queryRole = useQueryRole();
     return (
         <div style={{fontSize: '1.75em',textAlign:'center'}}>
-            ||| HomePage |||
+            ||| HomePage {queryRole?.data?.data?.name} |||
+
         </div>
     );
 };

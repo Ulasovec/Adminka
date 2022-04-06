@@ -17,7 +17,7 @@ const SideBar = () => {
         >
             <SideNav.Toggle/>
             <SideNav.Nav defaultSelected="admins">
-                <NavItem eventKey="admins" >
+                <NavItem eventKey=" " >
                     <NavIcon>
                         <BsPerson style={{ fontSize: '1.75em' }}/>
                     </NavIcon>
@@ -25,19 +25,19 @@ const SideBar = () => {
                         Hallo Admin
                     </NavText>
                 </NavItem>
-                <NavItem eventKey="users">
+                <NavItem eventKey=" ">
                     <NavIcon>
                         <BsBookmarkCheckFill style={{ fontSize: '1.75em' }} />
                     </NavIcon>
                     <NavText>
                         Users
                     </NavText>
-                    <NavItem eventKey="users">
+                    <NavItem eventKey="users/info">
                         <NavText>
                             User info
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="users">
+                    <NavItem eventKey="users/role">
                         <NavText>
                             User role
                         </NavText>
@@ -61,7 +61,7 @@ const SideBar = () => {
                         </NavText>
                     </NavItem>
                 </NavItem>
-                <NavItem eventKey=" " >
+                <NavItem eventKey="logout">
                     <NavIcon>
                         <BsArrowRepeat style={{ fontSize: '1.75em' }}/>
                     </NavIcon>

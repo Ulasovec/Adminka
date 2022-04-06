@@ -1,22 +1,25 @@
 import React, {useContext, useReducer} from 'react';
 import {Button, Container, Form} from "react-bootstrap";
 import useLogin from "../../hooks/fetch/Users";
-import {UserContext} from "../../context/UserContext";
+
 
 const BootstrapForm = () => {
     const [form, setForm] = useReducer((form, action) => ({...form, ...action}), {login: '', password: ''})
     console.log(form);
     console.log('ENV: ', process.env.REACT_APP_API_URL)
     const usersLogin = useLogin();
-    const {setIsAuth} = useContext(UserContext);
+
+
 
     function onsubmitHandler(e) {
         e.preventDefault();
         const body = {
             method: "acl_sign_in_login_password",
             data: {
-                login: "test_admin001@test.domain",
-                password: "password",
+                // login: "test_admin001@test.domain",
+                // password: "password",
+                login: form.login,
+                password: form.password,
                 app_id: "b7177966-2735-4411-9ae7-acff92762510",
                 timeout: 10000.0
             }
@@ -24,7 +27,7 @@ const BootstrapForm = () => {
         //usersLogin.mutate(form)
         usersLogin.mutate(body);
         setForm({login: '', password: ''});
-        setIsAuth(true);
+
     }
 
     return (
@@ -52,6 +55,10 @@ const BootstrapForm = () => {
                         Submit
                     </Button>
                 </Form>
+            </Container>
+            <Container>
+                { usersLogin.isSuccess && usersLogin.data?.data?.result?.code !== 'OK' ?
+                    <div>{usersLogin.data?.data?.result?.code}</div> : null }
             </Container>
         </div>
     );

@@ -14,14 +14,15 @@ const queryClient = new QueryClient();
 
 function App() {
     // context value
-const [isAuth, setIsAuth] = useState(false);
+const [sid, setSid] = useState(undefined);
+const [roleId, setRoleId] = useState(undefined);
+console.log(roleId);
   return (
       <QueryClientProvider client={queryClient}>
-          <UserContext.Provider value={{isAuth, setIsAuth}}>
+          <UserContext.Provider value={{sid, setSid,roleId,setRoleId}}>
           <Routes>
               <Route path="/" element={<Layout/>}>
-                  <Route index element={<AdminPage/>} />
-                  <Route path="/admins" element={<AdminPage/>} />
+                  <Route index element={<AdminPage/>}/>
                   <Route path="/users" element={<UsersPage/>} />
                   <Route path="/settings" element={<SettingsPage/>} />
               </Route>
@@ -36,9 +37,9 @@ const [isAuth, setIsAuth] = useState(false);
 
 
 function Layout() {
-    const {isAuth} = useContext(UserContext);
+    const {sid} = useContext(UserContext);
     return (
-        (isAuth) ?
+        (sid) ?
                 <div>
                     <SideBar/>
                     <main>
