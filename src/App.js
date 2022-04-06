@@ -8,7 +8,7 @@ import UsersPage from "./pages/UsersPage";
 import AdminPage from "./pages/AdminPage";
 import SettingsPage from "./pages/SettingsPage";
 import {UserContext} from "./store/context/UserContext";
-import {useContext, useReducer, useState} from "react";
+import {useContext} from "react";
 import useIsAuthReducer from "./store/reducers/AuthReducer";
 
 

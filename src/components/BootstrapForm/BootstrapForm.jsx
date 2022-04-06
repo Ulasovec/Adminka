@@ -1,7 +1,7 @@
-import React, {useContext, useReducer} from 'react';
+import React, {useReducer} from 'react';
 import {Button, Container, Form} from "react-bootstrap";
 import useLogin from "../../hooks/fetch/Users";
-import Modal from "../BootstrapModal/Modal";
+
 import BootModal from "../BootstrapModal/Modal";
 
 

@@ -5,6 +5,7 @@ import {useQueryRole} from "../hooks/fetch/QueryRole";
 const AdminPage = () => {
 
     const querySession = useQuerySession();
+    console.log(querySession)
     const queryRole = useQueryRole();
     return (
         <div style={{fontSize: '1.75em',textAlign:'center'}}>
