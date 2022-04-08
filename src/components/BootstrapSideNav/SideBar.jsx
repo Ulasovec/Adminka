@@ -1,17 +1,23 @@
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { BsPerson, BsBookmarkCheckFill, BsArrowRepeat, BsWrench } from "react-icons/bs";
-import React from 'react';
+import React, {useContext} from 'react';
 import {useNavigate} from "react-router-dom";
+import {UserContext} from "../../store/context/UserContext";
+
 
 const SideBar = () => {
     const navigate = useNavigate();
+    const {isAuth, setIsAuth} = useContext(UserContext);
     return (
 
         <SideNav
             onSelect={(selected) => {
                 const to = '/' + selected;
-                navigate(to);
+                if (to === '/logout'){
+                    setIsAuth({sid:undefined,role_id:undefined})
+                }
+                else navigate(to);
                 // Add your code here
             }}
         >

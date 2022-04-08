@@ -31,7 +31,7 @@ function App() {
                   <Route index element={<AdminPage/>}/>
                   <Route path="/users" element={<UsersPage/>} />
                   <Route path="/settings" element={<SettingsPage/>}/>
-                  <Route path="/logout" element={<AdminPage/>}/>
+                  {/*<Route path="/logout" element={<AdminPage/>}/>*/}
               </Route>
           </Routes>
           </UserContext.Provider>
