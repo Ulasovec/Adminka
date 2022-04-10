@@ -8,7 +8,7 @@ import {UserContext} from "../../store/context/UserContext";
 
 const SideBar = () => {
     const navigate = useNavigate();
-    const {isAuth, setIsAuth} = useContext(UserContext);
+    const { setIsAuth} = useContext(UserContext);
     return (
 
         <SideNav

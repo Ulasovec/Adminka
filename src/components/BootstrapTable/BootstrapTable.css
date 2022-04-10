@@ -1,0 +1,4 @@
+.users .users__options {
+    display: flex;
+    justify-content: flex-end
+}
