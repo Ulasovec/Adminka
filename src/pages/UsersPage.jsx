@@ -9,11 +9,21 @@ const UsersPage = () => {
     const [id, setId] = useState(1)
     const {users, setUsersName} = useContext(UserContext)
     const [createUser,setCreateUser] = useState([]);
+    const [checkArray,setCheckArray] = useState([])
+
+
     console.log(users);
     console.log(createUser);
+
+
     useEffect(()=> setCreateUser([...createUser.filter(item => item.id !== undefined),users]),[users])
+
     function deleteUsers(id){
         setCreateUser (createUser.filter(item => item.id !== id))
+    }
+    function deleteArray(checkArray){
+        console.log(checkArray.filter(item => item.checked === false).map(item => item.id))
+        
     }
     function inputHandler(e){
         e.preventDefault();
@@ -42,8 +52,22 @@ const UsersPage = () => {
                     Create
                 </Button>
             </InputGroup>
+
             </Form>
-            <BootstrapTable createUser={createUser} usersId={users.id} deleteUsers={deleteUsers}/>
+            {(checkArray.find(item => item.checked === false))
+            ?<Button variant="outline-danger" onClick={()=>deleteArray(checkArray)}>Delete</Button>
+                :null
+            }
+
+               <BootstrapTable createUser={createUser}
+                                  usersId={users.id}
+                                  deleteUsers={deleteUsers}
+                                  checkArray = {checkArray}
+                                  setCheckArray = {setCheckArray}
+
+                />
+
+
             </Container>
     );
 };

@@ -1,25 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Button, Form, Table} from "react-bootstrap";
-import {UserContext} from "../../store/context/UserContext";
+import useCheckedReducer from "../../store/reducers/CheckedReduser";
 
-const TableBody = ({id, userName, deleteUsers,deleteCheckbox}) => {
+const TableBody = ({id, userName, deleteUsers,setCheckArray,checkArray}) => {
     const [checked, setChecked] = useState(false);
-    if(checked){
-       pushId(id)
-    }
-    else{
-        deleteId(id)
-    }
-
-console.log(checked);
-    function deleteId(userId){
-
-
-    }
-    function pushId(userId){
-
-
-    }
+    const {checkId,setCheckId} = useCheckedReducer()
+useEffect(() => setCheckArray([...checkArray.filter(item => item.id !== checkId.id),checkId]),[checkId])
+    console.log(checkId)
+    console.log(checkArray)
     return (
 
         <tbody>
@@ -29,7 +17,10 @@ console.log(checked);
                 label={`${id}` }
                 name="group1"
                 checked={checked}
-                onChange={() => setChecked(!checked)}
+                onChange={() => {setChecked(!checked);
+                    setCheckId({id:id,checked:checked});
+
+                }}
             /></th>
             <td>{userName}</td>
             <td className='users__options'>

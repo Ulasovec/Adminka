@@ -3,7 +3,7 @@ import { Table,Form } from "react-bootstrap";
 import  './BootstrapTable.css'
 import TableBody from "./TableBody";
 
-const BootstrapTable = ({createUser,usersId,deleteUsers}) => {
+const BootstrapTable = ({createUser,usersId,deleteUsers,checkArray,setCheckArray}) => {
 
 
     return (
@@ -23,7 +23,14 @@ const BootstrapTable = ({createUser,usersId,deleteUsers}) => {
                 </thead>
                 {(usersId)
                 ? createUser.map((item,index) =>
-                            <TableBody key={index} id={item.id} userName={item.userName}  deleteUsers={deleteUsers} />)
+                            <TableBody key={index}
+                                       id={item.id}
+                                       userName={item.userName}
+                                       deleteUsers={deleteUsers}
+                                       checkArray = {checkArray}
+                                       setCheckArray = {setCheckArray}
+
+                            />)
                     : null}
 
 
