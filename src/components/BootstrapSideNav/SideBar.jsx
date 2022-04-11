@@ -40,7 +40,20 @@ const SideBar = () => {
                     </NavText>
                     <NavItem eventKey="users">
                         <NavText>
-                            User info
+                            Create User
+                        </NavText>
+                    </NavItem>
+                </NavItem>
+                <NavItem eventKey=" ">
+                    <NavIcon>
+                        <BsBookmarkCheckFill style={{ fontSize: '1.75em' }} />
+                    </NavIcon>
+                    <NavText>
+                        Role
+                    </NavText>
+                    <NavItem eventKey="role">
+                        <NavText>
+                            Create Role
                         </NavText>
                     </NavItem>
                 </NavItem>

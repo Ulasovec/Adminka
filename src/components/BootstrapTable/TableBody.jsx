@@ -1,14 +1,14 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
-import {Button, Form, Table} from "react-bootstrap";
+import React, { useEffect,useState} from 'react';
+import {Button, Form} from "react-bootstrap";
 import useCheckedReducer from "../../store/reducers/CheckedReduser";
+
+import {BsFileText, BsFileX} from "react-icons/bs";
+
 
 const TableBody = ({id, userName, deleteUsers,setCheckArray,checkArray}) => {
     const [checked, setChecked] = useState(false);
     const {checkId,setCheckId} = useCheckedReducer()
     useEffect(() => setCheckArray([...checkArray.filter(item => item.id !== checkId.id),checkId]),[checked])
-    // if(checkArray.length === 0){
-    //     setChecked(false)
-    // }
 
     console.log(checkId)
     console.log(checkArray)
@@ -27,8 +27,11 @@ const TableBody = ({id, userName, deleteUsers,setCheckArray,checkArray}) => {
                 /></th>
 
             <td>{userName}</td>
+            <th>User</th>
             <td className='users__options'>
-                <Button variant="outline-danger" onClick={()=>deleteUsers(id)}>Delete</Button></td>
+                <BsFileText style={{ fontSize: '2em' }} className= 'users__options_put'/>
+                <BsFileX style={{ fontSize: '2em' }} className= 'users__options_delete' onClick={()=>deleteUsers(id)}/>
+            </td>
         </tr>
         </tbody>
 

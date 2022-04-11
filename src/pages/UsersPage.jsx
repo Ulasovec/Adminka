@@ -25,11 +25,12 @@ const UsersPage = () => {
         // console.log(checkArray.filter(item => item.checked === false).map(item => item.id))
         setCreateUser (createUser.filter(i => !checkArray.filter(item => item.checked === false).map(item => item.id).includes(i.id)));
         setCheckArray([]);
+
     }
     function inputHandler(e){
         e.preventDefault();
-        setId(id +1);
         setUsersName({id : id, userName : name });
+        setId(id + 1);
         setName('');
     }
 

@@ -2,3 +2,19 @@
     display: flex;
     justify-content: flex-end
 }
+.users__options_put {
+    cursor: pointer;
+}
+.users__options_delete{
+    cursor: pointer;
+}
+
+
+
+
+.users__options_put:hover{
+    background-color: #dcdbdb;
+}
+.users__options_delete:hover{
+    background-color: #dcdbdb;
+}

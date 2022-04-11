@@ -11,6 +11,7 @@ import {UserContext} from "./store/context/UserContext";
 import {useContext, useState} from "react";
 import useIsAuthReducer from "./store/reducers/AuthReducer";
 import useUserNameReducer from "./store/reducers/UserNameReducer";
+import CreateRolePage from "./pages/CreateRolePage";
 
 
 const queryClient = new QueryClient();
@@ -24,9 +25,8 @@ function App() {
 //         {sid: '', role_id: ''})
     const {isAuth,setIsAuth} = useIsAuthReducer();
     const {users, setUsersName} = useUserNameReducer()
-    console.log(isAuth);
     const [deleteUsersId, setDeleteUsersId] = useState([])
-    console.log(deleteUsersId)
+
   return (
       <QueryClientProvider client={queryClient}>
           <UserContext.Provider value={{isAuth,setIsAuth,users,setUsersName,deleteUsersId,setDeleteUsersId}}>
@@ -35,6 +35,7 @@ function App() {
                   <Route index element={<AdminPage/>}/>
                   <Route path="/users" element={<UsersPage/>} />
                   <Route path="/settings" element={<SettingsPage/>}/>
+                  <Route path="/role" element={<CreateRolePage/>}/>
                   {/*<Route path="/logout" element={<AdminPage/>}/>*/}
               </Route>
           </Routes>
