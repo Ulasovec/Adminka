@@ -1,16 +1,17 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Container, Form, FormControl, InputGroup} from "react-bootstrap";
 import BootstrapTable from "../components/BootstrapTable/BootstrapTable";
-import {UserContext} from "../store/context/UserContext";
+
+import useUserNameReducer from "../store/reducers/UserNameReducer";
 
 
 const UsersPage = () => {
     const [name, setName] = useState('');
     const [id, setId] = useState(1)
-    const {users, setUsersName} = useContext(UserContext)
+
     const [createUser,setCreateUser] = useState([]);
     const [checkArray,setCheckArray] = useState([])
-
+    const {users, setUsersName} = useUserNameReducer()
 
     console.log(users);
     console.log(createUser);

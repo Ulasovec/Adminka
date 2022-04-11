@@ -49,11 +49,11 @@ const SideBar = () => {
                         <BsBookmarkCheckFill style={{ fontSize: '1.75em' }} />
                     </NavIcon>
                     <NavText>
-                        Role
+                        Roles
                     </NavText>
                     <NavItem eventKey="role">
                         <NavText>
-                            Create Role
+                            Create Roles
                         </NavText>
                     </NavItem>
                 </NavItem>

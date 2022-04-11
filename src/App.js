@@ -24,12 +24,11 @@ function App() {
 //      const [isAuth,setIsAuth] = useReducer((isAuth, action) => ({...isAuth, ...action}),
 //         {sid: '', role_id: ''})
     const {isAuth,setIsAuth} = useIsAuthReducer();
-    const {users, setUsersName} = useUserNameReducer()
     const [deleteUsersId, setDeleteUsersId] = useState([])
 
   return (
       <QueryClientProvider client={queryClient}>
-          <UserContext.Provider value={{isAuth,setIsAuth,users,setUsersName,deleteUsersId,setDeleteUsersId}}>
+          <UserContext.Provider value={{isAuth,setIsAuth,deleteUsersId,setDeleteUsersId}}>
           <Routes>
               <Route path="/" element={<Layout/>}>
                   <Route index element={<AdminPage/>}/>
