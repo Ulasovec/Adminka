@@ -15,6 +15,7 @@ const BootstrapTable = ({createUser,usersId,deleteUsers,checkArray,setCheckArray
                         inline
                         label="id"
                         name="group1"
+                        disabled
                     /></th>
                     <th>Username</th>
                     <th>Options</th>

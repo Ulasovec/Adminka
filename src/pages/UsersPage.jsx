@@ -22,8 +22,9 @@ const UsersPage = () => {
         setCreateUser (createUser.filter(item => item.id !== id))
     }
     function deleteArray(checkArray){
-        console.log(checkArray.filter(item => item.checked === false).map(item => item.id))
-        
+        // console.log(checkArray.filter(item => item.checked === false).map(item => item.id))
+        setCreateUser (createUser.filter(i => !checkArray.filter(item => item.checked === false).map(item => item.id).includes(i.id)));
+        setCheckArray([]);
     }
     function inputHandler(e){
         e.preventDefault();
