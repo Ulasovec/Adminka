@@ -25,9 +25,11 @@ const CreateRolesForm = ({roles, setRolesName, rolesArray, setRolesArray}) => {
                 <Form.Control type="text"
                               value={roles.name}
                               onChange={(e)=>setRolesName({name:e.target.value})}/>
-                <Button variant="outline-success" id="button-addon2" type="submit" style={{marginRight:'8px'}}>
-                    Create
+                <Button variant="outline-success"  id="button-addon2" type="submit" style={{marginRight:'8px'}}>
+                    Save
                 </Button>
+
+
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Description</Form.Label>
@@ -35,8 +37,6 @@ const CreateRolesForm = ({roles, setRolesName, rolesArray, setRolesArray}) => {
                               value={roles.description}
                               onChange={(e)=>setRolesName({description:e.target.value})}/>
 
-
-                />
             </Form.Group>
         </Form>
     );
