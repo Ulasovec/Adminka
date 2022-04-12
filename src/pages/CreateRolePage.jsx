@@ -35,7 +35,7 @@ const CreateRolePage = () => {
                                      putRoles = {putRoles}
                 />
                 {(modal)
-                    ?<CreateRoleModal modal = {modal}
+                    ?<CreateRoleModal
                                       setModal = {setModal}
                                       putRole = {putRole}
                                       rolesArray = {rolesArray}

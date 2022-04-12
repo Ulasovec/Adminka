@@ -2,7 +2,7 @@ import React, {useReducer, useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
 
 
-const CreateRoleModal = ({modal, setModal,putRole, rolesArray, setRolesArray}) => {
+const CreateRoleModal = ({setModal,putRole, rolesArray, setRolesArray}) => {
 
     const [show, setShow] = useState(true);
     const [input, setInput] = useReducer((input,action) => ({...input,...action}),{...putRole})
