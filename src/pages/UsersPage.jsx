@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Container, Form, FormControl, InputGroup} from "react-bootstrap";
-import BootstrapTable from "../components/BootstrapTable/BootstrapTable";
+import BootstrapUsersTable from "../components/BootstrapTable/BootstrapUsersTable";
 
 import useUserNameReducer from "../store/reducers/UserNameReducer";
+import CreateRoleModal from "../components/BootstrapModal/CreateRoleModal";
+import CreateUsersModal from "../components/BootstrapModal/CreateUsersModsl";
 
 
 const UsersPage = () => {
@@ -13,11 +15,11 @@ const UsersPage = () => {
     const [checkArray,setCheckArray] = useState([])
     const {users, setUsersName} = useUserNameReducer()
 
-    console.log(users);
-    console.log(createUser);
-
+    const [modal, setModal] = useState(false);
+    const [putUser,setPutUser] = useState({});
 
     useEffect(()=> setCreateUser([...createUser.filter(item => item.id !== undefined),users]),[users])
+
 
     function deleteUsers(id){
         setCreateUser (createUser.filter(item => item.id !== id))
@@ -34,7 +36,11 @@ const UsersPage = () => {
         setId(id + 1);
         setName('');
     }
+    function putUsers(id){
 
+        setModal(true);
+        setPutUser(createUser.filter(item => item.id === id)[0])
+    }
     return (
         <Container>
         <h1 style={{fontSize: '1.75em',textAlign:'center'}}>
@@ -62,14 +68,22 @@ const UsersPage = () => {
                 :null
             }
 
-               <BootstrapTable createUser={createUser}
-                                  usersId={users.id}
-                                  deleteUsers={deleteUsers}
-                                  checkArray = {checkArray}
-                                  setCheckArray = {setCheckArray}
-
+               <BootstrapUsersTable createUser={createUser}
+                                    usersId={users.id}
+                                    deleteUsers={deleteUsers}
+                                    checkArray = {checkArray}
+                                    setCheckArray = {setCheckArray}
+                                    putUsers = {putUsers}
                 />
-
+            {(modal)
+                ?<CreateUsersModal
+                    setModal = {setModal}
+                    putUser = {putUser}
+                    createUser = {createUser}
+                    setCreateUser = {setCreateUser}
+                />
+                :null
+            }
 
             </Container>
     );

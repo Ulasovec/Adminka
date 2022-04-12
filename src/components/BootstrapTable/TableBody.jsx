@@ -5,7 +5,7 @@ import useCheckedReducer from "../../store/reducers/CheckedReduser";
 import {BsFileText, BsFileX} from "react-icons/bs";
 
 
-const TableBody = ({id, userName, deleteUsers,setCheckArray,checkArray}) => {
+const TableBody = ({id, userName, deleteUsers,setCheckArray,checkArray,putUsers}) => {
     const [checked, setChecked] = useState(false);
     const {checkId,setCheckId} = useCheckedReducer()
     useEffect(() => setCheckArray([...checkArray.filter(item => item.id !== checkId.id),checkId]),[checked])
@@ -29,7 +29,7 @@ const TableBody = ({id, userName, deleteUsers,setCheckArray,checkArray}) => {
             <td>{userName}</td>
             <th>User</th>
             <td className='users__options'>
-                <BsFileText style={{ fontSize: '2em' }} className= 'users__options_put'/>
+                <BsFileText style={{ fontSize: '2em' }} className= 'users__options_put' onClick={()=>putUsers(id)}/>
                 <BsFileX style={{ fontSize: '2em' }} className= 'users__options_delete' onClick={()=>deleteUsers(id)}/>
             </td>
         </tr>
