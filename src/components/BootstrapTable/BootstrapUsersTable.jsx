@@ -19,7 +19,7 @@ const BootstrapUsersTable = ({createUser,usersId,deleteUsers,checkArray,setCheck
                         name="group1"
                         disabled
                     /></th>
-                    <th>Username</th>
+                    <th>UserName</th>
                     <th>Role</th>
                     <th>Options</th>
 

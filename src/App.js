@@ -27,6 +27,7 @@ function App() {
     const [deleteUsersId, setDeleteUsersId] = useState([])
 
   return (
+      <div className='App'>
       <QueryClientProvider client={queryClient}>
           <UserContext.Provider value={{isAuth,setIsAuth,deleteUsersId,setDeleteUsersId}}>
           <Routes>
@@ -42,6 +43,7 @@ function App() {
 
 
       </QueryClientProvider>
+      </div>
   );
 }
 
