@@ -5,7 +5,7 @@ import TableBody from "./TableBody";
 
 
 
-const BootstrapUsersTable = ({createUser,usersId,deleteUsers,checkArray,setCheckArray,putUsers}) => {
+const BootstrapUsersTable = ({createUser,deleteUsers,checkArray,setCheckArray,putUsers}) => {
 
     return (
             <Table striped bordered hover>
@@ -25,13 +25,12 @@ const BootstrapUsersTable = ({createUser,usersId,deleteUsers,checkArray,setCheck
 
                 </tr>
                 </thead>
-                    {(usersId > 0)
-                        ? createUser.map((item) =>
+                    {createUser.map((item) =>
                             <React.Fragment key={item.id}>
                             <TableBody
 
                                        id={item.id}
-                                       userName={item.userName}
+                                       userName={item.name}
                                        deleteUsers={deleteUsers}
                                        checkArray = {checkArray}
                                        setCheckArray = {setCheckArray}
@@ -39,7 +38,7 @@ const BootstrapUsersTable = ({createUser,usersId,deleteUsers,checkArray,setCheck
                             />
                             </React.Fragment>
                      )
-                        : null}
+                    }
 
 
 

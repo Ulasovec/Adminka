@@ -7,41 +7,64 @@ import CreateRoleModal from "../components/BootstrapModal/CreateRoleModal";
 import CreateUsersModal from "../components/BootstrapModal/CreateUsersModsl";
 import { BsPencil } from "react-icons/bs"
 import MyButtonForm from "../UI components/MyButtonForm";
+import {
+    useMutationAclUserCreate,
+    useMutationAclUserDelete,
+    useMutationAclUserUpdate,
+    useQueryAclUserFind
+} from "../hooks/fetch/useAclUser";
 
 const UsersPage = () => {
     const [name, setName] = useState('');
-    const [id, setId] = useState(1)
+    //const [id, setId] = useState(1)
 
-    const [createUser,setCreateUser] = useState([]);
-    const [checkArray,setCheckArray] = useState([])
-    const {users, setUsersName} = useUserNameReducer()
+    //const [createUser,setCreateUser] = useState([]);
+    const [checkArray, setCheckArray] = useState([])
+    //const {users, setUsersName} = useUserNameReducer()
 
     const [modal, setModal] = useState(false);
-    const [putUser,setPutUser] = useState({});
+    const [putUser, setPutUser] = useState({});
 
-    useEffect(()=> setCreateUser([...createUser.filter(item => item.id !== undefined),users]),[users])
+    const queryAclUserFind = useQueryAclUserFind(1000, 0)
+    const createUser = queryAclUserFind.data?.data?.users ?? []
+    const mutationAclUserCreate = useMutationAclUserCreate()
+    const mutationAclUserUpdate = useMutationAclUserUpdate()
+    const mutationAclUserDelete = useMutationAclUserDelete()
+
+    //useEffect(()=> setCreateUser([...createUser.filter(item => item.id !== undefined),users]),[users])
 
 
-    function deleteUsers(id){
-        setCreateUser (createUser.filter(item => item.id !== id))
+    function deleteUsers(id) {
+        //setCreateUser (createUser.filter(item => item.id !== id))
+        mutationAclUserDelete.mutate(id)
     }
-    function deleteArray(checkArray){
+
+    function deleteArray(checkArray) {
         // console.log(checkArray.filter(item => item.checked === false).map(item => item.id))
-        setCreateUser (createUser.filter(i => !checkArray.filter(item => item.checked === false).map(item => item.id).includes(i.id)));
+        //setCreateUser (createUser.filter(i => !checkArray.filter(item => item.checked === false).map(item => item.id).includes(i.id)));
+        const userIdsToDelete = checkArray.filter(item => item.checked === false).map(item => item.id)
+        userIdsToDelete.forEach(id => mutationAclUserDelete.mutate(id))
         setCheckArray([]);
 
     }
-    function inputHandler(e){
+
+    function inputHandler(e) {
         e.preventDefault();
-        setUsersName({id : id, userName : name });
-        setId(id + 1);
+        //setUsersName({id : id, userName : name });
+        mutationAclUserCreate.mutate({name})
+        //setId(id + 1);
         setName('');
     }
-    function putUsers(id){
 
+    function putUsers(id) {
         setModal(true);
         setPutUser(createUser.filter(item => item.id === id)[0])
     }
+
+    function updatePutUser({id: user_id, name, is_active}) {
+        mutationAclUserUpdate.mutate({user_id, name, is_active});
+    }
+
     return (
         <Container>
         <h1 style={{fontSize: '1.75em',textAlign:'center'}}>
@@ -66,28 +89,26 @@ const UsersPage = () => {
 
             </Form>
             {(checkArray.find(item => item.checked === false))
-            ?<Button variant="outline-danger" onClick={()=>deleteArray(checkArray)}>Delete</Button>
-                :null
+                ? <Button variant="outline-danger" onClick={() => deleteArray(checkArray)}>Delete</Button>
+                : null
             }
 
-               <BootstrapUsersTable createUser={createUser}
-                                    usersId={users.id}
-                                    deleteUsers={deleteUsers}
-                                    checkArray = {checkArray}
-                                    setCheckArray = {setCheckArray}
-                                    putUsers = {putUsers}
-                />
+            <BootstrapUsersTable createUser={createUser}
+                                 deleteUsers={deleteUsers}
+                                 checkArray={checkArray}
+                                 setCheckArray={setCheckArray}
+                                 putUsers={putUsers}
+            />
             {(modal)
-                ?<CreateUsersModal
-                    setModal = {setModal}
-                    putUser = {putUser}
-                    createUser = {createUser}
-                    setCreateUser = {setCreateUser}
+                ? <CreateUsersModal
+                    setModal={setModal}
+                    putUser={putUser}
+                    handlePutUser={updatePutUser}
                 />
-                :null
+                : null
             }
 
-            </Container>
+        </Container>
     );
 };
 
