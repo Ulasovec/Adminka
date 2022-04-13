@@ -13,6 +13,7 @@ const BootstrapRolesTable = ({rolesArray,deleteRoles,putRoles }) => {
 
             <thead>
             <tr>
+                <th>ID</th>
                 <th>NAME</th>
                 <th>DESCRIPTION</th>
                 <th>USERS</th>
@@ -22,9 +23,10 @@ const BootstrapRolesTable = ({rolesArray,deleteRoles,putRoles }) => {
             {rolesArray.map(item =>
                 <tbody key={item.id}>
                 <tr className='users'>
+                    <td>{item.id}</td>
                     <td>{item.name}</td>
-                    <th>{item.description}</th>
-                    <th>{item.users}</th>
+                    <td>{item.about}</td>
+                    <td>{item.users}</td>
                     <td className='users__options'>
                         <BsFileText style={{ fontSize: '2em' }}
                                     className= 'users__options_put'

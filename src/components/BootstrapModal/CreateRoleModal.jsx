@@ -2,23 +2,29 @@ import React, {useReducer, useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
 
 
-const CreateRoleModal = ({setModal,putRole, rolesArray, setRolesArray}) => {
+const CreateRoleModal = ({setModal, putRole, handlePutRole}) => {
 
     const [show, setShow] = useState(true);
-    const [input, setInput] = useReducer((input,action) => ({...input,...action}),{...putRole})
+    const [input, setInput] = useReducer((input, action) => ({...input, ...action}), {...putRole})
+
     function handleClose() {
         setShow(false);
         setModal(false);
     }
+
     function handleSubmit(e) {
         e.preventDefault()
-        setRolesArray(rolesArray.map(item =>{
-        if(item.id ===input.id)
-        {return input}
-            return item}))
+        /*setRolesArray(rolesArray.map(item => {
+            if (item.id === input.id) {
+                return input
+            }
+            return item
+        }))*/
+        handlePutRole(input)
         setModal(false);
         setShow(false);
     }
+
     return (
         <>
 
@@ -43,21 +49,20 @@ const CreateRoleModal = ({setModal,putRole, rolesArray, setRolesArray}) => {
                         >
                             <Form.Label>Description</Form.Label>
                             <Form.Control as="textarea" rows={3}
-                                          value={input.description}
-                                          onChange={(e) => setInput({description: e.target.value})}
+                                          value={input.about}
+                                          onChange={(e) => setInput({about: e.target.value})}
                             />
                         </Form.Group>
 
 
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                        <Button variant="primary" type='submit'>
+                            Save
+                        </Button>
 
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" type='submit' >
-                        Save
-                    </Button>
-
-                </Form>
+                    </Form>
                 </Modal.Body>
             </Modal>
         </>

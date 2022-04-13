@@ -4,33 +4,30 @@ import MyButtonForm from "../../UI components/MyButtonForm";
 import {BsPencil} from "react-icons/bs";
 
 
-const CreateRolesForm = ({roles, setRolesName, rolesArray, setRolesArray}) => {
+const CreateRolesForm = ({roles, setRolesName, handlerCreate}) => {
 
-  const [id, setId] = useState(2);
+    //const [id, setId] = useState(2);
 
-    function inputHandler(e){
+    function inputHandler(e) {
         e.preventDefault();
-        setRolesName({id: id})
-        setRolesArray([...rolesArray, roles]);
-        setId(id+1);
-       setRolesName({name:"",description:"",users:0});
-
+        //setRolesName({id: id})
+        //setRolesArray([...rolesArray, roles]);
+        //setId(id + 1);
+        handlerCreate();
+        setRolesName({name: "", about: ""});
     }
-
-
-
 
     return (
         <Form onSubmit={inputHandler}>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <div style={{display:'flex',justifyContent: 'flex-end'}}>
-                    <MyButtonForm ><BsPencil style={{fontSize: '2em' }}/></MyButtonForm>
+                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <MyButtonForm><BsPencil style={{fontSize: '2em'}}/></MyButtonForm>
                 </div>
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text"
                               value={roles.name}
-                              onChange={(e)=>setRolesName({name:e.target.value})}/>
+                              onChange={(e) => setRolesName({name: e.target.value})}/>
                 {/*<Button variant="outline-success"  id="button-addon2" type="submit" style={{marginRight:'8px'}}>*/}
                 {/*    Save*/}
                 {/*</Button>*/}
@@ -40,8 +37,8 @@ const CreateRolesForm = ({roles, setRolesName, rolesArray, setRolesArray}) => {
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Description</Form.Label>
                 <Form.Control as="textarea" rows={3}
-                              value={roles.description}
-                              onChange={(e)=>setRolesName({description:e.target.value})}/>
+                              value={roles.about}
+                              onChange={(e) => setRolesName({about: e.target.value})}/>
 
             </Form.Group>
         </Form>
