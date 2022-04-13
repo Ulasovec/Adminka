@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Form} from "react-bootstrap";
+import MyButtonForm from "../../UI components/MyButtonForm";
+import {BsPencil} from "react-icons/bs";
 
 
 const CreateRolesForm = ({roles, setRolesName, rolesArray, setRolesArray}) => {
@@ -20,14 +22,18 @@ const CreateRolesForm = ({roles, setRolesName, rolesArray, setRolesArray}) => {
 
     return (
         <Form onSubmit={inputHandler}>
+
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <div style={{display:'flex',justifyContent: 'flex-end'}}>
+                    <MyButtonForm ><BsPencil style={{fontSize: '2em' }}/></MyButtonForm>
+                </div>
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text"
                               value={roles.name}
                               onChange={(e)=>setRolesName({name:e.target.value})}/>
-                <Button variant="outline-success"  id="button-addon2" type="submit" style={{marginRight:'8px'}}>
-                    Save
-                </Button>
+                {/*<Button variant="outline-success"  id="button-addon2" type="submit" style={{marginRight:'8px'}}>*/}
+                {/*    Save*/}
+                {/*</Button>*/}
 
 
             </Form.Group>

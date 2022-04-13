@@ -24,7 +24,7 @@ const CreateUsersModal = ({setModal,putUser, createUser, setCreateUser}) => {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Put Roles</Modal.Title>
+                    <Modal.Title>Put User name</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
@@ -37,13 +37,15 @@ const CreateUsersModal = ({setModal,putUser, createUser, setCreateUser}) => {
                                 onChange={(e) => setInput({userName: e.target.value})}
                             />
                         </Form.Group>
+                        <div style={{  display:'flex',
+                            justifyContent: 'flex-end'}}>
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
                         <Button variant="primary" type='submit' >
                             Save
                         </Button>
-
+                        </div>
                     </Form>
                 </Modal.Body>
             </Modal>

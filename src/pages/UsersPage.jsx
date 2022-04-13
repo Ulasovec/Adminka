@@ -5,7 +5,8 @@ import BootstrapUsersTable from "../components/BootstrapTable/BootstrapUsersTabl
 import useUserNameReducer from "../store/reducers/UserNameReducer";
 import CreateRoleModal from "../components/BootstrapModal/CreateRoleModal";
 import CreateUsersModal from "../components/BootstrapModal/CreateUsersModsl";
-
+import { BsPencil } from "react-icons/bs"
+import MyButtonForm from "../UI components/MyButtonForm";
 
 const UsersPage = () => {
     const [name, setName] = useState('');
@@ -44,10 +45,13 @@ const UsersPage = () => {
     return (
         <Container>
         <h1 style={{fontSize: '1.75em',textAlign:'center'}}>
-            ||| UsersPage |||
+            ||| Create users |||
         </h1>
-            <h2>Create users</h2>
             <Form onSubmit={inputHandler}>
+                <div style={{display:'flex',justifyContent: 'flex-end'}}>
+                 <MyButtonForm ><BsPencil style={{fontSize: '2em' }}/></MyButtonForm>
+                </div>
+                <Form.Label>UserName</Form.Label>
             <InputGroup className="mb-3" >
                 <FormControl
                     placeholder="Recipient's username"
@@ -57,9 +61,7 @@ const UsersPage = () => {
                     onChange={(event => setName(event.target.value))}
 
                 />
-                <Button variant="outline-success" id="button-addon2" type="submit" style={{marginRight:'8px'}}>
-                    Create
-                </Button>
+
             </InputGroup>
 
             </Form>
