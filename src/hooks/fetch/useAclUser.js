@@ -85,6 +85,7 @@ function useMutationAclUserUpdate() {
         return api.post('/', body)
     }, {
         onSuccess: () => {
+            queryClient.invalidateQueries('acl_user_find')
             queryClient.invalidateQueries('acl_user_get_by_id')
         },
     });
