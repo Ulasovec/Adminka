@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Table,Form } from "react-bootstrap";
 import  './BootstrapTable.css'
 import TableBody from "./TableBody";
 
 
 
-const BootstrapUsersTable = ({createUser,deleteUsers,checkArray,setCheckArray,putUsers}) => {
+const BootstrapUsersTable = ({createUser,deleteUsers,checkArray,setCheckArray,putUsers,createUsersRole}) => {
 
     return (
             <Table striped bordered hover>
@@ -35,6 +35,7 @@ const BootstrapUsersTable = ({createUser,deleteUsers,checkArray,setCheckArray,pu
                                        checkArray = {checkArray}
                                        setCheckArray = {setCheckArray}
                                        putUsers = {putUsers}
+                                       createUsersRole = {createUsersRole}
                             />
                             </React.Fragment>
                      )

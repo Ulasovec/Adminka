@@ -10,8 +10,8 @@ import SettingsPage from "./pages/SettingsPage";
 import {UserContext} from "./store/context/UserContext";
 import {useContext, useState} from "react";
 import useIsAuthReducer from "./store/reducers/AuthReducer";
-import useUserNameReducer from "./store/reducers/UserNameReducer";
 import CreateRolePage from "./pages/CreateRolePage";
+import CreateUsersRolePade from "./pages/CreateUsersRolePade";
 
 
 const queryClient = new QueryClient();
@@ -36,7 +36,7 @@ function App() {
                   <Route path="/users" element={<UsersPage/>} />
                   <Route path="/settings" element={<SettingsPage/>}/>
                   <Route path="/role" element={<CreateRolePage/>}/>
-                  {/*<Route path="/logout" element={<AdminPage/>}/>*/}
+                  <Route path="/users/:id" element={<CreateUsersRolePade/>}/>
               </Route>
           </Routes>
           </UserContext.Provider>

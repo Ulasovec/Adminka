@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Container, Form, FormControl, InputGroup} from "react-bootstrap";
 import BootstrapUsersTable from "../components/BootstrapTable/BootstrapUsersTable";
-
-import useUserNameReducer from "../store/reducers/UserNameReducer";
-import CreateRoleModal from "../components/BootstrapModal/CreateRoleModal";
 import CreateUsersModal from "../components/BootstrapModal/CreateUsersModsl";
 import { BsPencil } from "react-icons/bs"
 import MyButtonForm from "../UI components/MyButtonForm";
@@ -13,6 +10,7 @@ import {
     useMutationAclUserUpdate,
     useQueryAclUserFind
 } from "../hooks/fetch/useAclUser";
+import {useNavigate} from 'react-router-dom';
 
 const UsersPage = () => {
     const [name, setName] = useState('');
@@ -24,8 +22,8 @@ const UsersPage = () => {
 
     const [modal, setModal] = useState(false);
     const [putUser, setPutUser] = useState({});
-
-    const queryAclUserFind = useQueryAclUserFind(1000, 0)
+    const navigate = useNavigate();
+    const queryAclUserFind = useQueryAclUserFind(1000, 0);
     const createUser = queryAclUserFind.data?.data?.users ?? []
     const mutationAclUserCreate = useMutationAclUserCreate()
     const mutationAclUserUpdate = useMutationAclUserUpdate()
@@ -64,6 +62,9 @@ const UsersPage = () => {
     function updatePutUser({id: user_id, name, is_active}) {
         mutationAclUserUpdate.mutate({user_id, name, is_active});
     }
+    function createUsersRole(id){
+        navigate(`/users/${id}`)
+    }
 
     return (
         <Container>
@@ -88,7 +89,7 @@ const UsersPage = () => {
             </InputGroup>
 
             </Form>
-            {(checkArray.find(item => item.checked === false))
+            {(checkArray.find(item => item.checked === false) || checkArray.length > 1)
                 ? <Button variant="outline-danger" onClick={() => deleteArray(checkArray)}>Delete</Button>
                 : null
             }
@@ -98,6 +99,7 @@ const UsersPage = () => {
                                  checkArray={checkArray}
                                  setCheckArray={setCheckArray}
                                  putUsers={putUsers}
+                                 createUsersRole = {createUsersRole}
             />
             {(modal)
                 ? <CreateUsersModal
