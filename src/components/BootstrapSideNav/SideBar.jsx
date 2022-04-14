@@ -1,6 +1,14 @@
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import { BsPerson, BsBookmarkCheckFill, BsArrowRepeat, BsWrench } from "react-icons/bs";
+import {
+    BsPerson,
+    BsBookmarkCheckFill,
+    BsArrowRepeat,
+    BsWrench,
+    BsPeopleFill,
+    BsPersonLinesFill,
+    BsPhoneFill
+} from "react-icons/bs";
 import React, {useContext} from 'react';
 import {useNavigate} from "react-router-dom";
 import {UserContext} from "../../store/context/UserContext";
@@ -33,7 +41,7 @@ const SideBar = () => {
                 </NavItem>
                 <NavItem eventKey=" ">
                     <NavIcon>
-                        <BsBookmarkCheckFill style={{ fontSize: '1.75em' }} />
+                        <BsPeopleFill style={{ fontSize: '1.75em' }} />
                     </NavIcon>
                     <NavText>
                         Users
@@ -46,7 +54,7 @@ const SideBar = () => {
                 </NavItem>
                 <NavItem eventKey=" ">
                     <NavIcon>
-                        <BsBookmarkCheckFill style={{ fontSize: '1.75em' }} />
+                        <BsPersonLinesFill style={{ fontSize: '1.75em' }} />
                     </NavIcon>
                     <NavText>
                         Roles
@@ -54,6 +62,19 @@ const SideBar = () => {
                     <NavItem eventKey="role">
                         <NavText>
                             Create Roles
+                        </NavText>
+                    </NavItem>
+                </NavItem>
+                <NavItem eventKey=" ">
+                    <NavIcon>
+                        <BsPhoneFill style={{ fontSize: '1.75em' }} />
+                    </NavIcon>
+                    <NavText>
+                        Applications
+                    </NavText>
+                    <NavItem eventKey="applications">
+                        <NavText>
+                            Application List
                         </NavText>
                     </NavItem>
                 </NavItem>
