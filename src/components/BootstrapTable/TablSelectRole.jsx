@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table,Form} from "react-bootstrap";
+import {Table, Form} from "react-bootstrap";
 import {useQueryAclRoleFind} from "../../hooks/fetch/useAclRole";
 
 const TableSelectRole = () => {
@@ -16,16 +16,19 @@ const TableSelectRole = () => {
             </thead>
             <tbody>
             {roleArray.data?.data?.roles.map((item) =>
-                <tr>
-                <td>
-                    <Form.Check
-                        type="switch"
-                        id="custom-switch"
-                    /> </td>
-                <td>{item.name}</td>
-                <td>{item.about}</td>
-                </tr>)}
-
+                <React.Fragment key={item.id}>
+                    <tr>
+                        <td>
+                            <Form.Check
+                                type="switch"
+                                id="custom-switch"
+                            />
+                        </td>
+                        <td>{item.name}</td>
+                        <td>{item.about}</td>
+                    </tr>
+                </React.Fragment>
+            )}
             </tbody>
         </Table>
     );
