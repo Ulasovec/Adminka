@@ -8,9 +8,9 @@ import TableBody from "./TableBody";
 const BootstrapUsersTable = ({createUser,deleteUsers,checkArray,setCheckArray,putUsers,createUsersRole}) => {
 
     return (
-            <Table striped bordered hover>
+            <Table striped bordered hover class="table" >
 
-                <thead>
+                <thead class="table-dark">
                 <tr>
 
                     <th> <Form.Check
@@ -20,7 +20,7 @@ const BootstrapUsersTable = ({createUser,deleteUsers,checkArray,setCheckArray,pu
                         disabled
                     /></th>
                     <th>UserName</th>
-                    <th>Role</th>
+                    <th>is_active</th>
                     <th>Options</th>
 
                 </tr>
@@ -31,6 +31,7 @@ const BootstrapUsersTable = ({createUser,deleteUsers,checkArray,setCheckArray,pu
 
                                        id={item.id}
                                        userName={item.name}
+                                       active={item.is_active}
                                        deleteUsers={deleteUsers}
                                        checkArray = {checkArray}
                                        setCheckArray = {setCheckArray}

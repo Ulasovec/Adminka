@@ -30,7 +30,7 @@ const UsersPage = () => {
     const mutationAclUserDelete = useMutationAclUserDelete()
 
     //useEffect(()=> setCreateUser([...createUser.filter(item => item.id !== undefined),users]),[users])
-
+    console.log(createUser)
 
     function deleteUsers(id) {
         //setCreateUser (createUser.filter(item => item.id !== id))

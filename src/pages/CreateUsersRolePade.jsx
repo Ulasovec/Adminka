@@ -44,6 +44,9 @@ const CreateUsersRolePade = () => {
                                 User has a unique Id : {user.data?.data?.id}.
                             </Card.Text>
                             <Card.Text>
+                                Active status : {`${user.data?.data?.is_active}`}.
+                            </Card.Text>
+                            <Card.Text>
                                 Applications | Roles:
                                 <div>
                                     {appAndRoles.map(item => (

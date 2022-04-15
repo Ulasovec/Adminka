@@ -9,14 +9,15 @@ import {BsFileText, BsFileX} from "react-icons/bs";
 const BootstrapRolesTable = ({rolesArray,deleteRoles,putRoles }) => {
 
     return (
-        <Table striped bordered hover>
+        <Table striped bordered hover class="table">
 
-            <thead>
+            <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>NAME</th>
                 <th>DESCRIPTION</th>
                 <th>USERS</th>
+                <th>OPTIONS</th>
 
             </tr>
             </thead>

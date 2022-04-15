@@ -53,7 +53,8 @@ const CreateRoleModal = ({setModal, putRole, handlePutRole}) => {
                                           onChange={(e) => setInput({about: e.target.value})}
                             />
                         </Form.Group>
-
+                        <div style={{  display:'flex',
+                            justifyContent: 'flex-end'}}>
 
                         <Button variant="secondary" onClick={handleClose}>
                             Close
@@ -61,7 +62,7 @@ const CreateRoleModal = ({setModal, putRole, handlePutRole}) => {
                         <Button variant="primary" type='submit'>
                             Save
                         </Button>
-
+                        </div>
                     </Form>
                 </Modal.Body>
             </Modal>
