@@ -2,6 +2,7 @@ import React from 'react';
 import {useMutationAclApplicationCreate, useQueryAclApplicationFind} from "../hooks/fetch/useAclApplication";
 import {Container, Row} from "react-bootstrap";
 import ApplicationForm from "../components/BootstrapForm/ApplicationForm";
+import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
 
 const ApplicationsPage = () => {
     const {isLoading, isError, data, error} = useQueryAclApplicationFind();
@@ -26,15 +27,16 @@ const ApplicationsPage = () => {
             <Row>
                 <ApplicationForm handleSubmit={createApplication}/>
             </Row>
-            <Row className="mt-5">
-                <ul>
-                    {data.data.applications.map((app, index) => (
-                        <li key={app.id}>
-                            <pre>{index} | {app.id} | {app.name} | {app.about} | {app.is_active ? 'Active' : 'Not active'}</pre>
-                        </li>
-                    ))}
-                </ul>
-            </Row>
+            {/*<Row className="mt-5">*/}
+            {/*    <ul>*/}
+            {/*        {data.data.applications.map((app, index) => (*/}
+            {/*            <li key={app.id}>*/}
+            {/*                <pre>{index} | {app.id} | {app.name} | {app.about} | {app.is_active ? 'Active' : 'Not active'}</pre>*/}
+            {/*            </li>*/}
+            {/*        ))}*/}
+            {/*    </ul>*/}
+            {/*</Row>*/}
+            <MyBootstrapTable contentRow={data.data.applications}/>
         </Container>
     );
 };

@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Container, Form, FormControl, InputGroup} from "react-bootstrap";
-import BootstrapUsersTable from "../components/BootstrapTable/BootstrapUsersTable";
+import React, {useState} from 'react';
+import {Container, Form, FormControl, InputGroup} from "react-bootstrap";
 import CreateUsersModal from "../components/BootstrapModal/CreateUsersModsl";
-import { BsPencil } from "react-icons/bs"
+import {BsPlusSquare} from "react-icons/bs"
 import MyButtonForm from "../UI components/MyButtonForm";
 import {
     useMutationAclUserCreate,
@@ -11,15 +10,11 @@ import {
     useQueryAclUserFind
 } from "../hooks/fetch/useAclUser";
 import {useNavigate} from 'react-router-dom';
+import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
+
 
 const UsersPage = () => {
     const [name, setName] = useState('');
-    //const [id, setId] = useState(1)
-
-    //const [createUser,setCreateUser] = useState([]);
-    const [checkArray, setCheckArray] = useState([])
-    //const {users, setUsersName} = useUserNameReducer()
-
     const [modal, setModal] = useState(false);
     const [putUser, setPutUser] = useState({});
     const navigate = useNavigate();
@@ -37,12 +32,11 @@ const UsersPage = () => {
         mutationAclUserDelete.mutate(id)
     }
 
-    function deleteArray(checkArray) {
+    function deleteArray(userIdsToDelete) {
         // console.log(checkArray.filter(item => item.checked === false).map(item => item.id))
         //setCreateUser (createUser.filter(i => !checkArray.filter(item => item.checked === false).map(item => item.id).includes(i.id)));
-        const userIdsToDelete = checkArray.filter(item => item.checked === false).map(item => item.id)
         userIdsToDelete.forEach(id => mutationAclUserDelete.mutate(id))
-        setCheckArray([]);
+       ;
 
     }
 
@@ -73,7 +67,7 @@ const UsersPage = () => {
         </h1>
             <Form onSubmit={inputHandler}>
                 <div style={{display:'flex',justifyContent: 'flex-end'}}>
-                 <MyButtonForm ><BsPencil style={{fontSize: '2em' }}/></MyButtonForm>
+                 <MyButtonForm ><BsPlusSquare style={{fontSize: '1.8em' }}/></MyButtonForm>
                 </div>
                 <Form.Label>UserName</Form.Label>
             <InputGroup className="mb-3" >
@@ -89,17 +83,13 @@ const UsersPage = () => {
             </InputGroup>
 
             </Form>
-            {(checkArray.find(item => item.checked === false) || checkArray.length > 1)
-                ? <Button variant="outline-danger" onClick={() => deleteArray(checkArray)}>Delete</Button>
-                : null
-            }
 
-            <BootstrapUsersTable createUser={createUser}
-                                 deleteUsers={deleteUsers}
-                                 checkArray={checkArray}
-                                 setCheckArray={setCheckArray}
-                                 putUsers={putUsers}
+
+            <MyBootstrapTable    contentRow={createUser}
+                                 deleteRow={deleteUsers}
+                                 putRow={putUsers}
                                  createUsersRole = {createUsersRole}
+                                 deleteArrayRow = {deleteArray}
             />
             {(modal)
                 ? <CreateUsersModal
@@ -109,6 +99,7 @@ const UsersPage = () => {
                 />
                 : null
             }
+
 
         </Container>
     );

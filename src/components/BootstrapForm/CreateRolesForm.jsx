@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Form} from "react-bootstrap";
 import MyButtonForm from "../../UI components/MyButtonForm";
-import {BsPencil} from "react-icons/bs";
+import {BsPlusSquare} from "react-icons/bs";
 
 
 const CreateRolesForm = ({roles, setRolesName, handlerCreate}) => {
@@ -22,7 +22,7 @@ const CreateRolesForm = ({roles, setRolesName, handlerCreate}) => {
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <MyButtonForm><BsPencil style={{fontSize: '2em'}}/></MyButtonForm>
+                    <MyButtonForm><BsPlusSquare style={{fontSize: '1.8em'}}/></MyButtonForm>
                 </div>
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text"

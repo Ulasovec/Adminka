@@ -8,7 +8,7 @@
 .myBtn:hover::after {
     content: attr(data-title); /* Выводим текст */
     position: absolute; /* Абсолютное позиционирование */
-    left: 0; top: -80%; /* Положение подсказки */
+    left: 1%; top: -120%; /* Положение подсказки */
     z-index: 1; /* Отображаем подсказку поверх других элементов */
     background: rgba(222, 222, 215, 0.9); /* Полупрозрачный цвет фона */
     font-family: Arial, sans-serif; /* Гарнитура шрифта */

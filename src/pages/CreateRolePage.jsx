@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Container} from "react-bootstrap";
 import CreateRolesForm from "../components/BootstrapForm/CreateRolesForm";
-import BootstrapRolesTable from "../components/BootstrapTable/BootstrapRolesTable";
 import useRolesNameReducer from "../store/reducers/CreateRoleReducer";
 import CreateRoleModal from "../components/BootstrapModal/CreateRoleModal";
 import {
@@ -10,10 +9,10 @@ import {
     useMutationAclRoleUpdate,
     useQueryAclRoleFind
 } from "../hooks/fetch/useAclRole";
+import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
 
 const CreateRolePage = () => {
     const {roles, setRolesName} = useRolesNameReducer();
-    //const [rolesArray, setRolesArray] = useState([]);
     const [modal, setModal] = useState(false);
     const [putRole, setPutRole] = useState({});
 
@@ -50,10 +49,8 @@ const CreateRolePage = () => {
                              setRolesName={setRolesName}
                              handlerCreate={createRoles}
             />
-            <BootstrapRolesTable rolesArray={rolesArray}
-                                 deleteRoles={deleteRoles}
-                                 putRoles={putRoles}
-            />
+            <MyBootstrapTable contentRow={rolesArray}/>
+
             {(modal)
                 ? <CreateRoleModal
                     setModal={setModal}
