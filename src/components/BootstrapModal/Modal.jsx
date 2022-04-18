@@ -3,7 +3,7 @@ import {Modal} from "react-bootstrap";
 
 
 
-function BootModal() {
+function BootModal({message}) {
     const [smShow, setSmShow] = useState(true);
 
 
@@ -17,10 +17,10 @@ function BootModal() {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="example-modal-sizes-title-sm">
-                        Login Failed.
+                        Login Failed
                     </Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Error: </Modal.Body>
+                <Modal.Body>Error: {message}</Modal.Body>
             </Modal>
         </>
     );

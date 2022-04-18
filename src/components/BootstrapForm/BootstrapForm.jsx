@@ -62,8 +62,10 @@ const BootstrapForm = () => {
             <Container>
                 {/*{ usersLogin.isSuccess && usersLogin.data?.data?.result?.code !== 'OK' ?*/}
                 {/*    <div>{usersLogin.data?.data?.result?.code}</div> : null }*/}
-                { usersLogin.isSuccess && usersLogin.data?.data?.result?.code !== 'OK' ?
-                    <BootModal/> : null }
+                { usersLogin.isError ?
+                    <BootModal message={usersLogin.error.data.result.code}/> : null }
+                {/*{ usersLogin.isSuccess && usersLogin.data?.data?.result?.code !== 'OK' ?
+                    <BootModal/> : null }*/}
             </Container>
         </div>
     );
