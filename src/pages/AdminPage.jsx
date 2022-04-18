@@ -14,11 +14,12 @@ const AdminPage = () => {
     return (
         <Container>
             <div style={{fontSize: '1.75em', textAlign: 'center'}}>
-                {/*||| Admin Role : {queryRole?.data?.data?.name} |||*/}
-                <p>||| User name: {user_name} |||</p>
-                <p>||| User role: {role_name} |||</p>
-                <p>||| Role description: {role_about} |||</p>
-
+                <h1>||| Admin Page |||</h1>
+                <div style={{fontSize: '1.0em', textAlign: 'left'}}>
+                    <p><b>User name</b>: {user_name}</p>
+                    <p><b>User role</b>: {role_name}</p>
+                    <p><b>Role description</b>: {role_about}</p>
+                </div>
             </div>
         </Container>
     );

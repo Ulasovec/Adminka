@@ -2,12 +2,10 @@ import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import {
     BsPerson,
-    BsBookmarkCheckFill,
     BsArrowRepeat,
     BsWrench,
     BsPeopleFill,
-    BsPersonLinesFill,
-    BsPhoneFill
+    BsCollectionFill, BsLink, BsColumns, BsDiagram3
 } from "react-icons/bs";
 import React, {useContext} from 'react';
 import {useNavigate} from "react-router-dom";
@@ -23,15 +21,15 @@ const SideBar = () => {
             onSelect={(selected) => {
                 const to = '/' + selected;
                 if (to === '/logout'){
-                    setIsAuth({sid:undefined,role_id:undefined})
+                    setIsAuth({sid: undefined})
                 }
                 else navigate(to);
                 // Add your code here
             }}
         >
             <SideNav.Toggle/>
-            <SideNav.Nav defaultSelected="admins">
-                <NavItem eventKey=" " >
+            <SideNav.Nav defaultSelected="admin">
+                <NavItem eventKey="admin">
                     <NavIcon>
                         <BsPerson style={{ fontSize: '1.75em' }}/>
                     </NavIcon>
@@ -44,37 +42,78 @@ const SideBar = () => {
                         <BsPeopleFill style={{ fontSize: '1.75em' }} />
                     </NavIcon>
                     <NavText>
-                        Users
+                        Access Control Lists
                     </NavText>
                     <NavItem eventKey="users">
                         <NavText>
-                            Create User
+                            Users
                         </NavText>
                     </NavItem>
-                </NavItem>
-                <NavItem eventKey=" ">
-                    <NavIcon>
-                        <BsPersonLinesFill style={{ fontSize: '1.75em' }} />
-                    </NavIcon>
-                    <NavText>
-                        Roles
-                    </NavText>
-                    <NavItem eventKey="role">
+                    <NavItem eventKey="roles">
                         <NavText>
-                            Create Roles
+                            Roles
                         </NavText>
                     </NavItem>
-                </NavItem>
-                <NavItem eventKey=" ">
-                    <NavIcon>
-                        <BsPhoneFill style={{ fontSize: '1.75em' }} />
-                    </NavIcon>
-                    <NavText>
-                        Applications
-                    </NavText>
                     <NavItem eventKey="applications">
                         <NavText>
-                            Application List
+                            Applications
+                        </NavText>
+                    </NavItem>
+                    <NavItem eventKey="users-roles">
+                        <NavText>
+                            Users and Roles
+                        </NavText>
+                    </NavItem>
+                </NavItem>
+                <NavItem eventKey=" ">
+                    <NavIcon>
+                        <BsCollectionFill style={{ fontSize: '1.75em' }} />
+                    </NavIcon>
+                    <NavText>
+                        Content Manager
+                    </NavText>
+                    <NavItem eventKey="tables">
+                        <NavText>
+                            Table List
+                        </NavText>
+                    </NavItem>
+                </NavItem>
+                <NavItem eventKey=" ">
+                    <NavIcon>
+                        <BsColumns style={{ fontSize: '1.75em' }} />
+                    </NavIcon>
+                    <NavText>
+                        Data Models
+                    </NavText>
+                    <NavItem eventKey="models">
+                        <NavText>
+                            Model List
+                        </NavText>
+                    </NavItem>
+                </NavItem>
+                <NavItem eventKey=" ">
+                    <NavIcon>
+                        <BsDiagram3 style={{ fontSize: '1.75em' }} />
+                    </NavIcon>
+                    <NavText>
+                        Data Directories
+                    </NavText>
+                    <NavItem eventKey="directories">
+                        <NavText>
+                            Data Tree
+                        </NavText>
+                    </NavItem>
+                </NavItem>
+                <NavItem eventKey=" ">
+                    <NavIcon>
+                        <BsLink style={{ fontSize: '1.75em' }} />
+                    </NavIcon>
+                    <NavText>
+                        Business Logic
+                    </NavText>
+                    <NavItem eventKey="logic">
+                        <NavText>
+                            Calculator List
                         </NavText>
                     </NavItem>
                 </NavItem>

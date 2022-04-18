@@ -1,7 +1,12 @@
+
 import React, {useState} from 'react';
 import {Container, Form, FormControl, InputGroup} from "react-bootstrap";
-import CreateUsersModal from "../components/BootstrapModal/CreateUsersModsl";
 import {BsPlusSquare} from "react-icons/bs"
+
+
+import CreateUserModal from "../components/BootstrapModal/CreateUserModal";
+
+
 import MyButtonForm from "../UI components/MyButtonForm";
 import {
     useMutationAclUserCreate,
@@ -92,7 +97,7 @@ const UsersPage = () => {
                                  deleteArrayRow = {deleteArray}
             />
             {(modal)
-                ? <CreateUsersModal
+                ? <CreateUserModal
                     setModal={setModal}
                     putUser={putUser}
                     handlePutUser={updatePutUser}
