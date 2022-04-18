@@ -2,7 +2,7 @@ import React, {useReducer, useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
 
 
-const CreateUsersModal = ({setModal, putUser, handlePutUser}) => {
+const CreateUserModal = ({setModal, putUser, handlePutUser}) => {
 
     const [show, setShow] = useState(true);
     const [input, setInput] = useReducer((input, action) => ({...input, ...action}), {...putUser})
@@ -58,4 +58,4 @@ const CreateUsersModal = ({setModal, putUser, handlePutUser}) => {
     );
 };
 
-export default CreateUsersModal;
+export default CreateUserModal;

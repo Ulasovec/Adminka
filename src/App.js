@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import BootstrapForm from "./components/BootstrapForm/BootstrapForm";
+import LoginForm from "./components/BootstrapForm/LoginForm";
 import {QueryClient, QueryClientProvider} from "react-query";
 import SideBar from "./components/BootstrapSideNav/SideBar";
 import {Routes,Route,Outlet} from "react-router-dom";
@@ -63,7 +63,7 @@ function Layout() {
                 </div>
                 :
                 <div>
-                    <BootstrapForm/>
+                    <LoginForm/>
                 </div>
 
     )

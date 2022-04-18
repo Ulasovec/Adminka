@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Container, Form, FormControl, InputGroup} from "react-bootstrap";
 import BootstrapUsersTable from "../components/BootstrapTable/BootstrapUsersTable";
-import CreateUsersModal from "../components/BootstrapModal/CreateUsersModsl";
+import CreateUserModal from "../components/BootstrapModal/CreateUserModal";
 import { BsPencil } from "react-icons/bs"
 import MyButtonForm from "../UI components/MyButtonForm";
 import {
@@ -102,7 +102,7 @@ const UsersPage = () => {
                                  createUsersRole = {createUsersRole}
             />
             {(modal)
-                ? <CreateUsersModal
+                ? <CreateUserModal
                     setModal={setModal}
                     putUser={putUser}
                     handlePutUser={updatePutUser}
