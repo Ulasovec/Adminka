@@ -14,7 +14,7 @@ import {
 } from "../hooks/fetch/useAclUser";
 import {useNavigate} from 'react-router-dom';
 import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
-import MyPutModal from "../components/BootstrapModal/MyPutModal";
+import MyPutModal from "../components/MyModal/MyPutModal";
 
 
 const UsersPage = () => {

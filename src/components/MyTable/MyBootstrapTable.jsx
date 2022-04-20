@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Table,Button} from "react-bootstrap";
+import {Table, Button} from "react-bootstrap";
 import '../BootstrapTable/BootstrapTable.css'
 import TableBody from "./TableBody";
 import PropTypes from "prop-types";
 
 
-
 const MyBootstrapTable = ({
-                                 contentRow,
-                                 deleteRow,
-                                 putRow,
-                                 deleteArrayRow
-                             }) => {
+                              contentRow,
+                              deleteRow,
+                              putRow,
+                              deleteArrayRow
+                          }) => {
     const [select, setSelect] = useState(0)
     const [checkArray, setCheckArray] = useState([])
 
@@ -23,8 +22,11 @@ const MyBootstrapTable = ({
         <Table striped bordered hover class="table">
             {(checkArray.find(item => item.checked === false))
                 ? <div style={{display: 'flex'}}>
-                    <h3 style={{paddingTop:'4px'}}> {select} entry select</h3>
-                    <Button variant="outline-danger" style={{marginLeft:'4px'}} onClick={() => {deleteArrayRow(userIdsToDelete); setCheckArray([])} }>Delete</Button>
+                    <h3 style={{paddingTop: '4px'}}> {select} entry select</h3>
+                    <Button variant="outline-danger" style={{marginLeft: '4px'}} onClick={() => {
+                        deleteArrayRow(userIdsToDelete);
+                        setCheckArray([])
+                    }}>Delete</Button>
                 </div>
                 : null
             }
@@ -56,9 +58,14 @@ const MyBootstrapTable = ({
 export default MyBootstrapTable;
 
 MyBootstrapTable.propTypes = {
-
-    contentRow:PropTypes.array,
-    deleteRow:PropTypes.func,
-    putRow:PropTypes.func,
-    deleteArrayRow:PropTypes.func,
+    /**
+     * contentRow (Массив обьектов, предназначенные для рендера в таблице)
+     * deleteRow (Функция отправляется к родительскому компоненту, аргументом функция принемает Id обьекта который надо удалить)
+     * putRow (Функция отправляется к родительскому компоненту, аргументом функция принемает Id обьекта который надо обновить)
+     * deleteArrayRow (Функция отправляется к родительскому компоненту, аргументом функция принемает массив обьектов которые надо удалить)
+     */
+    contentRow: PropTypes.array,
+    deleteRow: PropTypes.func,
+    putRow: PropTypes.func,
+    deleteArrayRow: PropTypes.func,
 }
