@@ -1,12 +1,15 @@
 import React, {useReducer, useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
+import PropTypes from "prop-types";
 
 
-const CreateUserModal = ({setModal, putUser, handlePutUser}) => {
 
+const MyPutModal = ({setModal, putForm, handlePutForm}) => {
+    const key = Object.keys(putForm);
+    const [keys,setKeys] = useState([...key]) ;
     const [show, setShow] = useState(true);
-    const [input, setInput] = useReducer((input, action) => ({...input, ...action}), {...putUser})
-
+    const [input, setInput] = useReducer((input, action) => ({...input, ...action}), {...putForm})
+    console.log(input)
     function handleClose() {
         setShow(false);
         setModal(false);
@@ -14,13 +17,7 @@ const CreateUserModal = ({setModal, putUser, handlePutUser}) => {
 
     function handleSubmit(e) {
         e.preventDefault()
-        /*setCreateUser(createUser.map(item => {
-            if (item.id === input.id) {
-                return input
-            }
-            return item
-        }))*/
-        handlePutUser(input);
+        handlePutForm(input);
         setModal(false);
         setShow(false);
     }
@@ -33,15 +30,21 @@ const CreateUserModal = ({setModal, putUser, handlePutUser}) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Name</Form.Label>
+
+                        {keys.map((item) =>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+
+                            <Form.Label>{item}</Form.Label>
+
                             <Form.Control
                                 type="text"
                                 autoFocus
-                                value={input.name}
-                                onChange={(e) => setInput({name: e.target.value})}
+                                value={input[item]}
+                                onChange={(e) => setInput({[item]: e.target.value})}
                             />
+
                         </Form.Group>
+                        )}
                         <div style={{  display:'flex',
                             justifyContent: 'flex-end'}}>
                         <Button variant="secondary" onClick={handleClose}>
@@ -58,4 +61,10 @@ const CreateUserModal = ({setModal, putUser, handlePutUser}) => {
     );
 };
 
-export default CreateUserModal;
+export default MyPutModal;
+MyPutModal.propTypes = {
+
+    setModal:PropTypes.func,
+    putForm:PropTypes.object,
+    handlePutForm:PropTypes.func,
+}

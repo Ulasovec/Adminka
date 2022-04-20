@@ -4,8 +4,6 @@ import {Container, Form, FormControl, InputGroup} from "react-bootstrap";
 import {BsPlusSquare} from "react-icons/bs"
 
 
-import CreateUserModal from "../components/BootstrapModal/CreateUserModal";
-
 
 import MyButtonForm from "../UI components/MyButtonForm";
 import {
@@ -16,6 +14,7 @@ import {
 } from "../hooks/fetch/useAclUser";
 import {useNavigate} from 'react-router-dom';
 import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
+import MyPutModal from "../components/BootstrapModal/MyPutModal";
 
 
 const UsersPage = () => {
@@ -97,10 +96,10 @@ const UsersPage = () => {
                                  deleteArrayRow = {deleteArray}
             />
             {(modal)
-                ? <CreateUserModal
+                ? <MyPutModal
                     setModal={setModal}
-                    putUser={putUser}
-                    handlePutUser={updatePutUser}
+                    putForm={putUser}
+                    handlePutForm={updatePutUser}
                 />
                 : null
             }
