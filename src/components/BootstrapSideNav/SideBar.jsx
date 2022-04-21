@@ -68,7 +68,7 @@ const SideBar = ({expanded,setExpanded}) => {
                         </NavText>
                     </NavItem>
                 </NavItem>
-                <NavItem eventKey=" ">
+                <NavItem eventKey="tables ">
                     <NavIcon>
                         <BsCollectionFill style={{ fontSize: '1.75em' }} />
                     </NavIcon>
@@ -81,7 +81,7 @@ const SideBar = ({expanded,setExpanded}) => {
                         </NavText>
                     </NavItem>
                 </NavItem>
-                <NavItem eventKey=" ">
+                <NavItem eventKey="models ">
                     <NavIcon>
                         <BsColumns style={{ fontSize: '1.75em' }} />
                     </NavIcon>
@@ -94,7 +94,7 @@ const SideBar = ({expanded,setExpanded}) => {
                         </NavText>
                     </NavItem>
                 </NavItem>
-                <NavItem eventKey=" ">
+                <NavItem eventKey="directories ">
                     <NavIcon>
                         <BsDiagram3 style={{ fontSize: '1.75em' }} />
                     </NavIcon>
@@ -107,7 +107,7 @@ const SideBar = ({expanded,setExpanded}) => {
                         </NavText>
                     </NavItem>
                 </NavItem>
-                <NavItem eventKey=" ">
+                <NavItem eventKey="logic">
                     <NavIcon>
                         <BsLink style={{ fontSize: '1.75em' }} />
                     </NavIcon>
@@ -120,6 +120,7 @@ const SideBar = ({expanded,setExpanded}) => {
                         </NavText>
                     </NavItem>
                 </NavItem>
+
                 <NavItem eventKey="settings">
                     <NavIcon>
                         <BsWrench style={{ fontSize: '1.75em' }} />
@@ -133,6 +134,7 @@ const SideBar = ({expanded,setExpanded}) => {
                         </NavText>
                     </NavItem>
                 </NavItem>
+
                 <NavItem eventKey="logout">
                     <NavIcon>
                         <BsArrowRepeat style={{ fontSize: '1.75em' }}/>
