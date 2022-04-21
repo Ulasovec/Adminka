@@ -28,13 +28,14 @@ function App() {
     const {isAuth, setIsAuth} = useIsAuthReducer();
     const [deleteUsersId, setDeleteUsersId] = useState([])
 
+
     return (
         <div className='App'>
             <QueryClientProvider client={queryClient}>
                 <UserContext.Provider value={{isAuth, setIsAuth, deleteUsersId, setDeleteUsersId}}>
                     <Routes>
                         <Route path="/" element={<Layout/>}>
-                            <Route index element={<AdminPage/>}/>
+                            <Route index element={<SideBar/>}/>
                             <Route path="/admin" element={<AdminPage/>}/>
                             <Route path="/users" element={<UsersPage/>}/>
                             <Route path="/settings" element={<SettingsPage/>}/>
@@ -59,11 +60,17 @@ function App() {
 
 function Layout() {
     const {isAuth} = useContext(UserContext);
+    const [expanded,setExpanded] = useState(false);
     return (
         (isAuth.sid) ?
             <div>
-                <SideBar/>
-                <main>
+                <SideBar expanded = {expanded}
+                setExpanded={setExpanded}/>
+                <main style = {{
+                    height:'600px',
+                    marginLeft: (expanded) ? 240 : 64,
+                    padding: '15px 20px 0 20px'
+                }}>
                     <Outlet/>
                 </main>
             </div>

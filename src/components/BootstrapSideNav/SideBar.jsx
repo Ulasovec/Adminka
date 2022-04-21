@@ -1,4 +1,4 @@
-import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+import SideNav, {  NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import {
     BsPerson,
@@ -12,9 +12,9 @@ import {useNavigate} from "react-router-dom";
 import {UserContext} from "../../store/context/UserContext";
 
 
-const SideBar = () => {
+const SideBar = ({expanded,setExpanded}) => {
     const navigate = useNavigate();
-    const { setIsAuth} = useContext(UserContext);
+    const {setIsAuth} = useContext(UserContext);
     return (
 
         <SideNav
@@ -26,7 +26,10 @@ const SideBar = () => {
                 else navigate(to);
                 // Add your code here
             }}
+            onToggle={()=>setExpanded(!expanded)}
+            style = {{position: 'fixed'}}
         >
+
             <SideNav.Toggle/>
             <SideNav.Nav defaultSelected="admin">
                 <NavItem eventKey="admin">

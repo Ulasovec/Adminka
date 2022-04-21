@@ -1,7 +1,7 @@
 .users{
     display: flex;
     justify-content: flex-start;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 .users__options_put {
     cursor: pointer;
