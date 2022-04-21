@@ -40,7 +40,7 @@ const SideBar = ({expanded,setExpanded}) => {
                         Hallo Admin
                     </NavText>
                 </NavItem>
-                <NavItem eventKey=" ">
+                <NavItem eventKey="ControlList">
                     <NavIcon>
                         <BsPeopleFill style={{ fontSize: '1.75em' }} />
                     </NavIcon>
