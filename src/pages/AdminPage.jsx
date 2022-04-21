@@ -12,7 +12,7 @@ const AdminPage = () => {
     const {user_name, role_name, role_about} = useUserInfo();
 
     return (
-        <Container>
+
             <div style={{fontSize: '1.75em', textAlign: 'center'}}>
                 <h1>||| Admin Page |||</h1>
                 <div style={{fontSize: '1.0em', textAlign: 'left'}}>
@@ -21,7 +21,6 @@ const AdminPage = () => {
                     <p><b>Role description</b>: {role_about}</p>
                 </div>
             </div>
-        </Container>
     );
 };
 

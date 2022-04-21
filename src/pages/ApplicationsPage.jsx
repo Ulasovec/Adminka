@@ -1,6 +1,6 @@
 import React from 'react';
 import {useMutationAclApplicationCreate, useQueryAclApplicationFind} from "../hooks/fetch/useAclApplication";
-import {Container, Row} from "react-bootstrap";
+import {Row} from "react-bootstrap";
 import ApplicationForm from "../components/BootstrapForm/ApplicationForm";
 import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
 
@@ -22,7 +22,7 @@ const ApplicationsPage = () => {
     }
 
     return (
-        <Container>
+        <div>
             <h1 style={{fontSize: '1.75em', textAlign: 'center'}}>||| Applications |||</h1>
             <Row>
                 <ApplicationForm handleSubmit={createApplication}/>
@@ -37,7 +37,7 @@ const ApplicationsPage = () => {
             {/*    </ul>*/}
             {/*</Row>*/}
             <MyBootstrapTable contentRow={data.data.applications}/>
-        </Container>
+        </div>
     );
 };
 

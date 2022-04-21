@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useQueryAclUserGetById} from "../hooks/fetch/useAclUser";
-import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import TableSelectRole from "../components/BootstrapTable/TablSelectRole";
 import {useQueryAclUsersRolesFind} from "../hooks/fetch/useAclUsersRoles";
 import {useQueryAclApplicationFind} from "../hooks/fetch/useAclApplication";
@@ -30,7 +30,7 @@ const CreateUsersRolePade = () => {
     }
 
     return (
-        <Container>
+        <div>
             <h1 style={{fontSize: '1.75em', textAlign: 'center'}}>
                 ||| User information |||
             </h1>
@@ -94,7 +94,7 @@ const CreateUsersRolePade = () => {
                     }
                 </Col>
             </Row>
-        </Container>
+        </div>
     );
 };
 

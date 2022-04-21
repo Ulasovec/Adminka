@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {Container} from "react-bootstrap";
 import CreateRolesForm from "../components/BootstrapForm/CreateRolesForm";
 import useRolesNameReducer from "../store/reducers/CreateRoleReducer";
 import CreateRoleModal from "../components/BootstrapModal/CreateRoleModal";
@@ -43,7 +42,7 @@ const CreateRolePage = () => {
     }
 
     return (
-        <Container>
+        <div>
             <h1 style={{fontSize: '1.75em', textAlign: 'center'}}>||| Create Roles |||</h1>
             <CreateRolesForm roles={roles}
                              setRolesName={setRolesName}
@@ -59,7 +58,7 @@ const CreateRolePage = () => {
                 />
                 : null
             }
-        </Container>
+        </div>
     );
 };
 

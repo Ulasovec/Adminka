@@ -1,5 +1,7 @@
 import React, {useReducer, useState} from 'react';
 import {Button, Form} from "react-bootstrap";
+import MyButtonForm from "../../UI components/MyButtonForm";
+import {BsPlusSquare} from "react-icons/bs";
 
 const ApplicationForm = ({handleSubmit}) => {
     const [name, setName] = useState('');
@@ -17,6 +19,9 @@ const ApplicationForm = ({handleSubmit}) => {
     return (
         <Form onSubmit={submitHandler}>
             <Form.Group className="mb-3" controlId="formBasicName">
+                <div style={{display:'flex',justifyContent: 'flex-end'}}>
+                    <MyButtonForm ><BsPlusSquare style={{fontSize: '1.8em' }}/></MyButtonForm>
+                </div>
                 <Form.Label>Application Name</Form.Label>
                 <Form.Control
                     type="text"
@@ -46,9 +51,9 @@ const ApplicationForm = ({handleSubmit}) => {
                     onChange={() => setIsActive(isActive => !isActive)}
                 />
             </Form.Group>
-            <Button variant="primary" type="submit" disabled={name === '' || about === ''}>
-                Submit
-            </Button>
+            {/*<Button variant="primary" type="submit" disabled={name === '' || about === ''}>*/}
+            {/*    Submit*/}
+            {/*</Button>*/}
         </Form>
     );
 };

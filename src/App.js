@@ -60,18 +60,19 @@ function App() {
 
 function Layout() {
     const {isAuth} = useContext(UserContext);
-    const [expanded,setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(false);
     return (
         (isAuth.sid) ?
             <div>
-                <SideBar expanded = {expanded}
-                setExpanded={setExpanded}/>
-                <main style = {{
-                    height:'600px',
+                <SideBar expanded={expanded}
+                         setExpanded={setExpanded}/>
+                <main style={{
+                    height: '600px',
                     marginLeft: (expanded) ? 240 : 64,
                     padding: '15px 20px 0 20px'
-                }}>
+                }}><Container>
                     <Outlet/>
+                </Container>
                 </main>
             </div>
             :
