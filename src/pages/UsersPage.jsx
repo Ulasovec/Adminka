@@ -68,7 +68,7 @@ const UsersPage = () => {
             <h1 style={{fontSize: '1.75em', textAlign: 'center'}}>
                 ||| Create users |||
             </h1>
-            <Form onSubmit={inputHandler}>
+            <Form onSubmit={inputHandler} >
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                     <MyButtonForm><BsPlusSquare style={{fontSize: '1.8em'}}/></MyButtonForm>
                 </div>

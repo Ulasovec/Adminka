@@ -19,7 +19,9 @@ const MyBootstrapTable = ({
     useEffect(() => setSelect(checkArray.filter((item) => item.checked === false).length), [header])
 
     return (
+        <div style={{overflow: 'auto'}}>
         <Table striped bordered hover class="table">
+
             {(checkArray.find(item => item.checked === false))
                 ? <div style={{display: 'flex'}}>
                     <h3 style={{paddingTop: '4px'}}> {select} entry select</h3>
@@ -52,6 +54,7 @@ const MyBootstrapTable = ({
 
 
         </Table>
+        </div>
     );
 };
 
