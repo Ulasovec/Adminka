@@ -22,7 +22,7 @@ const CreateRolesForm = ({roles, setRolesName, handlerCreate}) => {
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <MyButtonForm><BsPlusSquare style={{fontSize: '1.8em'}}/></MyButtonForm>
+                    <MyButtonForm data-title="Add"><BsPlusSquare style={{fontSize: '1.8em'}}/></MyButtonForm>
                 </div>
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text"

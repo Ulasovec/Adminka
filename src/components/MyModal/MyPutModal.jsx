@@ -25,7 +25,7 @@ const MyPutModal = ({setModal, putForm, handlePutForm}) => {
         <>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Put User name</Modal.Title>
+                    <Modal.Title>Updated list</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>

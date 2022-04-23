@@ -20,7 +20,7 @@ const ApplicationForm = ({handleSubmit}) => {
         <Form onSubmit={submitHandler}>
             <Form.Group className="mb-3" controlId="formBasicName">
                 <div style={{display:'flex',justifyContent: 'flex-end'}}>
-                    <MyButtonForm ><BsPlusSquare style={{fontSize: '1.8em' }}/></MyButtonForm>
+                    <MyButtonForm data-title="Add"><BsPlusSquare style={{fontSize: '1.8em' }} /></MyButtonForm>
                 </div>
                 <Form.Label>Application Name</Form.Label>
                 <Form.Control
@@ -51,9 +51,6 @@ const ApplicationForm = ({handleSubmit}) => {
                     onChange={() => setIsActive(isActive => !isActive)}
                 />
             </Form.Group>
-            {/*<Button variant="primary" type="submit" disabled={name === '' || about === ''}>*/}
-            {/*    Submit*/}
-            {/*</Button>*/}
         </Form>
     );
 };

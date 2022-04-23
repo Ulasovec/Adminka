@@ -9,6 +9,7 @@ import {
     useQueryAclRoleFind
 } from "../hooks/fetch/useAclRole";
 import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
+import MyPutModal from "../components/MyModal/MyPutModal";
 
 const CreateRolePage = () => {
     const {roles, setRolesName} = useRolesNameReducer();
@@ -28,17 +29,21 @@ const CreateRolePage = () => {
     }
 
     function deleteRoles(id) {
-        //setRolesArray(rolesArray.filter(item => item.id !== id));
         mutationAclRoleDelete.mutate(id);
     }
 
     function putRoles(id) {
         setModal(true);
-        setPutRole(rolesArray.filter(item => item.id === id)[0])
+        setPutRole(rolesArray.filter(item => item.id === id)[0]);
     }
 
     function updatePutRole({id: role_id, name, about, is_active}) {
         mutationAclRoleUpdate.mutate({role_id, name, about, is_active});
+    }
+    function deleteArray(userIdsToDelete) {
+        userIdsToDelete.forEach(id => mutationAclRoleDelete.mutate(id));
+
+
     }
 
     return (
@@ -48,16 +53,30 @@ const CreateRolePage = () => {
                              setRolesName={setRolesName}
                              handlerCreate={createRoles}
             />
-            <MyBootstrapTable contentRow={rolesArray}/>
+            <MyBootstrapTable contentRow={rolesArray}
+                                deleteRow ={deleteRoles}
+                                putRow={putRoles}
+                                deleteArrayRow={deleteArray}
 
+            />
+
+            {/*{(modal)*/}
+            {/*    ? <CreateRoleModal*/}
+            {/*        setModal={setModal}*/}
+            {/*        putRole={putRole}*/}
+            {/*        handlePutRole={updatePutRole}*/}
+            {/*    />*/}
+            {/*    : null*/}
+            {/*}*/}
             {(modal)
-                ? <CreateRoleModal
+                ? <MyPutModal
                     setModal={setModal}
-                    putRole={putRole}
-                    handlePutRole={updatePutRole}
+                    putForm={putRole}
+                    handlePutForm={updatePutRole}
                 />
                 : null
             }
+
         </div>
     );
 };

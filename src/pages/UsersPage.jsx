@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import { Form, FormControl, InputGroup} from "react-bootstrap";
 import {BsPlusSquare} from "react-icons/bs"
-
-
 import MyButtonForm from "../UI components/MyButtonForm";
 import {
     useMutationAclUserCreate,
@@ -70,7 +68,7 @@ const UsersPage = () => {
             </h1>
             <Form onSubmit={inputHandler} >
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <MyButtonForm><BsPlusSquare style={{fontSize: '1.8em'}}/></MyButtonForm>
+                    <MyButtonForm data-title="Add" ><BsPlusSquare style={{fontSize: '1.8em'}}/></MyButtonForm>
                 </div>
                 <Form.Label>UserName</Form.Label>
                 <InputGroup className="mb-3">

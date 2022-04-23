@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Table, Button} from "react-bootstrap";
-import '../BootstrapTable/BootstrapTable.css'
 import TableBody from "./TableBody";
 import PropTypes from "prop-types";
 

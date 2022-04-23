@@ -1,6 +1,7 @@
 .myBtn{
+    width: fit-content;
     border: none;
-  background-color: #ffffff;
+    background-color: #ffffff;
     display: inline-block; /* Строчно-блочный элемент */
     position: relative; /* Относительное позиционирование */
 }
@@ -10,10 +11,11 @@
     position: absolute; /* Абсолютное позиционирование */
     left: 1%; top: -120%; /* Положение подсказки */
     z-index: 1; /* Отображаем подсказку поверх других элементов */
-    background: rgba(222, 222, 215, 0.9); /* Полупрозрачный цвет фона */
-    font-family: Arial, sans-serif; /* Гарнитура шрифта */
-    font-size: 11px; /* Размер текста подсказки */
+    background: rgba(238, 238, 234, 0.9); /* Полупрозрачный цвет фона */
+    font-family: Roboto, sans-serif; /* Гарнитура шрифта */
+    font-size: 12px; /* Размер текста подсказки */
     padding: 5px 10px; /* Поля */
     border: 1px solid #333; /* Параметры рамки */
     border-radius: 10px;
+    font-weight:bold;
 }
