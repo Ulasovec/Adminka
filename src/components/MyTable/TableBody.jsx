@@ -15,7 +15,7 @@ const TableBody = ({id,item,deleteRow,setCheckArray,checkArray,putRow}) => {
     return (
         <tbody >
         <tr>
-                <th className='users'>
+                <td>
                     <Form.Check
                     inline
                     name="group1"
@@ -24,12 +24,15 @@ const TableBody = ({id,item,deleteRow,setCheckArray,checkArray,putRow}) => {
                         setCheckId({id:id,checked:checked});
                     }}
                 />
-                    {/*<BsPencil style={{fontSize: '1.8em'}} className= 'users__options_put' onClick={()=>createUsersRole(id)}/>*/}
-                    <BsFileText style={{ fontSize: '2em' }} className= 'users__options_put' onClick={()=>putRow(id)}/>
-                    <BsFileX style={{ fontSize: '2em' }} className= 'users__options_delete' onClick={()=>deleteRow(id)}/>
-                </th>
+
+                </td>
             {value.map((item) =><td>{item}</td> )}
-        </tr>
+
+            <td>  {/*<div className='users'>*/}
+                <BsFileText style={{ fontSize: '2em' }} className= 'users__options_put' onClick={()=>putRow(id)}/>
+                <BsFileX style={{ fontSize: '2em' }} className= 'users__options_delete' onClick={()=>deleteRow(id)}/>
+                {/*</div>*/}</td>
+            </tr>
         </tbody>
 
     );

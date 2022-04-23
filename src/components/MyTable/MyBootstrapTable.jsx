@@ -24,7 +24,7 @@ const MyBootstrapTable = ({
 
             {(checkArray.find(item => item.checked === false))
                 ? <div style={{display: 'flex'}}>
-                    <h3 style={{paddingTop: '4px'}}> {select} entry select</h3>
+                    <h4 style={{paddingTop: '4px'}}> {select} entry select</h4>
                     <Button variant="outline-danger" style={{marginLeft: '4px'}} onClick={() => {
                         deleteArrayRow(userIdsToDelete);
                         setCheckArray([])
@@ -34,8 +34,9 @@ const MyBootstrapTable = ({
             }
             <thead class="table-dark">
             <tr>
-                <th>OPTIONS</th>
+                <th>#</th>
                 {header.map((item) => <th>{item}</th>)}
+                <th>OPTIONS</th>
             </tr>
             </thead>
             {contentRow.map((item) =>
