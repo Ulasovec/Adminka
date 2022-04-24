@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import {useMutationAclApplicationCreate,
+import {
+    useMutationAclApplicationCreate,
     useQueryAclApplicationFind,
     useMutationAclApplicationDelete,
-    useMutationAclApplicationUpdate} from "../hooks/fetch/useAclApplication";
-import {Row} from "react-bootstrap";
+    useMutationAclApplicationUpdate
+} from "../hooks/fetch/useAclApplication";
+import {Row, Spinner} from "react-bootstrap";
 import ApplicationForm from "../components/BootstrapForm/ApplicationForm";
 import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
 import MyPutModal from "../components/MyModal/MyPutModal";
@@ -14,23 +16,27 @@ const ApplicationsPage = () => {
     const mutationAclApplicationDelete = useMutationAclApplicationDelete();
     const [modal, setModal] = useState(false);
     const [putApplication, setPutApplication] = useState({});
+
     function createApplication(applicationData) {
         console.log('App Data', applicationData);
         mutationAclApplicationCreate.mutate(applicationData);
     }
-    function deleteApplication(id){
+
+    function deleteApplication(id) {
         mutationAclApplicationDelete.mutate(id);
     }
+
     function deleteArray(userIdsToDelete) {
         userIdsToDelete.forEach(id => mutationAclApplicationDelete.mutate(id));
     }
+
     function putApp(id) {
         setModal(true);
         setPutApplication(data.data.applications.filter(item => item.id === id)[0])
     }
 
     if (isLoading) {
-        return <span>Loading...</span>
+        return <Spinner animation="border" variant="secondary"/>
     }
 
     if (isError) {
@@ -55,7 +61,7 @@ const ApplicationsPage = () => {
             <MyBootstrapTable contentRow={data.data.applications}
                               deleteRow={deleteApplication}
                               putRow={putApp}
-                              deleteArrayRow={deleteArray} />
+                              deleteArrayRow={deleteArray}/>
             {(modal)
                 ? <MyPutModal
                     setModal={setModal}

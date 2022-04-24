@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Form, FormControl, InputGroup} from "react-bootstrap";
+import {Form, FormControl, InputGroup, Spinner} from "react-bootstrap";
 import {BsPlusSquare} from "react-icons/bs"
 import MyButtonForm from "../UI components/MyButtonForm";
 import {
@@ -60,7 +60,13 @@ const UsersPage = () => {
     function createUsersRole(id) {
         navigate(`/users/${id}`)
     }
+    if (queryAclUserFind.isLoading) {
+        return <Spinner animation="border" variant="secondary"/>
+    }
 
+    if (queryAclUserFind.isError) {
+        return <span>Error: {queryAclUserFind.error.message}</span>
+    }
     return (
         <div>
             <h1 style={{fontSize: '1.75em', textAlign: 'center'}}>

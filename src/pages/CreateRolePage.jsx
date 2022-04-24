@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import CreateRolesForm from "../components/BootstrapForm/CreateRolesForm";
 import useRolesNameReducer from "../store/reducers/CreateRoleReducer";
-import CreateRoleModal from "../components/BootstrapModal/CreateRoleModal";
 import {
     useMutationAclRoleCreate,
     useMutationAclRoleDelete,
@@ -10,6 +9,7 @@ import {
 } from "../hooks/fetch/useAclRole";
 import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
 import MyPutModal from "../components/MyModal/MyPutModal";
+import {Spinner} from "react-bootstrap";
 
 const CreateRolePage = () => {
     const {roles, setRolesName} = useRolesNameReducer();
@@ -42,10 +42,14 @@ const CreateRolePage = () => {
     }
     function deleteArray(userIdsToDelete) {
         userIdsToDelete.forEach(id => mutationAclRoleDelete.mutate(id));
-
-
+    }
+    if (queryAclRoleFind.isLoading) {
+        return <Spinner animation="border" variant="secondary" />
     }
 
+    if (queryAclRoleFind.isError) {
+        return <span>Error: {queryAclRoleFind.error.message}</span>
+    }
     return (
         <div>
             <h1 style={{fontSize: '1.75em', textAlign: 'center'}}>||| Create Roles |||</h1>
