@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     useMutationAclApplicationCreate,
     useQueryAclApplicationFind,
@@ -9,6 +9,9 @@ import {Row, Spinner} from "react-bootstrap";
 import ApplicationForm from "../components/BootstrapForm/ApplicationForm";
 import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
 import MyPutModal from "../components/MyModal/MyPutModal";
+import {useSortedAndFilteredList} from "../hooks/SortedFilter/SortFilter";
+import MyTransitions from "../components/MyTransitions/MyTransitions";
+import SearchSortForm from "../components/MySearchSortForm/SearchSortForm";
 
 const ApplicationsPage = () => {
     const {isLoading, isError, data, error} = useQueryAclApplicationFind();
@@ -16,6 +19,15 @@ const ApplicationsPage = () => {
     const mutationAclApplicationDelete = useMutationAclApplicationDelete();
     const [modal, setModal] = useState(false);
     const [putApplication, setPutApplication] = useState({});
+    const app = data?.data?.applications ?? [];
+    // Полученные данные с бекенда помещаем в  список. Для сортировки и фильтрации.
+    const [appList,setAppList] = useState([])
+    // Получаем данные чтобы отправить их в хук useSortedAndFilteredList.
+    const [filter, setFilter] = useState({sortBy: '', query: ''})
+    // Отсортированный и фильтрованный список.
+    const sortedAndFilteredApp = useSortedAndFilteredList(appList, filter.sortBy, filter.query)
+
+    useEffect(()=>setAppList(app),[app] )
 
     function createApplication(applicationData) {
         console.log('App Data', applicationData);
@@ -49,16 +61,12 @@ const ApplicationsPage = () => {
             <Row>
                 <ApplicationForm handleSubmit={createApplication}/>
             </Row>
-            {/*<Row className="mt-5">*/}
-            {/*    <ul>*/}
-            {/*        {data.data.applications.map((app, index) => (*/}
-            {/*            <li key={app.id}>*/}
-            {/*                <pre>{index} | {app.id} | {app.name} | {app.about} | {app.is_active ? 'Active' : 'Not active'}</pre>*/}
-            {/*            </li>*/}
-            {/*        ))}*/}
-            {/*    </ul>*/}
-            {/*</Row>*/}
-            <MyBootstrapTable contentRow={data.data.applications}
+            <MyTransitions>
+                <SearchSortForm filter={filter}
+                                setFilter={setFilter}
+                                itemList={appList}/>
+            </MyTransitions>
+            <MyBootstrapTable contentRow={sortedAndFilteredApp}
                               deleteRow={deleteApplication}
                               putRow={putApp}
                               deleteArrayRow={deleteArray}/>

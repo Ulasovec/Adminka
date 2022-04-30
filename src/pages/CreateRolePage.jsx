@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import CreateRolesForm from "../components/BootstrapForm/CreateRolesForm";
 import useRolesNameReducer from "../store/reducers/CreateRoleReducer";
 import {
@@ -10,6 +10,9 @@ import {
 import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
 import MyPutModal from "../components/MyModal/MyPutModal";
 import {Spinner} from "react-bootstrap";
+import {useSortedAndFilteredList} from "../hooks/SortedFilter/SortFilter";
+import SearchSortForm from "../components/MySearchSortForm/SearchSortForm";
+import MyTransitions from "../components/MyTransitions/MyTransitions";
 
 const CreateRolePage = () => {
     const {roles, setRolesName} = useRolesNameReducer();
@@ -21,9 +24,14 @@ const CreateRolePage = () => {
     const mutationAclRoleCreate = useMutationAclRoleCreate()
     const mutationAclRoleUpdate = useMutationAclRoleUpdate()
     const mutationAclRoleDelete = useMutationAclRoleDelete()
+    // Полученные данные с бекенда помещаем в  список. Для сортировки и фильтрации.
+    const [roleList,setRoleList] = useState([])
+    // Получаем данные чтобы отправить их в хук useSortedAndFilteredList.
+    const [filter, setFilter] = useState({sortBy: '', query: ''})
+    // Отсортированный и фильтрованный список.
+    const sortedAndFilteredRole = useSortedAndFilteredList(roleList, filter.sortBy, filter.query)
 
-    console.log(rolesArray);
-
+    useEffect(()=>setRoleList(rolesArray),[rolesArray] )
     function createRoles() {
         mutationAclRoleCreate.mutate(roles);
     }
@@ -57,21 +65,17 @@ const CreateRolePage = () => {
                              setRolesName={setRolesName}
                              handlerCreate={createRoles}
             />
-            <MyBootstrapTable contentRow={rolesArray}
+            <MyTransitions>
+                <SearchSortForm filter={filter}
+                                setFilter={setFilter}
+                                itemList={roleList}/>
+            </MyTransitions>
+            <MyBootstrapTable contentRow={sortedAndFilteredRole}
                                 deleteRow ={deleteRoles}
                                 putRow={putRoles}
                                 deleteArrayRow={deleteArray}
 
             />
-
-            {/*{(modal)*/}
-            {/*    ? <CreateRoleModal*/}
-            {/*        setModal={setModal}*/}
-            {/*        putRole={putRole}*/}
-            {/*        handlePutRole={updatePutRole}*/}
-            {/*    />*/}
-            {/*    : null*/}
-            {/*}*/}
             {(modal)
                 ? <MyPutModal
                     setModal={setModal}

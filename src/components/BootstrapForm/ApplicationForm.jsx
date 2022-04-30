@@ -1,6 +1,6 @@
 import React, {useReducer, useState} from 'react';
 import {Button, Form} from "react-bootstrap";
-import MyButtonForm from "../../UI components/MyButtonForm";
+import MyButtonForm from "../../UI components/myButtom/MyButtonForm";
 import {BsPlusSquare} from "react-icons/bs";
 
 const ApplicationForm = ({handleSubmit}) => {

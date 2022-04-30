@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Form, FormControl, InputGroup, Spinner} from "react-bootstrap";
 import {BsPlusSquare} from "react-icons/bs"
-import MyButtonForm from "../UI components/MyButtonForm";
+import MyButtonForm from "../UI components/myButtom/MyButtonForm";
 import {
     useMutationAclUserCreate,
     useMutationAclUserDelete,
@@ -11,6 +11,10 @@ import {
 import {useNavigate} from 'react-router-dom';
 import MyBootstrapTable from "../components/MyTable/MyBootstrapTable";
 import MyPutModal from "../components/MyModal/MyPutModal";
+import {useSortedAndFilteredList} from "../hooks/SortedFilter/SortFilter";
+import SearchSortForm from "../components/MySearchSortForm/SearchSortForm";
+import MyTransitions from "../components/MyTransitions/MyTransitions";
+
 
 
 const UsersPage = () => {
@@ -19,32 +23,35 @@ const UsersPage = () => {
     const [putUser, setPutUser] = useState({});
     const navigate = useNavigate();
     const queryAclUserFind = useQueryAclUserFind(1000, 0);
-    const createUser = queryAclUserFind.data?.data?.users ?? []
     const mutationAclUserCreate = useMutationAclUserCreate()
     const mutationAclUserUpdate = useMutationAclUserUpdate()
     const mutationAclUserDelete = useMutationAclUserDelete()
+    const createUser = queryAclUserFind.data?.data?.users ?? []
+    // Полученные данные с бекенда помещаем в  список. Для сортировки и фильтрации.
+    const [usersList,setUsersList] = useState([])
+    // Получаем данные чтобы отправить их в хук useSortedAndFilteredList.
+    const [filter, setFilter] = useState({sortBy: '', query: ''})
+    // Отсортированный и фильтрованный список.
+    const sortedAndFilteredUsers = useSortedAndFilteredList(usersList, filter.sortBy, filter.query)
 
-    //useEffect(()=> setCreateUser([...createUser.filter(item => item.id !== undefined),users]),[users])
-    console.log(createUser)
+    useEffect(()=>setUsersList(createUser),[createUser] )
 
+    console.log(filter)
+    console.log(sortedAndFilteredUsers)
     function deleteUsers(id) {
-        //setCreateUser (createUser.filter(item => item.id !== id))
         mutationAclUserDelete.mutate(id)
     }
 
+
     function deleteArray(userIdsToDelete) {
-        // console.log(checkArray.filter(item => item.checked === false).map(item => item.id))
-        //setCreateUser (createUser.filter(i => !checkArray.filter(item => item.checked === false).map(item => item.id).includes(i.id)));
-        userIdsToDelete.forEach(id => mutationAclUserDelete.mutate(id))
-        ;
+        userIdsToDelete.forEach(id => mutationAclUserDelete.mutate(id));
+
 
     }
 
     function inputHandler(e) {
         e.preventDefault();
-        //setUsersName({id : id, userName : name });
         mutationAclUserCreate.mutate({name})
-        //setId(id + 1);
         setName('');
     }
 
@@ -60,6 +67,7 @@ const UsersPage = () => {
     function createUsersRole(id) {
         navigate(`/users/${id}`)
     }
+
     if (queryAclUserFind.isLoading) {
         return <Spinner animation="border" variant="secondary"/>
     }
@@ -86,13 +94,16 @@ const UsersPage = () => {
                         onChange={(event => setName(event.target.value))}
 
                     />
-
                 </InputGroup>
 
             </Form>
 
-
-            <MyBootstrapTable contentRow={createUser}
+            <MyTransitions>
+            <SearchSortForm filter={filter}
+                            setFilter={setFilter}
+                            itemList={usersList}/>
+            </MyTransitions>
+            <MyBootstrapTable contentRow={sortedAndFilteredUsers}
                               deleteRow={deleteUsers}
                               putRow={putUsers}
                               createUsersRole={createUsersRole}

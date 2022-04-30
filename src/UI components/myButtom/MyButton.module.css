@@ -1,15 +1,15 @@
 .myBtn{
-    width: fit-content;
+    padding: 0;
     border: none;
     background-color: #ffffff;
-    display: inline-block; /* Строчно-блочный элемент */
+    /*display: inline-block; !* Строчно-блочный элемент *!*/
     position: relative; /* Относительное позиционирование */
 }
 
 .myBtn:hover::after {
     content: attr(data-title); /* Выводим текст */
     position: absolute; /* Абсолютное позиционирование */
-    left: 1%; top: -120%; /* Положение подсказки */
+    left: -15%; top: -140%; /* Положение подсказки */
     z-index: 1; /* Отображаем подсказку поверх других элементов */
     background: rgba(238, 238, 234, 0.9); /* Полупрозрачный цвет фона */
     font-family: Roboto, sans-serif; /* Гарнитура шрифта */
