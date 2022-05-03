@@ -1,5 +1,5 @@
 import React, {useReducer} from 'react';
-import {Button, Container, Form} from "react-bootstrap";
+import {Button, Col, Container, Form, Row, Spinner} from "react-bootstrap";
 import useLogin from "../../hooks/fetch/useLogin";
 
 import InfoModal from "../BootstrapModal/InfoModal";
@@ -15,6 +15,14 @@ const LoginForm = () => {
         usersLogin.mutate(form);
         setForm({login: '', password: ''});
     }
+
+    if (usersLogin.isLoading) return (
+        <Container>
+            <Row className="justify-content-md-center">
+                <Col md="auto">Login...<Spinner animation="border" variant="secondary"/></Col>
+            </Row>
+        </Container>
+    )
 
     return (
         <div>
@@ -60,7 +68,8 @@ const LoginForm = () => {
                 {/*{ usersLogin.isSuccess && usersLogin.data?.data?.result?.code !== 'OK' ?*/}
                 {/*    <div>{usersLogin.data?.data?.result?.code}</div> : null }*/}
                 {usersLogin.isError ?
-                    <InfoModal title="Login failed" message={usersLogin.error.data.result.code}/> : null}
+                    <InfoModal title="Login failed"
+                               message={usersLogin.error.data?.result?.code ?? usersLogin.error.message}/> : null}
                 {/*{ usersLogin.isSuccess && usersLogin.data?.data?.result?.code !== 'OK' ?
                     <BootModal/> : null }*/}
             </Container>

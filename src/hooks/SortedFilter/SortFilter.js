@@ -16,9 +16,18 @@ export const useSortedAndFilteredList = (list, sortBy, query) => {
     const sortedList = useSorted(list, sortBy);
     const sortedAndFilteredList = useMemo(
         () => sortBy
-            ?sortedList.filter(item => item[sortBy].toLowerCase().includes(query.toLowerCase()))
-            :sortedList,
+            ? sortedList.filter(item => item[sortBy].toLowerCase().includes(query.toLowerCase()))
+            : sortedList,
         [query, sortedList]
     );
     return sortedAndFilteredList;
 }
+
+//
+// (typeof list[0][sortBy] === 'string')
+//     ? [...list].sort((a, b) => a[sortBy].localeCompare(b[sortBy]))
+//     : (typeof list[0][sortBy] === 'number')
+//         ? [...list].sort((a, b) => a[sortBy] - b[sortBy])
+//         : (typeof list[0][sortBy] === 'boolean')
+//             ? [...list].sort((a, b) => 1)
+//             : list
