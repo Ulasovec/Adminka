@@ -25,7 +25,7 @@ const MyBootstrapTable = ({
             </h4>
             :
             <div style={{overflow: 'auto'}}>
-                <Table striped bordered hover class="table">
+                <Table striped bordered hover className="table">
 
                     {(checkArray.find(item => item.checked === false))
                         ? <div style={{display: 'flex'}}>
@@ -37,10 +37,10 @@ const MyBootstrapTable = ({
                         </div>
                         : null
                     }
-                    <thead class="table-dark">
+                    <thead className="table-dark">
                     <tr>
                         <th>#</th>
-                        {header.map((item) => <th>{item}</th>)}
+                        {header.map((item, index) => <th key={index}>{item}</th>)}
                         <th>OPTIONS</th>
                     </tr>
                     </thead>

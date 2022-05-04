@@ -31,7 +31,7 @@ const MyPutModal = ({setModal, putForm, handlePutForm}) => {
                     <Form onSubmit={handleSubmit}>
 
                         {keys.map((item) =>
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Group key={item} className="mb-3" controlId="exampleForm.ControlInput1">
 
                                 <Form.Label>{item}</Form.Label>
 

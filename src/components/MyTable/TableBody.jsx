@@ -28,7 +28,7 @@ const TableBody = ({id, item, deleteRow, setCheckArray, checkArray, putRow}) => 
                 />
 
             </td>
-            {value.map((item) => <td>{item}</td>)}
+            {value.map((item, index) => <td key={index}>{item}</td>)}
             <td>
                 <MyButtonForm data-title="Update" style={{backgroundColor: '#f2f2f2'}}>
                     <BsFileText style={{fontSize: '2em'}} onClick={() => putRow(id)}/>
