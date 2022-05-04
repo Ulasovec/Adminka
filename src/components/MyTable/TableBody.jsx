@@ -14,7 +14,7 @@ const TableBody = ({id, item, deleteRow, setCheckArray, checkArray, putRow}) => 
     console.log(checkArray)
 
     return (
-        <tbody>
+
         <tr>
             <td>
                 <Form.Check
@@ -39,7 +39,6 @@ const TableBody = ({id, item, deleteRow, setCheckArray, checkArray, putRow}) => 
             </td>
         </tr>
 
-        </tbody>
 
     );
 };

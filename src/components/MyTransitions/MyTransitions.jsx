@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
-import {Card, Collapse} from "react-bootstrap";
+import {Card} from "react-bootstrap";
 import MyButtonForm from "../../UI components/myButtom/MyButtonForm";
 import {BsSearch} from '@meronex/icons/bs';
+import {CSSTransition} from "react-transition-group";
+import './MyTransitions.css'
 
 const MyTransitions = ({children}) => {
     const [open, setOpen] = useState(false);
+
+
+
     return (
         <>
             <MyButtonForm
@@ -15,15 +20,13 @@ const MyTransitions = ({children}) => {
             </MyButtonForm>
             {(open)
                 ?
+                <CSSTransition in={open} timeout={200} classNames="my-node">
             <div style={{minHeight: '150px'}}>
-                <Collapse in={open} dimension="width">
-                    <div id="example-collapse-text">
                         <Card body style={{width: '200px'}}>
                             {children}
                         </Card>
-                    </div>
-                </Collapse>
             </div>
+                </CSSTransition>
                 :
                 null
             }

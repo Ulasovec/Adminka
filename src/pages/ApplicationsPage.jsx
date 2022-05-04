@@ -20,14 +20,13 @@ const ApplicationsPage = () => {
     const [modal, setModal] = useState(false);
     const [putApplication, setPutApplication] = useState({});
     const app = data?.data?.applications ?? [];
-    // Полученные данные с бекенда помещаем в  список. Для сортировки и фильтрации.
-    const [appList,setAppList] = useState([])
+
     // Получаем данные чтобы отправить их в хук useSortedAndFilteredList.
     const [filter, setFilter] = useState({sortBy: '', query: ''})
     // Отсортированный и фильтрованный список.
-    const sortedAndFilteredApp = useSortedAndFilteredList(appList, filter.sortBy, filter.query)
+    const sortedAndFilteredApp = useSortedAndFilteredList(app, filter.sortBy, filter.query)
 
-    useEffect(()=>setAppList(app),[app] )
+
 
     function createApplication(applicationData) {
         console.log('App Data', applicationData);
@@ -64,7 +63,7 @@ const ApplicationsPage = () => {
             <MyTransitions>
                 <SearchSortForm filter={filter}
                                 setFilter={setFilter}
-                                itemList={appList}/>
+                                itemList={app}/>
             </MyTransitions>
             <MyBootstrapTable contentRow={sortedAndFilteredApp}
                               deleteRow={deleteApplication}

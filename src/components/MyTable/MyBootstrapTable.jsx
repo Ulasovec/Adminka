@@ -44,6 +44,7 @@ const MyBootstrapTable = ({
                         <th>OPTIONS</th>
                     </tr>
                     </thead>
+                    <tbody>
                     {contentRow.map((item) =>
                         <TableBody
                             key={item.id}
@@ -56,7 +57,7 @@ const MyBootstrapTable = ({
                         />
                     )
                     }
-
+                    </tbody>
                 </Table>
             </div>
 

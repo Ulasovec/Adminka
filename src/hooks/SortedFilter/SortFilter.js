@@ -29,5 +29,5 @@ export const useSortedAndFilteredList = (list, sortBy, query) => {
 //     : (typeof list[0][sortBy] === 'number')
 //         ? [...list].sort((a, b) => a[sortBy] - b[sortBy])
 //         : (typeof list[0][sortBy] === 'boolean')
-//             ? [...list].sort((a, b) => 1)
+//             ? [...list].sort((a, b) => !a[sortBy] && b[sortBy])
 //             : list

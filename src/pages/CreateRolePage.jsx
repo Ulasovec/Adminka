@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import CreateRolesForm from "../components/BootstrapForm/CreateRolesForm";
 import useRolesNameReducer from "../store/reducers/CreateRoleReducer";
 import {
@@ -24,14 +24,13 @@ const CreateRolePage = () => {
     const mutationAclRoleCreate = useMutationAclRoleCreate()
     const mutationAclRoleUpdate = useMutationAclRoleUpdate()
     const mutationAclRoleDelete = useMutationAclRoleDelete()
-    // Полученные данные с бекенда помещаем в  список. Для сортировки и фильтрации.
-    const [roleList,setRoleList] = useState([])
+
     // Получаем данные чтобы отправить их в хук useSortedAndFilteredList.
     const [filter, setFilter] = useState({sortBy: '', query: ''})
     // Отсортированный и фильтрованный список.
-    const sortedAndFilteredRole = useSortedAndFilteredList(roleList, filter.sortBy, filter.query)
+    const sortedAndFilteredRole = useSortedAndFilteredList(rolesArray, filter.sortBy, filter.query)
 
-    useEffect(()=>setRoleList(rolesArray),[rolesArray] )
+
     function createRoles() {
         mutationAclRoleCreate.mutate(roles);
     }
@@ -68,7 +67,7 @@ const CreateRolePage = () => {
             <MyTransitions>
                 <SearchSortForm filter={filter}
                                 setFilter={setFilter}
-                                itemList={roleList}/>
+                                itemList={rolesArray}/>
             </MyTransitions>
             <MyBootstrapTable contentRow={sortedAndFilteredRole}
                                 deleteRow ={deleteRoles}

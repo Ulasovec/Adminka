@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import {Form, FormControl, InputGroup, Spinner} from "react-bootstrap";
 import {BsPlusSquare} from "react-icons/bs"
 import MyButtonForm from "../UI components/myButtom/MyButtonForm";
@@ -27,17 +27,12 @@ const UsersPage = () => {
     const mutationAclUserUpdate = useMutationAclUserUpdate()
     const mutationAclUserDelete = useMutationAclUserDelete()
     const createUser = queryAclUserFind.data?.data?.users ?? []
-    // Полученные данные с бекенда помещаем в  список. Для сортировки и фильтрации.
-    const [usersList,setUsersList] = useState([])
     // Получаем данные чтобы отправить их в хук useSortedAndFilteredList.
     const [filter, setFilter] = useState({sortBy: '', query: ''})
     // Отсортированный и фильтрованный список.
-    const sortedAndFilteredUsers = useSortedAndFilteredList(usersList, filter.sortBy, filter.query)
+    const sortedAndFilteredUsers = useSortedAndFilteredList(createUser, filter.sortBy, filter.query)
 
-    useEffect(()=>setUsersList(createUser),[createUser] )
 
-    console.log(filter)
-    console.log(sortedAndFilteredUsers)
     function deleteUsers(id) {
         mutationAclUserDelete.mutate(id)
     }
@@ -101,7 +96,7 @@ const UsersPage = () => {
             <MyTransitions>
             <SearchSortForm filter={filter}
                             setFilter={setFilter}
-                            itemList={usersList}/>
+                            itemList={createUser}/>
             </MyTransitions>
             <MyBootstrapTable contentRow={sortedAndFilteredUsers}
                               deleteRow={deleteUsers}
