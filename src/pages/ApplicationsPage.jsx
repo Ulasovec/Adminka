@@ -17,6 +17,7 @@ const ApplicationsPage = () => {
     const {isLoading, isError, data, error} = useQueryAclApplicationFind();
     const mutationAclApplicationCreate = useMutationAclApplicationCreate();
     const mutationAclApplicationDelete = useMutationAclApplicationDelete();
+    const mutationAclApplicationUpdate = useMutationAclApplicationUpdate();
     const [modal, setModal] = useState(false);
     const [putApplication, setPutApplication] = useState({});
     const app = data?.data?.applications ?? [];
@@ -25,7 +26,6 @@ const ApplicationsPage = () => {
     const [filter, setFilter] = useState({sortBy: '', query: ''})
     // Отсортированный и фильтрованный список.
     const sortedAndFilteredApp = useSortedAndFilteredList(app, filter.sortBy, filter.query)
-
 
 
     function createApplication(applicationData) {
@@ -44,6 +44,10 @@ const ApplicationsPage = () => {
     function putApp(id) {
         setModal(true);
         setPutApplication(data.data.applications.filter(item => item.id === id)[0])
+    }
+
+    function updateApplication({id: application_id, name, about, is_active}) {
+        mutationAclApplicationUpdate.mutate({application_id, name, about, is_active});
     }
 
     if (isLoading) {
@@ -73,6 +77,7 @@ const ApplicationsPage = () => {
                 ? <MyPutModal
                     setModal={setModal}
                     putForm={putApplication}
+                    handlePutForm={updateApplication}
                 />
                 : null
             }

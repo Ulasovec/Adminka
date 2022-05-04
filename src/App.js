@@ -35,7 +35,7 @@ function App() {
                 <UserContext.Provider value={{isAuth, setIsAuth, deleteUsersId, setDeleteUsersId}}>
                     <Routes>
                         <Route path="/" element={<Layout/>}>
-                            <Route index element={<SideBar/>}/>
+                            <Route index element={<AdminPage/>}/>
                             <Route path="/admin" element={<AdminPage/>}/>
                             <Route path="/users" element={<UsersPage/>}/>
                             <Route path="/settings" element={<SettingsPage/>}/>
