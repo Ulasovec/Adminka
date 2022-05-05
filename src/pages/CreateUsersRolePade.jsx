@@ -6,6 +6,7 @@ import TableSelectRole from "../components/BootstrapTable/TablSelectRole";
 import {useQueryAclUsersRolesFind} from "../hooks/fetch/useAclUsersRoles";
 import {useQueryAclApplicationFind} from "../hooks/fetch/useAclApplication";
 import {useQueryAclRoleFind} from "../hooks/fetch/useAclRole";
+import {Toaster} from "react-hot-toast";
 
 const CreateUsersRolePade = () => {
     const params = useParams();
@@ -94,6 +95,7 @@ const CreateUsersRolePade = () => {
                     }
                 </Col>
             </Row>
+            <Toaster/>
         </div>
     );
 };

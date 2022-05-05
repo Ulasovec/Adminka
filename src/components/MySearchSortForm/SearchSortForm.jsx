@@ -8,7 +8,8 @@ import PropTypes from "prop-types";
 const SearchSortForm = ({filter, setFilter, itemList}) => {
 
     const optionKey = Object.keys((itemList.length === 0) ? [] : itemList[0]);
-    const options = optionKey.filter(item => item !== 'is_active' && item !== 'create_ts' && item !== 'update_ts')
+    //const options = optionKey.filter(item => item !== 'is_active' && item !== 'create_ts' && item !== 'update_ts')
+    const options = optionKey
     console.log(filter)
     return (
         <div className="searchSortForm">

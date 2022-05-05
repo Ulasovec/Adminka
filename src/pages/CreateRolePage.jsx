@@ -76,7 +76,6 @@ const CreateRolePage = () => {
                               deleteRow={deleteRoles}
                               putRow={putRoles}
                               deleteArrayRow={deleteArray}
-
             />
             {(modal)
                 ? <MyPutModal

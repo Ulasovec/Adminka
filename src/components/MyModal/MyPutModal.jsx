@@ -29,25 +29,27 @@ const MyPutModal = ({setModal, putForm, handlePutForm}) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
-
-                        {keys.map((item) =>
-                            <Form.Group key={item} className="mb-3" controlId="exampleForm.ControlInput1">
-
-                                <Form.Label>{item}</Form.Label>
-
-                                <Form.Control
-                                    type="text"
-                                    autoFocus
-                                    value={input[item]}
-                                    onChange={(e) => setInput({[item]: e.target.value})}
-                                />
+                        {Object.entries(putForm).map(([fieldName, fieldValue]) =>
+                            <Form.Group key={fieldName} className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>{fieldName}</Form.Label>
+                                {typeof fieldValue === 'boolean'
+                                    ? <Form.Check
+                                        type="checkbox"
+                                        label="Checked?"
+                                        checked={input[fieldName]}
+                                        onChange={() => setInput({[fieldName]: !fieldValue})}
+                                    />
+                                    : <Form.Control
+                                        type="text"
+                                        autoFocus
+                                        value={input[fieldName]}
+                                        onChange={(e) => setInput({[fieldName]: e.target.value})}
+                                    />
+                                }
 
                             </Form.Group>
                         )}
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'flex-end'
-                        }}>
+                        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                             <Button variant="secondary" onClick={handleClose}>
                                 Close
                             </Button>
