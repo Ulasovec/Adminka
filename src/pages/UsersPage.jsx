@@ -16,7 +16,6 @@ import SearchSortForm from "../components/MySearchSortForm/SearchSortForm";
 import MyTransitions from "../components/MyTransitions/MyTransitions";
 
 
-
 const UsersPage = () => {
     const [name, setName] = useState('');
     const [modal, setModal] = useState(false);
@@ -32,16 +31,12 @@ const UsersPage = () => {
     // Отсортированный и фильтрованный список.
     const sortedAndFilteredUsers = useSortedAndFilteredList(createUser, filter.sortBy, filter.query)
 
-
     function deleteUsers(id) {
         mutationAclUserDelete.mutate(id)
     }
 
-
     function deleteArray(userIdsToDelete) {
         userIdsToDelete.forEach(id => mutationAclUserDelete.mutate(id));
-
-
     }
 
     function inputHandler(e) {
@@ -70,14 +65,15 @@ const UsersPage = () => {
     if (queryAclUserFind.isError) {
         return <span>Error: {queryAclUserFind.error.message}</span>
     }
+
     return (
         <div>
             <h1 style={{fontSize: '1.75em', textAlign: 'center'}}>
                 ||| Create users |||
             </h1>
-            <Form onSubmit={inputHandler} >
+            <Form onSubmit={inputHandler}>
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <MyButtonForm data-title="Add" ><BsPlusSquare style={{fontSize: '1.8em'}}/></MyButtonForm>
+                    <MyButtonForm data-title="Add"><BsPlusSquare style={{fontSize: '1.8em'}}/></MyButtonForm>
                 </div>
                 <Form.Label>UserName</Form.Label>
                 <InputGroup className="mb-3">
@@ -87,16 +83,15 @@ const UsersPage = () => {
                         aria-describedby="basic-addon2"
                         value={name}
                         onChange={(event => setName(event.target.value))}
-
                     />
                 </InputGroup>
 
             </Form>
 
             <MyTransitions>
-            <SearchSortForm filter={filter}
-                            setFilter={setFilter}
-                            itemList={createUser}/>
+                <SearchSortForm filter={filter}
+                                setFilter={setFilter}
+                                itemList={createUser}/>
             </MyTransitions>
             <MyBootstrapTable contentRow={sortedAndFilteredUsers}
                               deleteRow={deleteUsers}
@@ -112,8 +107,6 @@ const UsersPage = () => {
                 />
                 : null
             }
-
-
         </div>
     );
 };

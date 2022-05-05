@@ -13,7 +13,8 @@ api.defaults.headers.post['Accept-Encoding'] = 'identity';
 api.interceptors.response.use(function (response) {
     // Любой код состояния, находящийся в диапазоне 2xx, вызывает срабатывание этой функции
     // Здесь можете сделать что-нибудь с ответом
-    console.log('Interceptor, response: ', response)
+    console.log('Interceptor, response: ', response);
+    response.message = `CODE: ${response.data.result?.code}, MSG: ${response.data.result?.msg}`;
     return (response.data.result.code !== 'OK') ? Promise.reject(response) : response
     /* можно бросить исключение
     if (response.data.result.code !== 'OK') throw new Error(response.data.result.code)

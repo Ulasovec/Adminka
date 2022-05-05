@@ -69,7 +69,7 @@ const LoginForm = () => {
                 {/*    <div>{usersLogin.data?.data?.result?.code}</div> : null }*/}
                 {usersLogin.isError ?
                     <InfoModal title="Login failed"
-                               message={usersLogin.error.data?.result?.code ?? usersLogin.error.message}/> : null}
+                               message={usersLogin.error.message}/> : null}
                 {/*{ usersLogin.isSuccess && usersLogin.data?.data?.result?.code !== 'OK' ?
                     <BootModal/> : null }*/}
             </Container>
