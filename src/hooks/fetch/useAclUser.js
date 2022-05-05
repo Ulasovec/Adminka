@@ -2,6 +2,7 @@ import {useContext} from "react";
 import {UserContext} from "../../store/context/UserContext";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {api} from "../../api/axios-config";
+import toast from "react-hot-toast";
 
 // query acl_user_find
 function useQueryAclUserFind(limit = 1000, offset = 0) {
@@ -50,6 +51,9 @@ function useMutationAclUserCreate() {
         onSuccess: () => {
             queryClient.invalidateQueries('acl_user_find')
         },
+        onError: (error) => {
+            toast(error.message)
+        }
     });
 }
 
@@ -69,6 +73,9 @@ function useMutationAclUserDelete() {
             queryClient.invalidateQueries('acl_user_find')
             queryClient.invalidateQueries('acl_user_get_by_id')
         },
+        onError: (error) => {
+            toast(error.message)
+        }
     });
 }
 
@@ -88,6 +95,9 @@ function useMutationAclUserUpdate() {
             queryClient.invalidateQueries('acl_user_find')
             queryClient.invalidateQueries('acl_user_get_by_id')
         },
+        onError: (error) => {
+            toast(error.message)
+        }
     });
 }
 

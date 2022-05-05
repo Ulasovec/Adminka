@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import CreateRolesForm from "../components/BootstrapForm/CreateRolesForm";
 import useRolesNameReducer from "../store/reducers/CreateRoleReducer";
 import {
@@ -13,6 +13,7 @@ import {Spinner} from "react-bootstrap";
 import {useSortedAndFilteredList} from "../hooks/SortedFilter/SortFilter";
 import SearchSortForm from "../components/MySearchSortForm/SearchSortForm";
 import MyTransitions from "../components/MyTransitions/MyTransitions";
+import {Toaster} from 'react-hot-toast';
 
 const CreateRolePage = () => {
     const {roles, setRolesName} = useRolesNameReducer();
@@ -30,7 +31,6 @@ const CreateRolePage = () => {
     // Отсортированный и фильтрованный список.
     const sortedAndFilteredRole = useSortedAndFilteredList(rolesArray, filter.sortBy, filter.query)
 
-
     function createRoles() {
         mutationAclRoleCreate.mutate(roles);
     }
@@ -47,16 +47,19 @@ const CreateRolePage = () => {
     function updatePutRole({id: role_id, name, about, is_active}) {
         mutationAclRoleUpdate.mutate({role_id, name, about, is_active});
     }
+
     function deleteArray(userIdsToDelete) {
         userIdsToDelete.forEach(id => mutationAclRoleDelete.mutate(id));
     }
+
     if (queryAclRoleFind.isLoading) {
-        return <Spinner animation="border" variant="secondary" />
+        return <Spinner animation="border" variant="secondary"/>
     }
 
     if (queryAclRoleFind.isError) {
         return <span>Error: {queryAclRoleFind.error.message}</span>
     }
+
     return (
         <div>
             <h1 style={{fontSize: '1.75em', textAlign: 'center'}}>||| Create Roles |||</h1>
@@ -70,9 +73,9 @@ const CreateRolePage = () => {
                                 itemList={rolesArray}/>
             </MyTransitions>
             <MyBootstrapTable contentRow={sortedAndFilteredRole}
-                                deleteRow ={deleteRoles}
-                                putRow={putRoles}
-                                deleteArrayRow={deleteArray}
+                              deleteRow={deleteRoles}
+                              putRow={putRoles}
+                              deleteArrayRow={deleteArray}
 
             />
             {(modal)
@@ -83,7 +86,7 @@ const CreateRolePage = () => {
                 />
                 : null
             }
-
+            <Toaster/>
         </div>
     );
 };
