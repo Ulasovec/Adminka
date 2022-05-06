@@ -52,9 +52,11 @@ const MyPutModal = ({setModal, putForm, handlePutForm}) => {
                                 }
                                 {fieldName.includes('_ts')
                                     ? <Form.Control
-                                        type="text"
-                                        readOnly
-                                        value={new Date(input[fieldName]*1000).toLocaleString('ru-RU').slice(0,17)}
+                                        type="datetime-local"
+                                        value={new Date(input[fieldName] * 1000).toISOString().slice(0,16)}
+                                        onChange={(e) =>
+                                            setInput({[fieldName]: e.target.value === '' ? 0 : Math.floor(Date.parse(e.target.value)/1000)})
+                                        }
                                     />
                                     : null
                                 }
