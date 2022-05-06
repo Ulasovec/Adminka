@@ -39,12 +39,24 @@ const MyPutModal = ({setModal, putForm, handlePutForm}) => {
                                         checked={input[fieldName]}
                                         onChange={() => setInput({[fieldName]: !fieldValue})}
                                     />
-                                    : <Form.Control
+                                    : null
+                                }
+                                {typeof fieldValue === 'string'
+                                    ? <Form.Control
                                         type="text"
                                         autoFocus
                                         value={input[fieldName]}
                                         onChange={(e) => setInput({[fieldName]: e.target.value})}
                                     />
+                                    : null
+                                }
+                                {fieldName.includes('_ts')
+                                    ? <Form.Control
+                                        type="text"
+                                        readOnly
+                                        value={new Date(input[fieldName]*1000).toLocaleString('ru-RU').slice(0,17)}
+                                    />
+                                    : null
                                 }
 
                             </Form.Group>
