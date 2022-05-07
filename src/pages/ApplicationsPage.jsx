@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
     useMutationAclApplicationCreate,
     useQueryAclApplicationFind,
@@ -12,7 +12,6 @@ import MyPutModal from "../components/MyModal/MyPutModal";
 import {useSortedAndFilteredList} from "../hooks/SortedFilter/SortFilter";
 import MyTransitions from "../components/MyTransitions/MyTransitions";
 import SearchSortForm from "../components/MySearchSortForm/SearchSortForm";
-import {Toaster} from "react-hot-toast";
 
 const ApplicationsPage = () => {
     const {isLoading, isError, data, error} = useQueryAclApplicationFind();
@@ -82,7 +81,6 @@ const ApplicationsPage = () => {
                 />
                 : null
             }
-            <Toaster/>
         </div>
     );
 };

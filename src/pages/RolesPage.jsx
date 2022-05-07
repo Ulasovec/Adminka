@@ -13,9 +13,8 @@ import {Spinner} from "react-bootstrap";
 import {useSortedAndFilteredList} from "../hooks/SortedFilter/SortFilter";
 import SearchSortForm from "../components/MySearchSortForm/SearchSortForm";
 import MyTransitions from "../components/MyTransitions/MyTransitions";
-import {Toaster} from 'react-hot-toast';
 
-const CreateRolePage = () => {
+const RolesPage = () => {
     const {roles, setRolesName} = useRolesNameReducer();
     const [modal, setModal] = useState(false);
     const [putRole, setPutRole] = useState({});
@@ -85,9 +84,8 @@ const CreateRolePage = () => {
                 />
                 : null
             }
-            <Toaster/>
         </div>
     );
 };
 
-export default CreateRolePage;
+export default RolesPage;

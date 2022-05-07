@@ -10,10 +10,12 @@ import SettingsPage from "./pages/SettingsPage";
 import {UserContext} from "./store/context/UserContext";
 import {useContext, useState} from "react";
 import useIsAuthReducer from "./store/reducers/AuthReducer";
-import CreateRolePage from "./pages/CreateRolePage";
-import CreateUsersRolePade from "./pages/CreateUsersRolePade";
+import RolesPage from "./pages/RolesPage";
+import UsersRolesPage from "./pages/UsersRolesPage";
 import ApplicationsPage from "./pages/ApplicationsPage";
 import {Container} from "react-bootstrap";
+import {Toaster} from "react-hot-toast";
+import AboutPage from "./pages/AboutPage";
 
 
 const queryClient = new QueryClient();
@@ -39,14 +41,15 @@ function App() {
                             <Route path="/admin" element={<AdminPage/>}/>
                             <Route path="/users" element={<UsersPage/>}/>
                             <Route path="/settings" element={<SettingsPage/>}/>
-                            <Route path="/roles" element={<CreateRolePage/>}/>
-                            <Route path="/users/:id" element={<CreateUsersRolePade/>}/>
+                            <Route path="/roles" element={<RolesPage/>}/>
+                            <Route path="/users/:id" element={<UsersRolesPage/>}/>
                             <Route path="/applications" element={<ApplicationsPage/>}/>
                             <Route path="/users-roles" element={<Container>Users-Roles</Container>}/>
                             <Route path="/tables" element={<Container>Table List</Container>}/>
                             <Route path="/models" element={<Container>Model List</Container>}/>
                             <Route path="/directories" element={<Container>Data Tree</Container>}/>
                             <Route path="/logic" element={<Container>Calculator List</Container>}/>
+                            <Route path="/about" element={<AboutPage/>}/>
                         </Route>
                     </Routes>
                 </UserContext.Provider>
@@ -64,14 +67,12 @@ function Layout() {
     return (
         (isAuth.sid) ?
             <div>
-                <SideBar expanded={expanded}
-                         setExpanded={setExpanded}/>
-                <main style={{
-                    marginLeft: (expanded) ? 240 : 64,
-                    padding: '15px 20px 0 20px'
-                }}><Container>
-                    <Outlet/>
-                </Container>
+                <SideBar expanded={expanded} setExpanded={setExpanded}/>
+                <main style={{marginLeft: (expanded) ? 240 : 64, padding: '15px 20px 0 20px'}}>
+                    <Container>
+                        <Outlet/>
+                    </Container>
+                    <Toaster/>
                 </main>
             </div>
             :

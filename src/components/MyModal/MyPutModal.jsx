@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 
 
 const MyPutModal = ({setModal, putForm, handlePutForm}) => {
-    const key = Object.keys(putForm);
-    const [keys, setKeys] = useState([...key]);
+    //const key = Object.keys(putForm);
+    //const [keys, setKeys] = useState([...key]);
     const [show, setShow] = useState(true);
     const [input, setInput] = useReducer((input, action) => ({...input, ...action}), {...putForm})
 

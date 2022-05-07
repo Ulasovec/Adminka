@@ -1,8 +1,5 @@
 import React from 'react';
-import {useQuerySession} from "../hooks/fetch/QuerySession";
-import {useQueryRole} from "../hooks/fetch/QueryRole";
 import {useUserInfo} from "../hooks/fetch/useUserInfo";
-import {Container} from "react-bootstrap";
 
 const AdminPage = () => {
 

@@ -14,7 +14,6 @@ import MyPutModal from "../components/MyModal/MyPutModal";
 import {useSortedAndFilteredList} from "../hooks/SortedFilter/SortFilter";
 import SearchSortForm from "../components/MySearchSortForm/SearchSortForm";
 import MyTransitions from "../components/MyTransitions/MyTransitions";
-import {Toaster} from 'react-hot-toast';
 
 
 const UsersPage = () => {
@@ -108,7 +107,6 @@ const UsersPage = () => {
                 />
                 : null
             }
-            <Toaster/>
         </div>
     );
 };

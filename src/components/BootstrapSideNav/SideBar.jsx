@@ -135,6 +135,15 @@ const SideBar = ({expanded,setExpanded}) => {
                     </NavItem>
                 </NavItem>
 
+                <NavItem eventKey="about">
+                    <NavIcon>
+                        <BsPerson style={{ fontSize: '1.75em' }}/>
+                    </NavIcon>
+                    <NavText>
+                        About
+                    </NavText>
+                </NavItem>
+
                 <NavItem eventKey="logout">
                     <NavIcon>
                         <BsArrowRepeat style={{ fontSize: '1.75em' }}/>

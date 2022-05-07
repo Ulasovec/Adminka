@@ -3,6 +3,9 @@ import {useQuery} from "react-query";
 import {UserContext} from "../../store/context/UserContext";
 import {api} from "../../api/axios-config";
 
+/**
+ * !!! Не используется. Этот хук можно удалить.
+ */
 
 export const useQueryRole = (role_id) => {
     const {isAuth: {sid}} = useContext(UserContext);
