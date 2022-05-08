@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Form from '@rjsf/bootstrap-4';
-import {Container, Table} from "react-bootstrap";
+import {Button, Container, Modal, Table} from "react-bootstrap";
 
 const schema = {
     title: "Todo",
@@ -14,27 +14,9 @@ const schema = {
     }
 };
 
-/*const schemaArray = {
-    type: "array",
-    items: {
-        type: "object",
-        properties: {
-            title: {type: "string", title: "Title", default: "A new task"},
-            done: {type: "boolean", title: "Done?", default: false},
-            days: {type: "number", title: "How many days?", default: 1, exclusiveMinimum: 0, maximum: 10},
-            finish: {type: "string", format: "date-time", title: "Finish date"}
-        }
-    }
-};*/
-
-
 const uiSchema = {
-    done: {
-        "ui:widget": "radio" // could also be "select"
-    },
-    days: {
-        "ui:widget": "range"
-    }
+    done: {"ui:widget": "radio"},
+    days: {"ui:widget": "range"}
 };
 
 const formData = {
@@ -55,6 +37,18 @@ const dataArray = [
 const log = (type) => console.log.bind(console, type);
 
 const AboutPage = () => {
+    const [show, setShow] = useState(false);
+    const [clickedItem, setClickedItem] = useState(undefined);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    function handleDoubleClick(item) {
+        setClickedItem(item);
+        handleShow();
+        console.log('Line: ', item);
+    }
+
     return (
         <div>
             <Container>
@@ -70,7 +64,7 @@ const AboutPage = () => {
                     </thead>
                     <tbody>
                     {dataArray.map((item, index) => (
-                        <tr key={index} onDoubleClick={e => console.log('Line: ', item)}>
+                        <tr key={index} onDoubleClick={() => handleDoubleClick(item)}>
                             <td>{index + 1}</td>
                             {Object.values(item).map((item, index) => (
                                 <td key={index}>{typeof item === 'boolean' && item ? '✓' : item}</td>
@@ -79,20 +73,32 @@ const AboutPage = () => {
                     ))}
                     </tbody>
                 </Table>
+                <p>Double click on any line...</p>
 
-                <Form schema={schema}
-                      uiSchema={uiSchema}
-                      formData={formData}
-                      onChange={log("changed")}
-                      onSubmit={e => console.log("submitted. formData: ", e.formData)}
-                      onError={log("errors")}
-                />
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Edit data</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
 
-                {/*<hr/>
-                <Form
-                    schema={schemaArray}
-                    formData={dataArray}
-                />*/}
+                        <Form schema={schema}
+                              uiSchema={uiSchema}
+                              formData={clickedItem}
+                              onChange={log("changed")}
+                              onSubmit={e => console.log("submitted. formData: ", e.formData)}
+                              onError={log("errors")}
+                        />
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={handleClose}>
+                            Save Changes
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
 
             </Container>
         </div>
