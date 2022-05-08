@@ -78,6 +78,7 @@ function Layout() {
             :
             <div>
                 <LoginForm/>
+                {/*<AboutPage/>*/}
             </div>
     )
 }
