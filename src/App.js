@@ -15,7 +15,7 @@ import UsersRolesPage from "./pages/UsersRolesPage";
 import ApplicationsPage from "./pages/ApplicationsPage";
 import {Container} from "react-bootstrap";
 import {Toaster} from "react-hot-toast";
-import AboutPage from "./pages/AboutPage";
+import GenericPage from "./pages/GenericPage";
 
 
 const queryClient = new QueryClient();
@@ -49,7 +49,7 @@ function App() {
                             <Route path="/models" element={<Container>Model List</Container>}/>
                             <Route path="/directories" element={<Container>Data Tree</Container>}/>
                             <Route path="/logic" element={<Container>Calculator List</Container>}/>
-                            <Route path="/about" element={<AboutPage/>}/>
+                            <Route path="/about" element={<GenericPage/>}/>
                         </Route>
                     </Routes>
                 </UserContext.Provider>
@@ -78,7 +78,7 @@ function Layout() {
             :
             <div>
                 <LoginForm/>
-                {/*<AboutPage/>*/}
+                {/*<GenericPage/>*/}
             </div>
     )
 }

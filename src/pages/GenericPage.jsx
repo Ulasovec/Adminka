@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Form from '@rjsf/bootstrap-4';
 import {Button, Container, Modal, Table} from "react-bootstrap";
+import GenericForm from "../components/BootstrapForm/GenericForm";
 
 const schema = {
     title: "Todo item",
@@ -10,7 +11,7 @@ const schema = {
         title: {type: "string", title: "Title", default: "A new task"},
         done: {type: "boolean", title: "Done?", default: false},
         days: {type: "number", title: "How many days?", default: 1, exclusiveMinimum: 0, maximum: 10},
-        finish: {type: "string", format: "date-time", title: "Finish date"}
+        finish: {type: "string", format: "date-time", title: "Finish date", default: "1970-01-01T00:00:00.000Z"}
     }
 };
 
@@ -36,7 +37,7 @@ const dataArray = [
 
 const log = (type) => console.log.bind(console, type);
 
-const AboutPage = () => {
+const GenericPage = () => {
     const [dataList, setDataList] = useState(dataArray);
     const [show, setShow] = useState(false);
     const [clickedItem, setClickedItem] = useState(undefined);
@@ -44,15 +45,27 @@ const AboutPage = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    function handleDoubleClick(item) {
+    function handlePlusButton() {
+        setClickedItem(undefined);
+        handleShow();
+    }
+
+    function handleRowClick(item) {
+        setClickedItem(item);
+    }
+
+    function handleRowDoubleClick(item) {
         setClickedItem(item);
         handleShow();
-        console.log('Line: ', item);
     }
 
     function handleSubmit(updatedItem) {
-        setDataList(dataList.map(item => item === clickedItem ? updatedItem : item));
-        setClickedItem(updatedItem);
+        if (clickedItem) { //update
+            setDataList(dataList.map(item => item === clickedItem ? updatedItem : item));
+            setClickedItem(updatedItem);
+        } else { //add
+            setDataList([updatedItem, ...dataList]);
+        }
         handleClose();
     }
 
@@ -78,8 +91,8 @@ const AboutPage = () => {
                     <tbody>
                     {dataList.map((item, index) => (
                         <tr key={index}
-                            onDoubleClick={() => handleDoubleClick(item)}
-                            onClick={() => setClickedItem(item)}
+                            onDoubleClick={() => handleRowDoubleClick(item)}
+                            onClick={() => handleRowClick(item)}
                             style={item === clickedItem ? {backgroundColor: 'lightBlue'} : null}
                         >
                             <td>{index + 1}</td>
@@ -92,12 +105,21 @@ const AboutPage = () => {
                 </Table>
                 <p>Double click on any line...</p>
 
-                <Modal show={show} onHide={handleClose}>
+                <GenericForm
+                    show={show}
+                    schema={schema}
+                    uiSchema={uiSchema}
+                    formData={clickedItem}
+                    handleClose={handleClose}
+                    handleSubmit={handleSubmit}
+                    handleDelete={handleDelete}
+                />
+
+                {/*<Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Edit data</Modal.Title>
+                        <Modal.Title>{clickedItem ? 'Edit data' : 'Add data'}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-
                         <Form schema={schema}
                               uiSchema={uiSchema}
                               formData={clickedItem}
@@ -105,30 +127,28 @@ const AboutPage = () => {
                               onSubmit={e => handleSubmit(e.formData)}
                               onError={log("errors")}
                         >
-                            <div>
-                                <Button variant="danger" onClick={handleDelete}>
-                                    Delete item
+                            {clickedItem
+                                ? <div>
+                                    <Button variant="danger" onClick={handleDelete}>
+                                        Delete item
+                                    </Button>
+                                    <Button type="submit" variant="primary" className="m-3">
+                                        Save Changes
+                                    </Button>
+                                </div>
+                                : <Button type="submit" variant="primary" className="m-3">
+                                    Add
                                 </Button>
-                                <Button type="submit" variant="primary" className="m-3">
-                                    Save Changes
-                                </Button>
-                            </div>
+                            }
                         </Form>
-
                     </Modal.Body>
-                    {/*<Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                            Save Changes
-                        </Button>
-                    </Modal.Footer>*/}
-                </Modal>
+                </Modal>*/}
+
+                <Button variant="primary" onClick={handlePlusButton}> + </Button>
 
             </Container>
         </div>
     );
 };
 
-export default AboutPage;
+export default GenericPage;
