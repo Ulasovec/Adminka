@@ -3,7 +3,7 @@ import Form from '@rjsf/bootstrap-4';
 import {Button, Container, Modal, Table} from "react-bootstrap";
 
 const schema = {
-    title: "Todo",
+    title: "Todo item",
     type: "object",
     required: ["title"],
     properties: {
@@ -37,6 +37,7 @@ const dataArray = [
 const log = (type) => console.log.bind(console, type);
 
 const AboutPage = () => {
+    const [dataList, setDataList] = useState(dataArray);
     const [show, setShow] = useState(false);
     const [clickedItem, setClickedItem] = useState(undefined);
 
@@ -47,6 +48,18 @@ const AboutPage = () => {
         setClickedItem(item);
         handleShow();
         console.log('Line: ', item);
+    }
+
+    function handleSubmit(updatedItem) {
+        setDataList(dataList.map(item => item === clickedItem ? updatedItem : item));
+        setClickedItem(updatedItem);
+        handleClose();
+    }
+
+    function handleDelete() {
+        setDataList(dataList.filter(item => item !== clickedItem));
+        setClickedItem(undefined);
+        handleClose();
     }
 
     return (
@@ -63,8 +76,12 @@ const AboutPage = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {dataArray.map((item, index) => (
-                        <tr key={index} onDoubleClick={() => handleDoubleClick(item)}>
+                    {dataList.map((item, index) => (
+                        <tr key={index}
+                            onDoubleClick={() => handleDoubleClick(item)}
+                            onClick={() => setClickedItem(item)}
+                            style={item === clickedItem ? {backgroundColor: 'lightBlue'} : null}
+                        >
                             <td>{index + 1}</td>
                             {Object.values(item).map((item, index) => (
                                 <td key={index}>{typeof item === 'boolean' && item ? '✓' : item}</td>
@@ -85,19 +102,28 @@ const AboutPage = () => {
                               uiSchema={uiSchema}
                               formData={clickedItem}
                               onChange={log("changed")}
-                              onSubmit={e => console.log("submitted. formData: ", e.formData)}
+                              onSubmit={e => handleSubmit(e.formData)}
                               onError={log("errors")}
-                        />
+                        >
+                            <div>
+                                <Button variant="danger" onClick={handleDelete}>
+                                    Delete item
+                                </Button>
+                                <Button type="submit" variant="primary" className="m-3">
+                                    Save Changes
+                                </Button>
+                            </div>
+                        </Form>
 
                     </Modal.Body>
-                    <Modal.Footer>
+                    {/*<Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
                         <Button variant="primary" onClick={handleClose}>
                             Save Changes
                         </Button>
-                    </Modal.Footer>
+                    </Modal.Footer>*/}
                 </Modal>
 
             </Container>
