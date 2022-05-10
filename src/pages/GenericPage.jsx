@@ -1,7 +1,13 @@
+/**
+ * Демонстрация CRUD массива объектов с произвольными полями
+ * с использованием описания объекта списка в виде json-schema.
+ * !!! Предполагается, что поля объекта не содержат другие объекты и массивы.
+ */
 import React, {useState} from 'react';
 import Form from '@rjsf/bootstrap-4';
 import {Button, Container, Modal, Table} from "react-bootstrap";
-import GenericForm from "../components/BootstrapForm/GenericForm";
+import GenericModalForm from "../components/BootstrapForm/GenericModalForm";
+import GenericTable from "../components/BootstrapTable/GenericTable";
 
 const schema = {
     title: "Todo item",
@@ -20,13 +26,6 @@ const uiSchema = {
     days: {"ui:widget": "range"}
 };
 
-const formData = {
-    title: "First task",
-    done: true,
-    days: 5,
-    finish: "2022-05-07T18:30:00.000Z"
-};
-
 const dataArray = [
     {title: "First task", done: true, days: 5, finish: "2022-05-07T18:30:00.000Z"},
     {title: "Second task", done: false, days: 4, finish: "2022-05-08T8:45:00.000Z"},
@@ -40,38 +39,38 @@ const log = (type) => console.log.bind(console, type);
 const GenericPage = () => {
     const [dataList, setDataList] = useState(dataArray);
     const [show, setShow] = useState(false);
-    const [clickedItem, setClickedItem] = useState(undefined);
+    const [markedItem, setMarkedItem] = useState(undefined);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     function handlePlusButton() {
-        setClickedItem(undefined);
+        setMarkedItem(undefined);
         handleShow();
     }
 
     function handleRowClick(item) {
-        setClickedItem(item);
+        setMarkedItem(item);
     }
 
     function handleRowDoubleClick(item) {
-        setClickedItem(item);
+        setMarkedItem(item);
         handleShow();
     }
 
     function handleSubmit(updatedItem) {
-        if (clickedItem) { //update
-            setDataList(dataList.map(item => item === clickedItem ? updatedItem : item));
-            setClickedItem(updatedItem);
+        if (markedItem) { //update
+            setDataList(dataList.map(item => item === markedItem ? updatedItem : item));
         } else { //add
             setDataList([updatedItem, ...dataList]);
         }
+        setMarkedItem(updatedItem);
         handleClose();
     }
 
     function handleDelete() {
-        setDataList(dataList.filter(item => item !== clickedItem));
-        setClickedItem(undefined);
+        setDataList(dataList.filter(item => item !== markedItem));
+        setMarkedItem(undefined);
         handleClose();
     }
 
@@ -79,7 +78,15 @@ const GenericPage = () => {
         <div>
             <Container>
 
-                <Table responsive striped bordered hover>
+                <GenericTable
+                    schema={schema}
+                    dataList={dataList}
+                    markedItem={markedItem}
+                    handleRowClick={handleRowClick}
+                    handleRowDoubleClick={handleRowDoubleClick}
+                />
+                {/*До декомпозиции таблицы*/}
+                {/*<Table responsive striped bordered hover>
                     <thead>
                     <tr>
                         <th>#</th>
@@ -93,7 +100,7 @@ const GenericPage = () => {
                         <tr key={index}
                             onDoubleClick={() => handleRowDoubleClick(item)}
                             onClick={() => handleRowClick(item)}
-                            style={item === clickedItem ? {backgroundColor: 'lightBlue'} : null}
+                            style={item === markedItem ? {backgroundColor: 'lightBlue'} : null}
                         >
                             <td>{index + 1}</td>
                             {Object.values(item).map((item, index) => (
@@ -102,32 +109,31 @@ const GenericPage = () => {
                         </tr>
                     ))}
                     </tbody>
-                </Table>
-                <p>Double click on any line...</p>
+                </Table>*/}
 
-                <GenericForm
+                <GenericModalForm
                     show={show}
                     schema={schema}
                     uiSchema={uiSchema}
-                    formData={clickedItem}
+                    formData={markedItem}
                     handleClose={handleClose}
                     handleSubmit={handleSubmit}
                     handleDelete={handleDelete}
                 />
-
+                {/*До декомпозиции модальной формы*/}
                 {/*<Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{clickedItem ? 'Edit data' : 'Add data'}</Modal.Title>
+                        <Modal.Title>{markedItem ? 'Edit data' : 'Add data'}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form schema={schema}
                               uiSchema={uiSchema}
-                              formData={clickedItem}
+                              formData={markedItem}
                               onChange={log("changed")}
                               onSubmit={e => handleSubmit(e.formData)}
                               onError={log("errors")}
                         >
-                            {clickedItem
+                            {markedItem
                                 ? <div>
                                     <Button variant="danger" onClick={handleDelete}>
                                         Delete item

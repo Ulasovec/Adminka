@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Modal} from "react-bootstrap";
 import Form from "@rjsf/bootstrap-4";
 
-const GenericForm = ({show, schema, uiSchema, formData, handleClose, handleSubmit, handleDelete}) => {
+const GenericModalForm = ({show, schema, uiSchema, formData, handleClose, handleSubmit, handleDelete}) => {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -45,4 +45,4 @@ const GenericForm = ({show, schema, uiSchema, formData, handleClose, handleSubmi
     );
 };
 
-export default GenericForm;
+export default GenericModalForm;
