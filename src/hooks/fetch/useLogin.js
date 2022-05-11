@@ -9,7 +9,7 @@ export default function useLogin() {
 
     const mutationLogin = useMutation(credentials => {
         const body = {
-            method: "acl_sign_in_login_password",
+            method: "api_acl_sign_in_login_password",
             data: {
                 // login: "test_admin001@test.domain",
                 // password: "password",

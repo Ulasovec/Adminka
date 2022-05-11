@@ -9,7 +9,7 @@ export const useUserInfo = () => {
 
     // acl_session_info
     const sessionInfoReqBody = {
-        method: 'acl_session_info',
+        method: 'api_acl_session_info',
         sid,
         data: {}
     }
