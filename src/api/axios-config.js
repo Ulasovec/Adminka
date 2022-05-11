@@ -28,4 +28,11 @@ api.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
-export { api }
+//-----------------------------------------------
+
+const apiGeneric = axios.create({
+    baseURL: 'http://fakeapi.jsonparseronline.com/',
+    timeout: 15000
+});
+
+export { api, apiGeneric }

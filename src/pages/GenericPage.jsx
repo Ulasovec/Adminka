@@ -8,6 +8,7 @@ import Form from '@rjsf/bootstrap-4';
 import {Button, Container, Modal, Table} from "react-bootstrap";
 import GenericModalForm from "../components/BootstrapForm/GenericModalForm";
 import GenericTable from "../components/BootstrapTable/GenericTable";
+import {Toaster} from "react-hot-toast";
 
 const schema = {
     title: "Todo item",
@@ -163,6 +164,7 @@ const GenericPage = () => {
                 <Button variant="primary" onClick={handlePlusButton}> + </Button>
 
             </Container>
+            <Toaster/>
         </div>
     );
 };
