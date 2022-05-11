@@ -7,26 +7,26 @@ const GenericTable = ({schema, dataList, markedItem, handleRowClick, handleRowDo
             <thead>
             <tr>
                 <th>#</th>
-                {Object.values(schema.properties).map((item, index) => (
-                    <th key={index}>{item.title}</th>
+                {Object.entries(schema.properties).map(([propKey, propValue], index) => (
+                    <th key={index}>{propValue.title ?? propKey}</th>
                 ))}
             </tr>
             </thead>
             <tbody>
-            {dataList.map((item, index) => (
+            {dataList.map((rowItem, index) => (
                 <tr key={index}
-                    onDoubleClick={() => handleRowDoubleClick(item)}
-                    onClick={() => handleRowClick(item)}
-                    style={item === markedItem ? {backgroundColor: 'lightBlue'} : null}
+                    onDoubleClick={() => handleRowDoubleClick(rowItem)}
+                    onClick={() => handleRowClick(rowItem)}
+                    style={rowItem === markedItem ? {backgroundColor: 'lightBlue'} : null}
                 >
                     <td>{index + 1}</td>
-                    {Object.values(item).map((item, index) => (
+                    {Object.entries(schema.properties).map(([propKey, propValue], index) => (
                         <td key={index}>{
-                            typeof item === 'boolean' && item
+                            propValue.type === 'boolean' && rowItem[propKey]
                                 ? '✓'
-                                : typeof item === 'object'
-                                    ? JSON.stringify(item)
-                                    : item
+                                : propValue.type === 'object' || propValue.type === 'array'
+                                    ? JSON.stringify(rowItem[propKey])
+                                    : rowItem[propKey]
                         }</td>
                     ))}
                 </tr>
