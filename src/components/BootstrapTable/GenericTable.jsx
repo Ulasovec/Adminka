@@ -21,7 +21,13 @@ const GenericTable = ({schema, dataList, markedItem, handleRowClick, handleRowDo
                 >
                     <td>{index + 1}</td>
                     {Object.values(item).map((item, index) => (
-                        <td key={index}>{typeof item === 'boolean' && item ? '✓' : item}</td>
+                        <td key={index}>{
+                            typeof item === 'boolean' && item
+                                ? '✓'
+                                : typeof item === 'object'
+                                    ? JSON.stringify(item)
+                                    : item
+                        }</td>
                     ))}
                 </tr>
             ))}
