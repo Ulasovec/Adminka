@@ -5,11 +5,12 @@ import toast from "react-hot-toast";
 function useQueryGenericPublicFind(
     apiPath = '/',
     page = 1,
-    limit = 1000,
+    limit = 10,
     sort = 'id',
     order = 'asc',
     query = '') {
-    return useQuery(['generic_public_find', apiPath, page, limit, sort, order, query], async () => {
+    // ['generic_public_find', apiPath, page, limit, sort, order, query]
+    return useQuery(['generic_public_find', apiPath], async () => {
         const response = await apiGeneric.get(`${apiPath}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}&q=${query}`);
         return response.data;
     });
@@ -28,8 +29,9 @@ function useMutationGenericPublicCreate(apiPath = '/') {
         return apiGeneric.post(apiPath, body);
     }, {
         onSuccess: (data) => {
-            const prevQueryData = queryClient.getQueryData(['generic_public_find']);
-            queryClient.setQueryData(['generic_public_find'], [data, ...prevQueryData]);
+            console.log("Create Data response: ", data);
+            //const prevQueryData = queryClient.getQueryData(['generic_public_find', apiPath]);
+            queryClient.setQueryData(['generic_public_find', apiPath], oldData => [data.data, ...oldData]);
         },
         onError: (error) => {
             toast(error.message)
@@ -43,8 +45,8 @@ function useMutationGenericPublicDelete(apiPath = '/') {
         return apiGeneric.delete(`${apiPath}/${body.id}`);
     }, {
         onSuccess: (data, variables) => {
-            const prevQueryData = queryClient.getQueryData(['generic_public_find']);
-            queryClient.setQueryData(['generic_public_find'], prevQueryData.filter(item => item.id !== variables.id));
+            //const prevQueryData = queryClient.getQueryData(['generic_public_find', apiPath]);
+            queryClient.setQueryData(['generic_public_find', apiPath], oldData => oldData.filter(item => item.id !== variables.id));
             queryClient.invalidateQueries(['generic_public_find_one', apiPath, variables.id]);
         },
         onError: (error) => {
@@ -54,13 +56,14 @@ function useMutationGenericPublicDelete(apiPath = '/') {
 }
 
 function useMutationGenericPublicUpdate(apiPath = '/') {
-    const queryClient = useQueryClient()
+    const queryClient = useQueryClient();
+    //console.log('QueryClient: ', queryClient)
     return useMutation(body => {
         return apiGeneric.put(apiPath, body);
     }, {
         onSuccess: (data, variables) => {
-            const prevQueryData = queryClient.getQueryData(['generic_public_find']);
-            queryClient.setQueryData(['generic_public_find'], prevQueryData.map(item =>
+            //const prevQueryData = queryClient.getQueryData(['generic_public_find', apiPath]);
+            queryClient.setQueryData(['generic_public_find', apiPath], oldData => oldData.map(item =>
                 item.id === variables.id ? {...item, ...variables} : item
             ));
             queryClient.invalidateQueries(['generic_public_find_one', apiPath, variables.id]);

@@ -5,9 +5,10 @@ import {
     useQueryGenericPublicFind
 } from "../hooks/fetch/useQueryGenericPublic";
 import GenericPageContent from "../components/Content/GenericPageContent";
+import {GenericProvider} from "../store/context/GenericContext";
 
-const GenericPageRestApiWrapper = ({apiPath, schema, uiSchema}) => {
-    const LIMIT = 100;
+const GenericPageRestApiWrapper = ({children, apiPath}) => {
+    const LIMIT = 10;
     const [page, setPage] = useState(1);
     const [sortBy, setSortBy] = useState('id');
     const [sortOrder, setSortOrder] = useState('asc');
@@ -31,14 +32,17 @@ const GenericPageRestApiWrapper = ({apiPath, schema, uiSchema}) => {
     }
 
     return (
-        <GenericPageContent
+        <GenericProvider value={{ queryFindData: queryFind.data ?? [], handleCreate, handleUpdate, handleDelete }}>
+            {children}
+        </GenericProvider>
+        /*<GenericPageContent
             dataArray={queryFind.data ?? []}
             schema={schema}
             uiSchema={uiSchema}
             handleCreate={handleCreate}
             handleUpdate={handleUpdate}
             handleDelete={handleDelete}
-        />
+        />*/
     );
 };
 
