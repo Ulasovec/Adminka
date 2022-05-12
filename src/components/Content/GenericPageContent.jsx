@@ -3,7 +3,7 @@ import {Button} from "react-bootstrap";
 import GenericTable from "../BootstrapTable/GenericTable";
 import GenericModalForm from "../BootstrapForm/GenericModalForm";
 
-const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
+const GenericPageContent = ({dataArray = [], schema, uiSchema, handleCreate, handleUpdate, handleDelete}) => {
     const [dataList, setDataList] = useState(dataArray);
     const [show, setShow] = useState(false);
     const [markedItem, setMarkedItem] = useState(undefined);
@@ -27,41 +27,41 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
 
     function handleSubmit(updatedItem) {
         if (markedItem) { //update
-            setDataList(dataList.map(item => item === markedItem ? updatedItem : item));
+            handleUpdate ? handleUpdate(updatedItem) : setDataList(dataList.map(item => item === markedItem ? updatedItem : item));
         } else { //add
-            setDataList([updatedItem, ...dataList]);
+            handleCreate ? handleCreate(updatedItem) : setDataList([updatedItem, ...dataList]);
         }
-        setMarkedItem(updatedItem);
+        updatedItem.id ? setMarkedItem(dataList.find(item => item.id === updatedItem.id)) : setMarkedItem(updatedItem);
         handleClose();
     }
 
-    function handleDelete() {
-        setDataList(dataList.filter(item => item !== markedItem));
+    function handleDeleteButton() {
+        handleDelete ? handleDelete(markedItem) : setDataList(dataList.filter(item => item !== markedItem));
         setMarkedItem(undefined);
         handleClose();
     }
 
     return (
         <div>
-                <GenericTable
-                    schema={schema}
-                    dataList={dataList}
-                    markedItem={markedItem}
-                    handleRowClick={handleRowClick}
-                    handleRowDoubleClick={handleRowDoubleClick}
-                />
+            <GenericTable
+                schema={schema}
+                dataList={dataList}
+                markedItem={markedItem}
+                handleRowClick={handleRowClick}
+                handleRowDoubleClick={handleRowDoubleClick}
+            />
 
-                <GenericModalForm
-                    show={show}
-                    schema={schema}
-                    uiSchema={uiSchema}
-                    formData={markedItem}
-                    handleClose={handleClose}
-                    handleSubmit={handleSubmit}
-                    handleDelete={handleDelete}
-                />
+            <GenericModalForm
+                show={show}
+                schema={schema}
+                uiSchema={uiSchema}
+                formData={markedItem}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+                handleDelete={handleDeleteButton}
+            />
 
-                <Button variant="primary" onClick={handlePlusButton}> + </Button>
+            <Button variant="primary" onClick={handlePlusButton}> + </Button>
         </div>
     );
 };

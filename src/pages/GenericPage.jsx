@@ -7,6 +7,7 @@ import React from 'react';
 import {Container} from "react-bootstrap";
 import {Toaster} from "react-hot-toast";
 import GenericPageContent from "../components/Content/GenericPageContent";
+import GenericPageRestApiWrapper from "../api/GenericPageRestApiWrapper";
 
 const schema = {
     title: "Todo item",
@@ -53,6 +54,11 @@ const GenericPage = () => {
                     schema={schema}
                     uiSchema={uiSchema}
                 />
+                {/*<GenericPageRestApiWrapper
+                    apiPath="posts"
+                    schema={schema}
+                    uiSchema={uiSchema}
+                />*/}
             </Container>
             <Toaster/>
         </div>
