@@ -1,4 +1,4 @@
-const postsSchema = {
+const todosSchema = {
     title: "Todo",
     type: "object",
     required: ["title"],
@@ -10,7 +10,7 @@ const postsSchema = {
     }
 };
 
-const postsUiSchema = {
+const todosUiSchema = {
 };
 
 //------------------------
@@ -59,4 +59,4 @@ const usersSchema = {
 const usersUiSchema = {
 };
 
-export {postsSchema, postsUiSchema, usersSchema, usersUiSchema}
+export {todosSchema, todosUiSchema, usersSchema, usersUiSchema}

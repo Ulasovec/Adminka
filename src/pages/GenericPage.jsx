@@ -8,7 +8,7 @@ import {Container} from "react-bootstrap";
 import {Toaster} from "react-hot-toast";
 import GenericPageContent from "../components/Content/GenericPageContent";
 import GenericPageRestApiWrapper from "../api/GenericPageRestApiWrapper";
-import {postsSchema, postsUiSchema, usersSchema, usersUiSchema} from "../schemas/fakeApiSchemas";
+import {todosSchema, todosUiSchema, usersSchema, usersUiSchema} from "../schemas/fakeApiSchemas";
 
 const schema = {
     title: "Todo item",
@@ -57,11 +57,11 @@ const GenericPage = () => {
                 />*/}
                 <h1>Demo Fake API</h1>
                 <hr/>
-                <h2>Posts</h2>
-                <GenericPageRestApiWrapper apiPath="posts">
+                <h2>Todos</h2>
+                <GenericPageRestApiWrapper apiPath="todos">
                     <GenericPageContent
-                        schema={postsSchema}
-                        uiSchema={postsUiSchema}
+                        schema={todosSchema}
+                        uiSchema={todosUiSchema}
                     />
                 </GenericPageRestApiWrapper>
                 <hr/>
