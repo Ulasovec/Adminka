@@ -59,7 +59,7 @@ function useMutationGenericPublicUpdate(apiPath = '/') {
     const queryClient = useQueryClient();
     //console.log('QueryClient: ', queryClient)
     return useMutation(body => {
-        return apiGeneric.put(apiPath, body);
+        return apiGeneric.put(`${apiPath}/${body.id}`, body);
     }, {
         onSuccess: (data, variables) => {
             //const prevQueryData = queryClient.getQueryData(['generic_public_find', apiPath]);

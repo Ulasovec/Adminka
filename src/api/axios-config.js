@@ -31,7 +31,7 @@ api.interceptors.response.use(function (response) {
 //-----------------------------------------------
 
 const apiGeneric = axios.create({
-    baseURL: 'http://fakeapi.jsonparseronline.com/',
+    baseURL: 'https://jsonplaceholder.typicode.com/',
     timeout: 15000
 });
 

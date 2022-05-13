@@ -1,49 +1,52 @@
 const postsSchema = {
-    title: "Post",
+    title: "Todo",
     type: "object",
-    required: [
-        "title",
-        /*"categoryId",
-        "content",
-        "hits",
-        "id",
-        "imageUrl",
-        "likes",
-        "userId"*/
-    ],
+    required: ["title"],
     properties: {
-        id: {
-            type: "integer"
-        },
-        title: {
-            type: "string",
-            title: "Заголовок"
-        },
-        userId: {
-            type: "integer"
-        },
-        content: {
-            type: "string",
-            title: "Содержимое"
-        },
-        likes: {
-            type: "integer"
-        },
-        hits: {
-            type: "integer"
-        },
-        categoryId: {
-            type: "integer"
-        },
-        imageUrl: {
-            type: "string",
-            format: "uri"
-        }
+        id: {type: "integer", title: "ID"},
+        userId: {type: "integer", title: "User ID"},
+        title: {type: "string", title: "Задача", default: "Надо что-то сделать"},
+        completed: {type: "boolean", title: "Завершена?", default: false},
     }
 };
 
 const postsUiSchema = {
-    likes: {"ui:widget": "range"}
+};
+
+//------------------------
+
+const usersSchema = {
+    title: "User",
+    type: "object",
+    required: ["username"],
+    properties: {
+        id: {type: "integer", title: "ID"},
+        name: {type: "string", title: "ФИО"},
+        username: {type: "string", title: "Nick Name"},
+        email: {type: "string", title: "E-Mail", format: "email"},
+        address: {
+            type: "object",
+            title: "Адрес",
+            properties: {
+                street: {type: "string", title: "Улица"},
+                suite: {type: "string", title: "Ряд"},
+                city: {type: "string", title: "Город"},
+                zipcode: {type: "string", title: "Индекс"},
+                geo: {
+                    type: "object",
+                    title: "Гео",
+                    properties: {
+                        lat: {type: "string", title: "Широта"},
+                        lng: {type: "string", title: "Долгота"}
+                    }
+                }
+            },
+        },
+
+    },
+    "definitions": {
+
+    }
 };
 
 export {postsSchema, postsUiSchema}
