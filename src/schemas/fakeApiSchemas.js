@@ -42,11 +42,21 @@ const usersSchema = {
                 }
             },
         },
-
+        phone: {type: "string", title: "Телефон"},
+        website: {type: "string", title: "Сайт"},
+        company: {
+            type: "object",
+            title: "Компания",
+            properties: {
+                name: {type: "string", title: "CompanyName"},
+                catchPhrase: {type: "string", title: "Moto"},
+                bs: {type: "string", title: "BS"}
+            }
+        }
     },
-    "definitions": {
-
-    }
 };
 
-export {postsSchema, postsUiSchema}
+const usersUiSchema = {
+};
+
+export {postsSchema, postsUiSchema, usersSchema, usersUiSchema}
