@@ -15,8 +15,9 @@ const GenericTable = ({schema, dataList, markedItem, handleRowClick, handleRowDo
     console.log('rootProperties: ', JSON.stringify(rootProperties));
 
     return (
-        <Table responsive striped bordered hover>
-            <thead>
+        <div style={{height:'440px',overflow:'scroll',border:'2px solid gray'}}>
+        <Table responsive striped bordered hover  >
+            <thead >
             <tr>
                 <th>#</th>
                 {Object.entries(rootProperties).map(([propKey, propValue], index) => (
@@ -48,6 +49,7 @@ const GenericTable = ({schema, dataList, markedItem, handleRowClick, handleRowDo
             ))}
             </tbody>
         </Table>
+        </div>
     );
 };
 
