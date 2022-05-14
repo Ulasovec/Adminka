@@ -57,7 +57,6 @@ const usersSchema = {
 };
 
 const usersSchema1 = {
-    "$schema": "http://json-schema.org/draft-06/schema#",
     "$ref": "#/definitions/User",
     "definitions": {
         "User": {
@@ -172,7 +171,6 @@ const usersSchema1 = {
 }
 
 const usersSchema2 = {
-    "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
     "title": "Users",
     "additionalProperties": false,

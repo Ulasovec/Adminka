@@ -2,12 +2,24 @@ import React from 'react';
 import {Table} from "react-bootstrap";
 
 const GenericTable = ({schema, dataList, markedItem, handleRowClick, handleRowDoubleClick}) => {
+
+    // Допущение - корневая структура является объектом!
+
+    function dereferenceSchema(subSchema, rootSchema) {
+        return subSchema['$ref']
+            ? subSchema['$ref'].split('/').slice(1).reduce((p, field) => p[field], rootSchema)
+            : subSchema
+    }
+
+    const rootProperties = dereferenceSchema(schema, schema).properties;
+    console.log('rootProperties: ', JSON.stringify(rootProperties));
+
     return (
         <Table responsive striped bordered hover>
             <thead>
             <tr>
                 <th>#</th>
-                {Object.entries(schema.properties).map(([propKey, propValue], index) => (
+                {Object.entries(rootProperties).map(([propKey, propValue], index) => (
                     <th key={index}>{propValue.title ?? propKey}</th>
                 ))}
             </tr>
@@ -20,15 +32,18 @@ const GenericTable = ({schema, dataList, markedItem, handleRowClick, handleRowDo
                     style={rowItem === markedItem ? {backgroundColor: 'lightBlue'} : null}
                 >
                     <td>{index + 1}</td>
-                    {Object.entries(schema.properties).map(([propKey, propValue], index) => (
-                        <td key={index}>{
-                            propValue.type === 'boolean' && rowItem[propKey]
-                                ? '✓'
-                                : propValue.type === 'object' || propValue.type === 'array'
-                                    ? JSON.stringify(rowItem[propKey])
-                                    : rowItem[propKey]
-                        }</td>
-                    ))}
+                    {Object.entries(rootProperties).map(([propKey, propValue], index) => {
+                        const subSchema = dereferenceSchema(propValue, schema);
+                        return (
+                            <td key={index}>{
+                                subSchema.type === 'boolean' && rowItem[propKey]
+                                    ? '✓'
+                                    : subSchema.type === 'object' || subSchema.type === 'array'
+                                        ? JSON.stringify(rowItem[propKey])
+                                        : rowItem[propKey]
+                            }</td>
+                        )
+                    })}
                 </tr>
             ))}
             </tbody>

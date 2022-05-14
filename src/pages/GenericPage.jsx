@@ -11,7 +11,7 @@ import GenericPageRestApiWrapper from "../api/GenericPageRestApiWrapper";
 import {
     todosSchema,
     todosUiSchema,
-    usersSchema,
+    usersSchema, usersSchema1, usersSchema2,
     usersUiSchema
 } from "../schemas/fakeApiSchemas";
 
@@ -73,7 +73,7 @@ const GenericPage = () => {
                 <h2>Users</h2>
                 <GenericPageRestApiWrapper apiPath="users">
                     <GenericPageContent
-                        schema={usersSchema}
+                        schema={usersSchema1}
                         uiSchema={usersUiSchema}
                     />
                 </GenericPageRestApiWrapper>
