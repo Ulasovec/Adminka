@@ -3,8 +3,9 @@ import {Table} from "react-bootstrap";
 
 const GenericTable = ({schema, dataList, markedItem, handleRowClick, handleRowDoubleClick}) => {
     return (
-        <Table responsive striped bordered hover>
-            <thead>
+        <div style={{height:'440px',overflow:'scroll',border:'2px solid gray'}}>
+        <Table responsive striped bordered hover  >
+            <thead >
             <tr>
                 <th>#</th>
                 {Object.entries(schema.properties).map(([propKey, propValue], index) => (
@@ -33,6 +34,7 @@ const GenericTable = ({schema, dataList, markedItem, handleRowClick, handleRowDo
             ))}
             </tbody>
         </Table>
+        </div>
     );
 };
 
