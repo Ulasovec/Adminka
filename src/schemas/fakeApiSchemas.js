@@ -56,7 +56,294 @@ const usersSchema = {
     },
 };
 
+const usersSchema1 = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/User",
+    "definitions": {
+        "User": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "address": {
+                    "$ref": "#/definitions/Address"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "website": {
+                    "type": "string"
+                },
+                "company": {
+                    "$ref": "#/definitions/Company"
+                }
+            },
+            "required": [
+                "address",
+                "company",
+                "email",
+                "id",
+                "name",
+                "phone",
+                "username",
+                "website"
+            ],
+            "title": "Welcome4"
+        },
+        "Address": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "street": {
+                    "type": "string"
+                },
+                "suite": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "zipcode": {
+                    "type": "string"
+                },
+                "geo": {
+                    "$ref": "#/definitions/Geo"
+                }
+            },
+            "required": [
+                "city",
+                "geo",
+                "street",
+                "suite",
+                "zipcode"
+            ],
+            "title": "Address"
+        },
+        "Geo": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "lat": {
+                    "type": "string"
+                },
+                "lng": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "lat",
+                "lng"
+            ],
+            "title": "Geo"
+        },
+        "Company": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "catchPhrase": {
+                    "type": "string"
+                },
+                "bs": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "bs",
+                "catchPhrase",
+                "name"
+            ],
+            "title": "Company"
+        }
+    }
+}
+
+const usersSchema2 = {
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "object",
+    "title": "Users",
+    "additionalProperties": false,
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "name": {
+            "type": "string"
+        },
+        "username": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "address": {
+            "$ref": "#/definitions/Address"
+        },
+        "phone": {
+            "type": "string"
+        },
+        "website": {
+            "type": "string"
+        },
+        "company": {
+            "$ref": "#/definitions/Company"
+        }
+    },
+    "required": [
+        "address",
+        "company",
+        "email",
+        "id",
+        "name",
+        "phone",
+        "username",
+        "website"
+    ],
+    "definitions": {
+        "User": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "address": {
+                    "$ref": "#/definitions/Address"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "website": {
+                    "type": "string"
+                },
+                "company": {
+                    "$ref": "#/definitions/Company"
+                }
+            },
+            "required": [
+                "address",
+                "company",
+                "email",
+                "id",
+                "name",
+                "phone",
+                "username",
+                "website"
+            ],
+            "title": "Welcome4"
+        },
+        "Address": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "street": {
+                    "type": "string"
+                },
+                "suite": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "zipcode": {
+                    "type": "string"
+                },
+                "geo": {
+                    "$ref": "#/definitions/Geo"
+                }
+            },
+            "required": [
+                "city",
+                "geo",
+                "street",
+                "suite",
+                "zipcode"
+            ],
+            "title": "Address"
+        },
+        "Geo": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "lat": {
+                    "type": "string"
+                },
+                "lng": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "lat",
+                "lng"
+            ],
+            "title": "Geo"
+        },
+        "Company": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "catchPhrase": {
+                    "type": "string"
+                },
+                "bs": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "bs",
+                "catchPhrase",
+                "name"
+            ],
+            "title": "Company"
+        }
+    }
+}
+
+const usersSchema3 = {
+    "definitions": {
+        "address": {
+            "type": "object",
+            "properties": {
+                "street_address": { "type": "string" },
+                "city":           { "type": "string" },
+                "state":          { "type": "string" }
+            },
+            "required": ["street_address", "city", "state"]
+        }
+    },
+    "type": "object",
+    "properties": {
+        "billing_address": { "$ref": "#/definitions/address" },
+        "shipping_address": { "$ref": "#/definitions/address" }
+    }
+};
+
 const usersUiSchema = {
 };
 
-export {todosSchema, todosUiSchema, usersSchema, usersUiSchema}
+export {todosSchema, todosUiSchema, usersSchema, usersSchema1, usersSchema2, usersSchema3, usersUiSchema}

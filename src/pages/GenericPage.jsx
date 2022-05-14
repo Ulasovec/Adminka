@@ -8,7 +8,12 @@ import {Container} from "react-bootstrap";
 import {Toaster} from "react-hot-toast";
 import GenericPageContent from "../components/Content/GenericPageContent";
 import GenericPageRestApiWrapper from "../api/GenericPageRestApiWrapper";
-import {todosSchema, todosUiSchema, usersSchema, usersUiSchema} from "../schemas/fakeApiSchemas";
+import {
+    todosSchema,
+    todosUiSchema,
+    usersSchema,
+    usersUiSchema
+} from "../schemas/fakeApiSchemas";
 
 const schema = {
     title: "Todo item",
