@@ -4,14 +4,14 @@ import toast from "react-hot-toast";
 
 function useQueryGenericPublicFind(
     apiPath = '/',
-    page = 1,
+    offset = 0,
     limit = 10,
     sort = 'id',
     order = 'asc',
     query = '') {
-    // ['generic_public_find', apiPath, page, limit, sort, order, query]
+    // ['generic_public_find', apiPath, offset, limit, sort, order, query]
     return useQuery(['generic_public_find', apiPath], async () => {
-        const response = await apiGeneric.get(`${apiPath}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}&q=${query}`);
+        const response = await apiGeneric.get(`${apiPath}?_start=${offset}&_limit=${limit}&_sort=${sort}&_order=${order}&q=${query}`);
         return response.data;
     });
 }

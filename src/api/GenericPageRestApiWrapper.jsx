@@ -10,12 +10,13 @@ import {SortOrder} from 'react-base-table';
 
 const GenericPageRestApiWrapper = ({children, apiPath}) => {
     const LIMIT = 10;
-    const [page, setPage] = useState(1);
+    //const [page, setPage] = useState(1);
+    const [offset, setOffset] = useState(0);
     const [sortBy, setSortBy] = useState({key: 'id', order: 'asc'});
-    const [sortOrder, setSortOrder] = useState('asc');
+    //const [sortOrder, setSortOrder] = useState('asc');
     const [queryString, setQueryString] = useState('');
 
-    const queryFind = useQueryGenericPublicFind(apiPath, page, LIMIT, sortBy, sortOrder, queryString);
+    const queryFind = useQueryGenericPublicFind(apiPath, offset, LIMIT, sortBy.key, sortBy.order, queryString);
     const mutationCreate = useMutationGenericPublicCreate(apiPath);
     const mutationUpdate = useMutationGenericPublicUpdate(apiPath);
     const mutationDelete = useMutationGenericPublicDelete(apiPath);
