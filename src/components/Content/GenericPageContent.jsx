@@ -7,7 +7,7 @@ import GenericBaseTable from "../BootstrapTable/GenericBaseTable";
 
 const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
     const context = useGenericContext();
-    const {queryFindData, handleCreate, handleUpdate, handleDelete, sortBy, setSortBy} = context;
+    const {queryFindData, handleCreate, handleUpdate, handleDelete, sortBy, handleSortBy, handleLimit} = context;
 
     const [dataList, setDataList] = useState(dataArray);
     const [show, setShow] = useState(false);
@@ -54,7 +54,8 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
                 dataList={context ? queryFindData : dataList}
                 markedItem={markedItem}
                 sortBy={sortBy}
-                onColumnSort={setSortBy}
+                handleSortBy={handleSortBy}
+                handleLimit={handleLimit}
                 handleRowClick={handleRowClick}
                 handleRowDoubleClick={handleRowDoubleClick}
             />
@@ -76,8 +77,10 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
                 handleSubmit={handleSubmit}
                 handleDelete={handleDeleteButton}
             />
+            <div>
+                <Button variant="primary" onClick={handlePlusButton}> + </Button>
+            </div>
 
-            <Button variant="primary" onClick={handlePlusButton}> + </Button>
         </div>
     );
 };
