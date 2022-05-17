@@ -6,11 +6,12 @@ import {
 } from "../hooks/fetch/useQueryGenericPublic";
 import GenericPageContent from "../components/Content/GenericPageContent";
 import {GenericProvider} from "../store/context/GenericContext";
+import {SortOrder} from 'react-base-table';
 
 const GenericPageRestApiWrapper = ({children, apiPath}) => {
     const LIMIT = 10;
     const [page, setPage] = useState(1);
-    const [sortBy, setSortBy] = useState('id');
+    const [sortBy, setSortBy] = useState({key: 'id', order: 'asc'});
     const [sortOrder, setSortOrder] = useState('asc');
     const [queryString, setQueryString] = useState('');
 
@@ -32,7 +33,14 @@ const GenericPageRestApiWrapper = ({children, apiPath}) => {
     }
 
     return (
-        <GenericProvider value={{ queryFindData: queryFind.data ?? [], handleCreate, handleUpdate, handleDelete }}>
+        <GenericProvider value={{
+            queryFindData: queryFind.data ?? [],
+            handleCreate,
+            handleUpdate,
+            handleDelete,
+            sortBy,
+            setSortBy
+        }}>
             {children}
         </GenericProvider>
         /*<GenericPageContent

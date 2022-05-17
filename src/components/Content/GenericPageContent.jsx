@@ -3,14 +3,16 @@ import {Button} from "react-bootstrap";
 import GenericTable from "../BootstrapTable/GenericTable";
 import GenericModalForm from "../BootstrapForm/GenericModalForm";
 import {useGenericContext} from "../../store/context/GenericContext";
+import GenericBaseTable from "../BootstrapTable/GenericBaseTable";
 
 const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
     const context = useGenericContext();
-    const {queryFindData, handleCreate, handleUpdate, handleDelete} = context;
+    const {queryFindData, handleCreate, handleUpdate, handleDelete, sortBy, setSortBy} = context;
 
     const [dataList, setDataList] = useState(dataArray);
     const [show, setShow] = useState(false);
     const [markedItem, setMarkedItem] = useState(undefined);
+    //const [sortBy, setSortBy] = useState({ key: 'column-0', order: SortOrder.ASC });
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -47,13 +49,23 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
 
     return (
         <div>
-            <GenericTable
+            <GenericBaseTable
+                schema={schema}
+                dataList={context ? queryFindData : dataList}
+                markedItem={markedItem}
+                sortBy={sortBy}
+                onColumnSort={setSortBy}
+                handleRowClick={handleRowClick}
+                handleRowDoubleClick={handleRowDoubleClick}
+            />
+
+            {/*<GenericTable
                 schema={schema}
                 dataList={context ? queryFindData : dataList}
                 markedItem={markedItem}
                 handleRowClick={handleRowClick}
                 handleRowDoubleClick={handleRowDoubleClick}
-            />
+            />*/}
 
             <GenericModalForm
                 show={show}
