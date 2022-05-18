@@ -16,7 +16,7 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
         handleSortBy,
         handleLimit,
         handleQuery
-    } = context;
+    } = context ?? { handleSortBy: f => f, handleLimit: f => f, handleQuery: f => f };
 
     const [dataList, setDataList] = useState(dataArray);
     const [show, setShow] = useState(false);

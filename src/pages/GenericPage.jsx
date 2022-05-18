@@ -1,7 +1,7 @@
 /**
  * Демонстрация CRUD массива объектов с произвольными полями
  * с использованием описания объекта списка в виде json-schema.
- * !!! Предполагается, что поля объекта не содержат другие объекты и массивы.
+ * Встроенные объекты и массивы тоже будут обрабатываться.
  */
 import React from 'react';
 import {Container} from "react-bootstrap";
@@ -20,6 +20,7 @@ const schema = {
     type: "object",
     required: ["title"],
     properties: {
+        id: {type: "number", title: "ID"},
         title: {type: "string", title: "Title", default: "A new task"},
         done: {type: "boolean", title: "Done?", default: false},
         days: {type: "number", title: "How many days?", default: 1, exclusiveMinimum: 0, maximum: 10},
@@ -44,6 +45,7 @@ const uiSchema = {
 
 const dataArray = [
     {
+        id: 1,
         title: "First task",
         done: true,
         days: 5,
@@ -51,6 +53,7 @@ const dataArray = [
         dimensions: {length: 1, width: 2, height: 3}
     },
     {
+        id: 2,
         title: "Second task",
         done: false,
         days: 4,
@@ -58,6 +61,7 @@ const dataArray = [
         dimensions: {length: 11, width: 22, height: 33}
     },
     {
+        id: 3,
         title: "Third task",
         done: true,
         days: 7,
@@ -65,6 +69,7 @@ const dataArray = [
         dimensions: {length: 5, width: 6, height: 7}
     },
     {
+        id: 4,
         title: "Forth task",
         done: true,
         days: 1,
@@ -72,6 +77,7 @@ const dataArray = [
         dimensions: {length: 101, width: 20, height: 30}
     },
     {
+        id: 5,
         title: "Fifth task",
         done: true,
         days: 2,
@@ -85,11 +91,7 @@ const GenericPage = () => {
     return (
         <div>
             <Container>
-                {/*<GenericPageContent
-                    dataArray={dataArray}
-                    schema={schema}
-                    uiSchema={uiSchema}
-                />*/}
+
                 <h1>Demo Fake API</h1>
                 <hr/>
                 <h2>Todos</h2>
@@ -107,6 +109,13 @@ const GenericPage = () => {
                         uiSchema={usersUiSchema}
                     />
                 </GenericPageRestApiWrapper>
+                <hr/>
+                <h2>Static data</h2>
+                <GenericPageContent
+                    dataArray={dataArray}
+                    schema={schema}
+                    uiSchema={uiSchema}
+                />
             </Container>
             <Toaster/>
         </div>
