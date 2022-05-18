@@ -46,6 +46,10 @@ const GenericPageRestApiWrapper = ({children, apiPath}) => {
         setLimit(limit);
     }
 
+    function handleQuery(query) {
+        setQueryString(query)
+    }
+
     return (
         <GenericProvider value={{
             queryFindData: queryFind.data ?? [],
@@ -54,7 +58,8 @@ const GenericPageRestApiWrapper = ({children, apiPath}) => {
             handleDelete,
             sortBy,
             handleSortBy,
-            handleLimit
+            handleLimit,
+            handleQuery
         }}>
             {children}
         </GenericProvider>

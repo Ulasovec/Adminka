@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 import GenericTable from "../BootstrapTable/GenericTable";
 import GenericModalForm from "../BootstrapForm/GenericModalForm";
 import {useGenericContext} from "../../store/context/GenericContext";
@@ -7,7 +7,16 @@ import GenericBaseTable from "../BootstrapTable/GenericBaseTable";
 
 const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
     const context = useGenericContext();
-    const {queryFindData, handleCreate, handleUpdate, handleDelete, sortBy, handleSortBy, handleLimit} = context;
+    const {
+        queryFindData,
+        handleCreate,
+        handleUpdate,
+        handleDelete,
+        sortBy,
+        handleSortBy,
+        handleLimit,
+        handleQuery
+    } = context;
 
     const [dataList, setDataList] = useState(dataArray);
     const [show, setShow] = useState(false);
@@ -49,6 +58,16 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
 
     return (
         <div>
+            {/*<Form onSubmit={e => e.preventDefault()}>
+                <Form.Group className="mb-3" controlId="formSearch">
+                    <Form.Label>Search</Form.Label>*/}
+                    <Form.Control type="text" placeholder="Enter search text..."
+                                  onChange={e => handleQuery(e.target.value)}/>
+                    {/*<Form.Text className="text-muted">
+                        Type some filter words.
+                    </Form.Text>
+                </Form.Group>
+            </Form>*/}
             <GenericBaseTable
                 schema={schema}
                 dataList={context ? queryFindData : dataList}
