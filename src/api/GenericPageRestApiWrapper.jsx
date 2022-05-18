@@ -9,7 +9,7 @@ import {GenericProvider} from "../store/context/GenericContext";
 import {SortOrder} from 'react-base-table';
 
 const GenericPageRestApiWrapper = ({children, apiPath}) => {
-    const INIT_LIMIT = 10;
+    const INIT_LIMIT = 20;
     const [limit, setLimit] = useState(INIT_LIMIT);
     //const [page, setPage] = useState(1);
     const [offset, setOffset] = useState(0);

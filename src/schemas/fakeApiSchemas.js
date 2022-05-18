@@ -67,7 +67,8 @@ const usersSchema1 = {
                     "type": "integer"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "ФИО"
                 },
                 "username": {
                     "type": "string"
@@ -127,7 +128,7 @@ const usersSchema1 = {
                 "suite",
                 "zipcode"
             ],
-            "title": "Address"
+            "title": "Адрес"
         },
         "Geo": {
             "type": "object",

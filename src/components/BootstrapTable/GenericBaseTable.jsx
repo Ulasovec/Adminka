@@ -27,18 +27,31 @@ const GenericBaseTable = ({
     const rootProperties = dereferenceSchema(schema, schema).properties;
     console.log('rootProperties: ', JSON.stringify(rootProperties));
 
-    const columns = Object.entries(rootProperties).map(([propKey, propValue], index) => (
-        {
-            key: propKey,
-            title: propValue.title ?? propKey,
-            dataKey: propKey,
-            width: 0,
-            flexGrow: 1,
-            resizable: true,
-            sortable: true,
-            style: {whiteSpace: 'normal'}
-        }
-    ));
+    const columns = Object.entries(rootProperties).map(([propKey, propValue], index) => {
+        const subSchema = dereferenceSchema(propValue, schema);
+        return (
+            {
+                key: propKey,
+                title: subSchema.title ?? propKey,
+                dataKey: propKey,
+                schemaType: subSchema.type,
+                schemaFormat: subSchema.format,
+                width: 0,
+                minWidth: 100,
+                flexGrow: 1,
+                resizable: true,
+                sortable: true,
+                dataGetter: ({column, rowData}) => (
+                    typeof rowData[column.dataKey] === 'boolean'
+                        ? rowData[column.dataKey] ? '✓' : ''
+                        : typeof rowData[column.dataKey] === 'object'
+                            ? JSON.stringify(rowData[column.dataKey])
+                            : rowData[column.dataKey]
+                ),
+                /*style: {whiteSpace: 'normal'}*/
+            }
+        )
+    });
 
     console.log('Columns: ', JSON.stringify(columns))
     console.log('SortBy', JSON.stringify(sortBy))
@@ -77,10 +90,15 @@ const GenericBaseTable = ({
                         columns={columns}
                         data={dataList}
                         sortBy={sortBy}
-                        onColumnSort={sortBy => {tableRef.current.scrollToTop(0); handleSortBy(sortBy);}}
+                        onColumnSort={sortBy => {
+                            tableRef.current.scrollToTop(0);
+                            handleSortBy(sortBy);
+                        }}
                         rowEventHandlers={rowEventHandlers}
-                        onEndReachedThreshold={5}
-                        onEndReached={({ distanceFromEnd }) => handleLimit(oldLimit => oldLimit + 10)}
+                        onEndReachedThreshold={20}
+                        onEndReached={({distanceFromEnd}) => handleLimit(oldLimit => oldLimit + 20)}
+                        /*estimatedRowHeight={200}
+                        rowHeight={50}*/
                     />
                 )}
             </AutoResizer>
