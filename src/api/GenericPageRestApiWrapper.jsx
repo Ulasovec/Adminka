@@ -38,7 +38,8 @@ const GenericPageRestApiWrapper = ({children, apiPath}) => {
 
     function handleSortBy(sortBy) {
         setSortBy(sortBy);
-        //setLimit(INIT_LIMIT);
+        console.log('HandleSortBy in wrapper');
+        setLimit(INIT_LIMIT);
     }
 
     function handleLimit(limit) {

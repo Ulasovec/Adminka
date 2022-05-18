@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useRef} from 'react';
 import {Table} from "react-bootstrap";
 import BaseTable, {AutoResizer, Column} from "react-base-table";
 import 'react-base-table/styles.css';
@@ -15,6 +15,8 @@ const GenericBaseTable = ({
                           }) => {
 
     // Допущение - корневая структура является объектом!
+
+    const tableRef = useRef(null);
 
     function dereferenceSchema(subSchema, rootSchema) {
         return subSchema['$ref']
@@ -33,7 +35,8 @@ const GenericBaseTable = ({
             width: 0,
             flexGrow: 1,
             resizable: true,
-            sortable: true
+            sortable: true,
+            style: {whiteSpace: 'normal'}
         }
     ));
 
@@ -68,12 +71,13 @@ const GenericBaseTable = ({
             <AutoResizer>
                 {({width, height}) => (
                     <BaseTable
+                        ref={tableRef}
                         width={width}
                         height={height}
                         columns={columns}
                         data={dataList}
                         sortBy={sortBy}
-                        onColumnSort={handleSortBy}
+                        onColumnSort={sortBy => {tableRef.current.scrollToTop(0); handleSortBy(sortBy);}}
                         rowEventHandlers={rowEventHandlers}
                         onEndReachedThreshold={5}
                         onEndReached={({ distanceFromEnd }) => handleLimit(oldLimit => oldLimit + 10)}
