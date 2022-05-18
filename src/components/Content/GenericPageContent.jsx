@@ -4,24 +4,29 @@ import GenericTable from "../BootstrapTable/GenericTable";
 import GenericModalForm from "../BootstrapForm/GenericModalForm";
 import {useGenericContext} from "../../store/context/GenericContext";
 import GenericBaseTable from "../BootstrapTable/GenericBaseTable";
+import {useSortedAndFilteredList} from "../../hooks/SortedFilter/SortFilter";
 
 const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
+
+    const [localSortBy, setLocalSortBy] = useState({ key: 'id', order: 'asc' });
+    const [queryString, setQueryString] = useState('');
+    const [dataList, setDataList] = useState(dataArray);
+    const sortedAndFilteredList = useSortedAndFilteredList(dataList, localSortBy.key, queryString, localSortBy.order);
+
     const context = useGenericContext();
     const {
-        queryFindData,
-        handleCreate,
-        handleUpdate,
-        handleDelete,
-        sortBy,
-        handleSortBy,
-        handleLimit,
-        handleQuery
-    } = context ?? { handleSortBy: f => f, handleLimit: f => f, handleQuery: f => f };
+        queryFindData = sortedAndFilteredList,
+        handleCreate = addToDataArray,
+        handleUpdate = updateDataArray,
+        handleDelete = deleteFromDataArray,
+        sortBy = localSortBy,
+        handleSortBy = setLocalSortBy,
+        handleLimit = f => f,
+        handleQuery = setQueryString
+    } = context ?? {};
 
-    const [dataList, setDataList] = useState(dataArray);
     const [show, setShow] = useState(false);
     const [markedItem, setMarkedItem] = useState(undefined);
-    //const [sortBy, setSortBy] = useState({ key: 'column-0', order: SortOrder.ASC });
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -41,36 +46,45 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
     }
 
     function handleSubmit(updatedItem) {
-        if (markedItem) { //update
+        markedItem ? handleUpdate(updatedItem) : handleCreate(updatedItem);
+        /*if (markedItem) { //update
             context ? handleUpdate(updatedItem) : setDataList(dataList.map(item => item === markedItem ? updatedItem : item));
         } else { //add
             context ? handleCreate(updatedItem) : setDataList([updatedItem, ...dataList]);
-        }
+        }*/
         context ? setMarkedItem(queryFindData.find(item => item.id === updatedItem.id)) : setMarkedItem(updatedItem);
         handleClose();
     }
 
     function handleDeleteButton() {
-        context ? handleDelete(markedItem) : setDataList(dataList.filter(item => item !== markedItem));
+        handleDelete(markedItem);
+        /*context ? handleDelete(markedItem) : setDataList(dataList.filter(item => item !== markedItem));*/
         handleClose();
         setMarkedItem(undefined);
     }
 
+    //----- Local data array functions
+    function updateDataArray(updatedItem) {
+        setDataList(dataList.map(item => item === markedItem ? updatedItem : item));
+    }
+
+    function addToDataArray(itemToAdd) {
+        setDataList([itemToAdd, ...dataList]);
+    }
+
+    function deleteFromDataArray(itemToDelete) {
+        setDataList(dataList.filter(item => item !== itemToDelete));
+    }
+
     return (
         <div>
-            {/*<Form onSubmit={e => e.preventDefault()}>
-                <Form.Group className="mb-3" controlId="formSearch">
-                    <Form.Label>Search</Form.Label>*/}
-                    <Form.Control type="text" placeholder="Enter search text..."
-                                  onChange={e => handleQuery(e.target.value)}/>
-                    {/*<Form.Text className="text-muted">
-                        Type some filter words.
-                    </Form.Text>
-                </Form.Group>
-            </Form>*/}
+
+            <Form.Control type="text" placeholder="Enter search text..."
+                          onChange={e => handleQuery(e.target.value)}/>
+
             <GenericBaseTable
                 schema={schema}
-                dataList={context ? queryFindData : dataList}
+                dataList={queryFindData}
                 markedItem={markedItem}
                 sortBy={sortBy}
                 handleSortBy={handleSortBy}
