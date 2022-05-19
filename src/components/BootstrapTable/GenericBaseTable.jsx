@@ -1,6 +1,5 @@
-import React, {useMemo, useRef} from 'react';
-import {Table} from "react-bootstrap";
-import BaseTable, {AutoResizer, Column} from "react-base-table";
+import React, {useRef} from 'react';
+import BaseTable, {AutoResizer} from "react-base-table";
 import 'react-base-table/styles.css';
 
 const GenericBaseTable = ({
@@ -14,7 +13,7 @@ const GenericBaseTable = ({
                               handleRowDoubleClick
                           }) => {
 
-    // Допущение - корневая структура является объектом!
+    // Допущение - корневая структура схемы является объектом (object)! Не примитивный тип и не массив (array)!
 
     const tableRef = useRef(null);
 
@@ -25,7 +24,6 @@ const GenericBaseTable = ({
     }
 
     const rootProperties = dereferenceSchema(schema, schema).properties;
-    console.log('rootProperties: ', JSON.stringify(rootProperties));
 
     const columns = Object.entries(rootProperties).map(([propKey, propValue], index) => {
         const subSchema = dereferenceSchema(propValue, schema);
@@ -48,38 +46,16 @@ const GenericBaseTable = ({
                             ? JSON.stringify(rowData[column.dataKey])
                             : rowData[column.dataKey]
                 ),
-                /*style: {whiteSpace: 'normal'}*/
             }
         )
     });
 
-    console.log('Columns: ', JSON.stringify(columns))
-    console.log('SortBy', JSON.stringify(sortBy))
-
     const rowEventHandlers = {
         onClick: ({rowData, rowIndex, rowKey, event}) => handleRowClick(rowData),
         onDoubleClick: ({rowData, rowIndex, rowKey, event}) => handleRowDoubleClick(rowData),
-        /*onDoubleClick: action('double click'),
-        onContextMenu: action('context menu'),
-        onMouseEnter: action('mouse enter'),
-        onMouseLeave: action('mouse leave'),*/
     }
 
     return (
-
-        /*<BaseTable width={700} height={400}
-                   columns={columns}
-                   data={dataList}
-                   sortBy={sortBy}
-                   onColumnSort={onColumnSort}
-        />*/
-
-        /*<BaseTable width={700} height={400} data={dataList}>
-            {columns.map((column, index) => (
-                <Column key={index} {...column} />
-            ))}
-        </BaseTable>*/
-
         <div style={{height: 400}}>
             <AutoResizer>
                 {({width, height}) => (
@@ -103,44 +79,7 @@ const GenericBaseTable = ({
                 )}
             </AutoResizer>
         </div>
-
-
-
-        /*<Table responsive striped bordered hover>
-            <thead>
-            <tr>
-                <th>#</th>
-                {Object.entries(rootProperties).map(([propKey, propValue], index) => (
-                    <th key={index}>{propValue.title ?? propKey}</th>
-                ))}
-            </tr>
-            </thead>
-            <tbody>
-            {dataList.map((rowItem, index) => (
-                <tr key={index}
-                    onDoubleClick={() => handleRowDoubleClick(rowItem)}
-                    onClick={() => handleRowClick(rowItem)}
-                    style={rowItem === markedItem ? {backgroundColor: 'lightBlue'} : null}
-                >
-                    <td>{index + 1}</td>
-                    {Object.entries(rootProperties).map(([propKey, propValue], index) => {
-                        const subSchema = dereferenceSchema(propValue, schema);
-                        return (
-                            <td key={index}>{
-                                subSchema.type === 'boolean' && rowItem[propKey]
-                                    ? '✓'
-                                    : subSchema.type === 'object' || subSchema.type === 'array'
-                                        ? JSON.stringify(rowItem[propKey])
-                                        : rowItem[propKey]
-                            }</td>
-                        )
-                    })}
-                </tr>
-            ))}
-            </tbody>
-        </Table>*/
-    )
-        ;
+    );
 };
 
 export default GenericBaseTable;

@@ -4,17 +4,13 @@ import {
     useMutationGenericPublicUpdate,
     useQueryGenericPublicFind
 } from "../hooks/fetch/useQueryGenericPublic";
-import GenericPageContent from "../components/Content/GenericPageContent";
 import {GenericProvider} from "../store/context/GenericContext";
-import {SortOrder} from 'react-base-table';
 
 const GenericPageRestApiWrapper = ({children, apiPath}) => {
     const INIT_LIMIT = 20;
     const [limit, setLimit] = useState(INIT_LIMIT);
-    //const [page, setPage] = useState(1);
     const [offset, setOffset] = useState(0);
     const [sortBy, setSortBy] = useState({key: 'id', order: 'asc'});
-    //const [sortOrder, setSortOrder] = useState('asc');
     const [queryString, setQueryString] = useState('');
 
     const queryParams = {offset, limit, sort: sortBy.key, order: sortBy.order, query: queryString};
@@ -38,7 +34,6 @@ const GenericPageRestApiWrapper = ({children, apiPath}) => {
 
     function handleSortBy(sortBy) {
         setSortBy(sortBy);
-        console.log('HandleSortBy in wrapper');
         setLimit(INIT_LIMIT);
     }
 
@@ -48,6 +43,7 @@ const GenericPageRestApiWrapper = ({children, apiPath}) => {
 
     function handleQuery(query) {
         setQueryString(query)
+        setLimit(INIT_LIMIT);
     }
 
     return (
@@ -63,14 +59,6 @@ const GenericPageRestApiWrapper = ({children, apiPath}) => {
         }}>
             {children}
         </GenericProvider>
-        /*<GenericPageContent
-            dataArray={queryFind.data ?? []}
-            schema={schema}
-            uiSchema={uiSchema}
-            handleCreate={handleCreate}
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
-        />*/
     );
 };
 

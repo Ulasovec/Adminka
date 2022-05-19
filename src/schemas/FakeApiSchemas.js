@@ -1,3 +1,8 @@
+/**
+ * Json-schemas для данных Fake API - https://jsonplaceholder.typicode.com/
+ */
+
+// Todos
 const todosSchema = {
     title: "Todo",
     type: "object",
@@ -13,8 +18,7 @@ const todosSchema = {
 const todosUiSchema = {
 };
 
-//------------------------
-
+// Users - дереференсный вариант
 const usersSchema = {
     title: "User",
     type: "object",
@@ -56,6 +60,7 @@ const usersSchema = {
     },
 };
 
+// Users - вариант со ссылками, начиная с самого корня
 const usersSchema1 = {
     "$ref": "#/definitions/User",
     "definitions": {
@@ -64,23 +69,27 @@ const usersSchema1 = {
             "additionalProperties": false,
             "properties": {
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "ID"
                 },
                 "name": {
                     "type": "string",
                     "title": "ФИО"
                 },
                 "username": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "Nickname"
                 },
                 "email": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "email"
                 },
                 "address": {
                     "$ref": "#/definitions/Address"
                 },
                 "phone": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "Телефон"
                 },
                 "website": {
                     "type": "string"
@@ -90,16 +99,11 @@ const usersSchema1 = {
                 }
             },
             "required": [
-                "address",
-                "company",
-                "email",
-                "id",
                 "name",
-                "phone",
                 "username",
-                "website"
+                "email"
             ],
-            "title": "Welcome4"
+            "title": "Пользователь"
         },
         "Address": {
             "type": "object",
@@ -122,11 +126,7 @@ const usersSchema1 = {
                 }
             },
             "required": [
-                "city",
-                "geo",
-                "street",
-                "suite",
-                "zipcode"
+                "city"
             ],
             "title": "Адрес"
         },
@@ -142,8 +142,6 @@ const usersSchema1 = {
                 }
             },
             "required": [
-                "lat",
-                "lng"
             ],
             "title": "Geo"
         },
@@ -162,15 +160,13 @@ const usersSchema1 = {
                 }
             },
             "required": [
-                "bs",
-                "catchPhrase",
-                "name"
             ],
             "title": "Company"
         }
     }
 }
 
+// Users - вариант, где только корень дереференсный
 const usersSchema2 = {
     "type": "object",
     "title": "Users",
@@ -323,7 +319,11 @@ const usersSchema2 = {
     }
 }
 
-const usersSchema3 = {
+const usersUiSchema = {
+};
+
+// -----------------------------------------------------
+const addressCardsSchema = {
     "definitions": {
         "address": {
             "type": "object",
@@ -336,13 +336,11 @@ const usersSchema3 = {
         }
     },
     "type": "object",
+    "title": "AddressCard",
     "properties": {
         "billing_address": { "$ref": "#/definitions/address" },
         "shipping_address": { "$ref": "#/definitions/address" }
     }
 };
 
-const usersUiSchema = {
-};
-
-export {todosSchema, todosUiSchema, usersSchema, usersSchema1, usersSchema2, usersSchema3, usersUiSchema}
+export {todosSchema, todosUiSchema, usersSchema, usersSchema1, usersSchema2, usersUiSchema, addressCardsSchema}

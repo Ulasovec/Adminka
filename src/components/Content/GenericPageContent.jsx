@@ -47,23 +47,18 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
 
     function handleSubmit(updatedItem) {
         markedItem ? handleUpdate(updatedItem) : handleCreate(updatedItem);
-        /*if (markedItem) { //update
-            context ? handleUpdate(updatedItem) : setDataList(dataList.map(item => item === markedItem ? updatedItem : item));
-        } else { //add
-            context ? handleCreate(updatedItem) : setDataList([updatedItem, ...dataList]);
-        }*/
+        // Далее строка для пометки измененной или добавленной строки. Не обязательна для логики.
         context ? setMarkedItem(queryFindData.find(item => item.id === updatedItem.id)) : setMarkedItem(updatedItem);
         handleClose();
     }
 
     function handleDeleteButton() {
         handleDelete(markedItem);
-        /*context ? handleDelete(markedItem) : setDataList(dataList.filter(item => item !== markedItem));*/
         handleClose();
         setMarkedItem(undefined);
     }
 
-    //----- Local data array functions
+    //----- Функции CRUD для локального массива (вариант без API)
     function updateDataArray(updatedItem) {
         setDataList(dataList.map(item => item === markedItem ? updatedItem : item));
     }
