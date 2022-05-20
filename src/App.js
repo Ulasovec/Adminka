@@ -16,6 +16,8 @@ import ApplicationsPage from "./pages/ApplicationsPage";
 import {Container} from "react-bootstrap";
 import {Toaster} from "react-hot-toast";
 import GenericPage from "./pages/GenericPage";
+import ModelsPage from "./pages/ModelsPage";
+import ModelPage from "./pages/ModelPage";
 
 
 const queryClient = new QueryClient();
@@ -44,11 +46,14 @@ function App() {
                             <Route path="/roles" element={<RolesPage/>}/>
                             <Route path="/users/:id" element={<UsersRolesPage/>}/>
                             <Route path="/applications" element={<ApplicationsPage/>}/>
-                            <Route path="/users-roles" element={<Container>Users-Roles</Container>}/>
-                            <Route path="/tables" element={<Container>Table List</Container>}/>
-                            <Route path="/models" element={<Container>Model List</Container>}/>
-                            <Route path="/directories" element={<Container>Data Tree</Container>}/>
-                            <Route path="/logic" element={<Container>Calculator List</Container>}/>
+                            <Route path="/users-roles" element={<h1>Users-Roles</h1>}/>
+                            <Route path="/tables" element={<h1>Table List</h1>}/>
+                            <Route path="/models" element={<ModelsPage/>}>
+                                <Route path=":modelName" element={<ModelPage/>}/>
+                                <Route index element={<div>Choose any model, please.</div>}/>
+                            </Route>
+                            <Route path="/directories" element={<h1>Data Tree</h1>}/>
+                            <Route path="/logic" element={<h1>Calculator List</h1>}/>
                             <Route path="/about" element={<GenericPage/>}/>
                         </Route>
                     </Routes>

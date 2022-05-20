@@ -15,8 +15,7 @@ const todosSchema = {
     }
 };
 
-const todosUiSchema = {
-};
+const todosUiSchema = {};
 
 // Users - дереференсный вариант
 const usersSchema = {
@@ -141,8 +140,7 @@ const usersSchema1 = {
                     "type": "string"
                 }
             },
-            "required": [
-            ],
+            "required": [],
             "title": "Geo"
         },
         "Company": {
@@ -159,8 +157,7 @@ const usersSchema1 = {
                     "type": "string"
                 }
             },
-            "required": [
-            ],
+            "required": [],
             "title": "Company"
         }
     }
@@ -319,8 +316,7 @@ const usersSchema2 = {
     }
 }
 
-const usersUiSchema = {
-};
+const usersUiSchema = {};
 
 // -----------------------------------------------------
 const addressCardsSchema = {
@@ -328,9 +324,9 @@ const addressCardsSchema = {
         "address": {
             "type": "object",
             "properties": {
-                "street_address": { "type": "string" },
-                "city":           { "type": "string" },
-                "state":          { "type": "string" }
+                "street_address": {"type": "string"},
+                "city": {"type": "string"},
+                "state": {"type": "string"}
             },
             "required": ["street_address", "city", "state"]
         }
@@ -338,9 +334,33 @@ const addressCardsSchema = {
     "type": "object",
     "title": "AddressCard",
     "properties": {
-        "billing_address": { "$ref": "#/definitions/address" },
-        "shipping_address": { "$ref": "#/definitions/address" }
+        "billing_address": {"$ref": "#/definitions/address"},
+        "shipping_address": {"$ref": "#/definitions/address"}
     }
 };
 
-export {todosSchema, todosUiSchema, usersSchema, usersSchema1, usersSchema2, usersUiSchema, addressCardsSchema}
+//---------------------------------------
+function getSchema(name) {
+    if (name === 'todos') return todosSchema
+    else if (name === 'users') return usersSchema1
+    else return undefined;
+}
+
+function getUiSchema(name) {
+    if (name === 'todos') return todosUiSchema
+    else if (name === 'users') return usersUiSchema
+    else return {};
+}
+
+
+export {
+    todosSchema,
+    todosUiSchema,
+    usersSchema,
+    usersSchema1,
+    usersSchema2,
+    usersUiSchema,
+    addressCardsSchema,
+    getSchema,
+    getUiSchema
+}
