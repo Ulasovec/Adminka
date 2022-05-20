@@ -12,7 +12,8 @@ const ModelsPage = () => {
                 }}
             >
                 <Link to="todos">Todos</Link> |{" "}
-                <Link to="users">Users</Link>
+                <Link to="users">Users</Link> |{" "}
+                <Link to="posts">Posts</Link>
             </nav>
             <Outlet/>
         </div>

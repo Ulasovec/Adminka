@@ -318,6 +318,40 @@ const usersSchema2 = {
 
 const usersUiSchema = {};
 
+//------------------------------------------------------
+const postsSchema = {
+    "$ref": "#/definitions/Posts",
+    "definitions": {
+        "Posts": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "userId": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "body",
+                "id",
+                "title",
+                "userId"
+            ],
+            "title": "Posts"
+        }
+    }
+}
+
+const postsUiSchema = {};
+
 // -----------------------------------------------------
 const addressCardsSchema = {
     "definitions": {
@@ -343,12 +377,14 @@ const addressCardsSchema = {
 function getSchema(name) {
     if (name === 'todos') return todosSchema
     else if (name === 'users') return usersSchema1
+    else if (name === 'posts') return postsSchema
     else return undefined;
 }
 
 function getUiSchema(name) {
     if (name === 'todos') return todosUiSchema
     else if (name === 'users') return usersUiSchema
+    else if (name === 'posts') return postsUiSchema
     else return {};
 }
 
@@ -360,6 +396,8 @@ export {
     usersSchema1,
     usersSchema2,
     usersUiSchema,
+    postsSchema,
+    postsUiSchema,
     addressCardsSchema,
     getSchema,
     getUiSchema

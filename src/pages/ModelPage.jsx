@@ -9,7 +9,7 @@ const ModelPage = () => {
     const schema = getSchema(modelName);
     const uiSchema = getUiSchema(modelName);
 
-    if(!schema) return <div>Sorry... Model <strong>{modelName}</strong> is unavailable!</div>
+    if (!schema) return <div>Sorry... Model <strong>{modelName}</strong> is unavailable!</div>
 
     return (
         <div>
