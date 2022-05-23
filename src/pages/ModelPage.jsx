@@ -4,7 +4,7 @@ import GenericPageContent from "../components/Content/GenericPageContent";
 import {getSchema, getUiSchema, todosSchema, todosUiSchema} from "../schemas/FakeApiSchemas";
 import GenericPageRestApiWrapper from "../api/GenericPageRestApiWrapper";
 
-const ModelPage = () => {
+const ModelPage = ({title = "Model"}) => {
     const {modelName} = useParams();
     const schema = getSchema(modelName);
     const uiSchema = getUiSchema(modelName);
@@ -13,7 +13,7 @@ const ModelPage = () => {
 
     return (
         <div>
-            <h2 style={{padding: "10px 0"}}>Model name: <strong>{modelName}</strong></h2>
+            <h2 style={{padding: "10px 0"}}>{title} name: <strong>{modelName}</strong></h2>
 
             <GenericPageRestApiWrapper apiPath={modelName}>
                 <GenericPageContent

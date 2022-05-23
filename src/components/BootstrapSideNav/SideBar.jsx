@@ -68,16 +68,21 @@ const SideBar = ({expanded,setExpanded}) => {
                         </NavText>
                     </NavItem>
                 </NavItem>
-                <NavItem eventKey="tables ">
+                <NavItem eventKey="content">
                     <NavIcon>
                         <BsCollectionFill style={{ fontSize: '1.75em' }} />
                     </NavIcon>
                     <NavText>
                         Content Manager
                     </NavText>
-                    <NavItem eventKey="tables">
+                    <NavItem eventKey="content/collections">
                         <NavText>
-                            Table List
+                            Collections
+                        </NavText>
+                    </NavItem>
+                    <NavItem eventKey="content/singles">
+                        <NavText>
+                            Singles
                         </NavText>
                     </NavItem>
                 </NavItem>

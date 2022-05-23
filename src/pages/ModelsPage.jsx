@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link, Outlet} from "react-router-dom";
 
-const ModelsPage = () => {
+const ModelsPage = ({title = "Models"}) => {
     return (
         <div>
-            <h1>Models</h1>
+            <h1>{title}</h1>
             <nav
                 style={{
                     borderBottom: "solid 1px",

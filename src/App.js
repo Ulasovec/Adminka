@@ -48,6 +48,18 @@ function App() {
                             <Route path="/applications" element={<ApplicationsPage/>}/>
                             <Route path="/users-roles" element={<h1>Users-Roles</h1>}/>
                             <Route path="/tables" element={<h1>Table List</h1>}/>
+
+                            <Route path="/content/collections" element={<ModelsPage title="Collections"/>}>
+                                <Route path=":modelName" element={<ModelPage title="Collection"/>}/>
+                                <Route path=":modelName/:id" element={<h1>Content - CollectionName - id</h1>}/>
+                                <Route index element={<div>Choose any collection, please.</div>}/>
+                            </Route>
+                            <Route path="/content/singles" element={<ModelsPage title="Singles"/>}>
+                                <Route path=":modelName" element={<ModelPage title="Single"/>}/>
+                                <Route path=":modelName/:id" element={<h1>Content - SingleName - id</h1>}/>
+                                <Route index element={<div>Choose any single, please.</div>}/>
+                            </Route>
+
                             <Route path="/models" element={<ModelsPage/>}>
                                 <Route path=":modelName" element={<ModelPage/>}/>
                                 <Route index element={<div>Choose any model, please.</div>}/>
