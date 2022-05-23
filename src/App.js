@@ -18,6 +18,7 @@ import {Toaster} from "react-hot-toast";
 import GenericPage from "./pages/GenericPage";
 import ModelsPage from "./pages/ModelsPage";
 import ModelPage from "./pages/ModelPage";
+import CollectionIdPage from "./pages/CollectionIdPage";
 
 
 const queryClient = new QueryClient();
@@ -51,12 +52,11 @@ function App() {
 
                             <Route path="/content/collections" element={<ModelsPage title="Collections"/>}>
                                 <Route path=":modelName" element={<ModelPage title="Collection"/>}/>
-                                <Route path=":modelName/:id" element={<h1>Content - CollectionName - id</h1>}/>
+                                <Route path=":modelName/:id" element={<CollectionIdPage/>}/>
                                 <Route index element={<div>Choose any collection, please.</div>}/>
                             </Route>
                             <Route path="/content/singles" element={<ModelsPage title="Singles"/>}>
                                 <Route path=":modelName" element={<ModelPage title="Single"/>}/>
-                                <Route path=":modelName/:id" element={<h1>Content - SingleName - id</h1>}/>
                                 <Route index element={<div>Choose any single, please.</div>}/>
                             </Route>
 

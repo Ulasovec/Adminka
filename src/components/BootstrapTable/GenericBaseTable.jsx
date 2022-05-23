@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
 import BaseTable, {AutoResizer} from "react-base-table";
 import 'react-base-table/styles.css';
+import {Link} from "react-router-dom";
 
 const GenericBaseTable = ({
                               schema,
@@ -40,11 +41,13 @@ const GenericBaseTable = ({
                 resizable: true,
                 sortable: true,
                 dataGetter: ({column, rowData}) => (
-                    typeof rowData[column.dataKey] === 'boolean'
-                        ? rowData[column.dataKey] ? '✓' : ''
-                        : typeof rowData[column.dataKey] === 'object'
-                            ? JSON.stringify(rowData[column.dataKey])
-                            : rowData[column.dataKey]
+                    column.dataKey === 'id'
+                        ? <Link to={`./${rowData[column.dataKey]}`}><strong>{rowData[column.dataKey]}</strong></Link>
+                        : typeof rowData[column.dataKey] === 'boolean'
+                            ? rowData[column.dataKey] ? '✓' : ''
+                            : typeof rowData[column.dataKey] === 'object'
+                                ? JSON.stringify(rowData[column.dataKey])
+                                : rowData[column.dataKey]
                 ),
             }
         )
