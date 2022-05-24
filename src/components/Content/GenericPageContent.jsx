@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Form} from "react-bootstrap";
 import GenericTable from "../BootstrapTable/GenericTable";
 import GenericModalForm from "../BootstrapForm/GenericModalForm";
@@ -27,6 +27,13 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
         handleLimit = f => f,
         handleQuery = setQueryString
     } = context ?? {};
+
+    useEffect(() => {
+        const {filter, sortby, order} = Object.fromEntries([...searchParams]);
+        //const {filter, sortby, sort} = searchParams.get("filter");
+        if (filter) handleQuery(filter);
+        if (sortby) handleSortBy({key: sortby, order: order ? order : 'asc'});
+    }, [searchParams])
 
     const [show, setShow] = useState(false);
     const [markedItem, setMarkedItem] = useState(undefined);
@@ -61,6 +68,12 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
         setMarkedItem(undefined);
     }
 
+    function interceptorHandleSortBy(sortBy) {
+        const oldParams = Object.fromEntries([...searchParams]);
+        setSearchParams({...oldParams, sortby: sortBy.key, order: sortBy.order});
+        //handleSortBy(sortBy); //далее useEffect срабатывает
+    }
+
     //----- Функции CRUD для локального массива (вариант без API)
     function updateDataArray(updatedItem) {
         setDataList(dataList.map(item => item === markedItem ? updatedItem : item));
@@ -82,8 +95,11 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
                           /*onChange={e => handleQuery(e.target.value)}*/
                           onChange={(event) => {
                               const filter = event.target.value;
-                              setSearchParams(filter ? { filter } : {});
-                              handleQuery(filter);
+                              const {filter: oldFilter, ...otherOldParams} = Object.fromEntries([...searchParams]);
+                              if (filter) setSearchParams({...otherOldParams, filter});
+                              else setSearchParams(otherOldParams);
+                              console.log(otherOldParams)
+                              //handleQuery(filter); //далее useEffect срабатывает
                           }}
             />
 
@@ -92,7 +108,7 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
                 dataList={queryFindData}
                 markedItem={markedItem}
                 sortBy={sortBy}
-                handleSortBy={handleSortBy}
+                handleSortBy={interceptorHandleSortBy}
                 handleLimit={handleLimit}
                 handleRowClick={handleRowClick}
                 handleRowDoubleClick={handleRowDoubleClick}
