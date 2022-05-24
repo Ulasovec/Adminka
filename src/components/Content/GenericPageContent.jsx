@@ -5,8 +5,11 @@ import GenericModalForm from "../BootstrapForm/GenericModalForm";
 import {useGenericContext} from "../../store/context/GenericContext";
 import GenericBaseTable from "../BootstrapTable/GenericBaseTable";
 import {useSortedAndFilteredList} from "../../hooks/SortedFilter/SortFilter";
+import {useSearchParams} from "react-router-dom";
 
 const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const [localSortBy, setLocalSortBy] = useState({ key: 'id', order: 'asc' });
     const [queryString, setQueryString] = useState('');
@@ -75,7 +78,14 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
         <div>
 
             <Form.Control type="text" placeholder="Enter search text..."
-                          onChange={e => handleQuery(e.target.value)}/>
+                          value={searchParams.get("filter") || ""}
+                          /*onChange={e => handleQuery(e.target.value)}*/
+                          onChange={(event) => {
+                              const filter = event.target.value;
+                              setSearchParams(filter ? { filter } : {});
+                              handleQuery(filter);
+                          }}
+            />
 
             <GenericBaseTable
                 schema={schema}
