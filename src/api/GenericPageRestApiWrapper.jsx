@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     useMutationGenericPublicCreate, useMutationGenericPublicDelete,
     useMutationGenericPublicUpdate,
@@ -19,6 +19,11 @@ const GenericPageRestApiWrapper = ({children, apiPath}) => {
     const mutationCreate = useMutationGenericPublicCreate(apiPath, queryParams);
     const mutationUpdate = useMutationGenericPublicUpdate(apiPath, queryParams);
     const mutationDelete = useMutationGenericPublicDelete(apiPath, queryParams);
+
+    /*useEffect(() => {
+        //setLimit(INIT_LIMIT);
+        //setSortBy({key: 'id', order: 'asc'});
+    }, [apiPath])*/
 
     function handleCreate(body) {
         mutationCreate.mutate(body);

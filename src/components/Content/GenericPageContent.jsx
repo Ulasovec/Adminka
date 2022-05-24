@@ -31,8 +31,8 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
     useEffect(() => {
         const {filter, sortby, order} = Object.fromEntries([...searchParams]);
         //const {filter, sortby, sort} = searchParams.get("filter");
-        if (filter) handleQuery(filter);
-        if (sortby) handleSortBy({key: sortby, order: order ? order : 'asc'});
+        handleQuery(filter ?? '');
+        handleSortBy({key: sortby ? sortby : 'id', order: order ? order : 'asc'});
     }, [searchParams])
 
     const [show, setShow] = useState(false);
@@ -98,7 +98,6 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
                               const {filter: oldFilter, ...otherOldParams} = Object.fromEntries([...searchParams]);
                               if (filter) setSearchParams({...otherOldParams, filter});
                               else setSearchParams(otherOldParams);
-                              console.log(otherOldParams)
                               //handleQuery(filter); //далее useEffect срабатывает
                           }}
             />
