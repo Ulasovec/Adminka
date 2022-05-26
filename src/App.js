@@ -19,6 +19,10 @@ import GenericPage from "./pages/GenericPage";
 import ModelsPage from "./pages/ModelsPage";
 import ModelPage from "./pages/ModelPage";
 import CollectionIdPage from "./pages/CollectionIdPage";
+import ContentsSinglesPage from "./pages/ContentsSinglesPage";
+import ContentsSinglePage from "./pages/ContentsSinglePage";
+import ContentsCollectionsPage from "./pages/ContentsCollectionsPage";
+import ContentsCollectionPage from "./pages/ContentsCollectionPage";
 
 
 const queryClient = new QueryClient();
@@ -50,18 +54,26 @@ function App() {
                             <Route path="/users-roles" element={<h1>Users-Roles</h1>}/>
                             <Route path="/tables" element={<h1>Table List</h1>}/>
 
-                            <Route path="/content/collections" element={<ModelsPage title="Collections"/>}>
-                                <Route path=":modelName" element={<ModelPage title="Collection"/>}/>
+                            <Route path="/contents/collections" element={<ContentsCollectionsPage/>}>
+                                <Route path=":modelName" element={<ContentsCollectionPage/>}/>
                                 <Route path=":modelName/:id" element={<CollectionIdPage/>}/>
                                 <Route index element={<div>Choose any collection, please.</div>}/>
                             </Route>
-                            <Route path="/content/singles" element={<ModelsPage title="Singles"/>}>
-                                <Route path=":modelName" element={<ModelPage title="Single"/>}/>
+                            <Route path="/contents/singles" element={<ContentsSinglesPage/>}>
+                                <Route path=":modelName" element={<ContentsSinglePage/>}/>
                                 <Route index element={<div>Choose any single, please.</div>}/>
                             </Route>
 
-                            <Route path="/models" element={<ModelsPage/>}>
-                                <Route path=":modelName" element={<ModelPage/>}/>
+                            <Route path="/models/collections" element={<ModelsPage title="Collections"/>}>
+                                <Route path=":modelName" element={<ModelPage  title="Collection"/>}/>
+                                <Route index element={<div>Choose any model, please.</div>}/>
+                            </Route>
+                            <Route path="/models/singles" element={<ModelsPage title="Singles"/>}>
+                                <Route path=":modelName" element={<ModelPage title="Single"/>}/>
+                                <Route index element={<div>Choose any model, please.</div>}/>
+                            </Route>
+                            <Route path="/models/components" element={<ModelsPage title="Components"/>}>
+                                <Route path=":modelName" element={<ModelPage title="Component"/>}/>
                                 <Route index element={<div>Choose any model, please.</div>}/>
                             </Route>
                             <Route path="/directories" element={<h1>Data Tree</h1>}/>

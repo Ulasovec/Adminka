@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, NavLink, Outlet} from "react-router-dom";
 
-const ModelsPage = ({title = "Models"}) => {
+const ContentsCollectionsPage = () => {
 
     const setActiveStyle = ({isActive}) => {
         return {
@@ -11,7 +11,7 @@ const ModelsPage = ({title = "Models"}) => {
 
     return (
         <div>
-            <h1>Models - {title}</h1>
+            <h1>Contents - Collections</h1>
             <nav
                 style={{
                     borderBottom: "solid 1px",
@@ -27,4 +27,4 @@ const ModelsPage = ({title = "Models"}) => {
     );
 };
 
-export default ModelsPage;
+export default ContentsCollectionsPage;

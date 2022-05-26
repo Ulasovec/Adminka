@@ -69,4 +69,46 @@ const testDataArray1 = [
     },
 ];
 
-export { testSchema1, testUiSchema1, testDataArray1 }
+//---------------------------------------
+
+const homepageSchema = {
+    title: "Home Page",
+    type: "object",
+    required: ["title"],
+    properties: {
+        id: {type: "number", title: "Single ID"},
+        title: {type: "string", title: "Название", default: "Домашняя страница"},
+        description: {type: "string", title: "Описание", default: "Здесь описание страницы"},
+    }
+};
+
+const homepageUiSchema = {};
+
+const homepageData = {
+    id: 1,
+    title: "My Home Page",
+    description: "Here is description"
+}
+
+
+//---------------------------------------
+
+function getSingleSchema(name) {
+    if (name === 'homepage') return homepageSchema
+    else return undefined;
+}
+
+function getSingleUiSchema(name) {
+    if (name === 'homepage') return homepageUiSchema
+    else return {};
+}
+
+function getSingleData(name) {
+    if (name === 'homepage') return homepageData
+    else return undefined
+}
+
+export {
+    testSchema1, testUiSchema1, testDataArray1, homepageData,
+    getSingleSchema, getSingleUiSchema, getSingleData
+}

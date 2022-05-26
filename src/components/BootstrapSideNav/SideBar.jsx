@@ -68,34 +68,44 @@ const SideBar = ({expanded,setExpanded}) => {
                         </NavText>
                     </NavItem>
                 </NavItem>
-                <NavItem eventKey="content">
+                <NavItem eventKey="contents">
                     <NavIcon>
                         <BsCollectionFill style={{ fontSize: '1.75em' }} />
                     </NavIcon>
                     <NavText>
                         Content Manager
                     </NavText>
-                    <NavItem eventKey="content/collections">
+                    <NavItem eventKey="contents/collections">
                         <NavText>
                             Collections
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="content/singles">
+                    <NavItem eventKey="contents/singles">
                         <NavText>
                             Singles
                         </NavText>
                     </NavItem>
                 </NavItem>
-                <NavItem eventKey="models ">
+                <NavItem eventKey="models">
                     <NavIcon>
                         <BsColumns style={{ fontSize: '1.75em' }} />
                     </NavIcon>
                     <NavText>
                         Data Models
                     </NavText>
-                    <NavItem eventKey="models">
+                    <NavItem eventKey="models/collections">
                         <NavText>
-                            Model List
+                            Collections
+                        </NavText>
+                    </NavItem>
+                    <NavItem eventKey="models/singles">
+                        <NavText>
+                            Singles
+                        </NavText>
+                    </NavItem>
+                    <NavItem eventKey="models/components">
+                        <NavText>
+                            Components
                         </NavText>
                     </NavItem>
                 </NavItem>
