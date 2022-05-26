@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useImperativeHandle, useRef} from 'react';
 import BaseTable, {AutoResizer} from "react-base-table";
 import 'react-base-table/styles.css';
 import {Link} from "react-router-dom";
@@ -11,12 +11,22 @@ const GenericBaseTable = ({
                               handleLimit,
                               handleSortBy,
                               handleRowClick,
-                              handleRowDoubleClick
-                          }) => {
+                              handleRowDoubleClick,
+                              onScroll,
+                              onRowsRendered
+                          }, ref) => {
 
     // Допущение - корневая структура схемы является объектом (object)! Не примитивный тип и не массив (array)!
 
     const tableRef = useRef(null);
+    useImperativeHandle(ref, () => ({
+        scrollToTop: (pos) => {
+            if (tableRef.current) {
+                tableRef.current.scrollToTop(pos);
+                console.log("GenericBaseTable scrollTo Pos Num : ", pos);
+            }
+        }
+    }));
 
     function dereferenceSchema(subSchema, rootSchema) {
         return subSchema['$ref']
@@ -76,6 +86,8 @@ const GenericBaseTable = ({
                         rowEventHandlers={rowEventHandlers}
                         onEndReachedThreshold={20}
                         onEndReached={({distanceFromEnd}) => handleLimit(oldLimit => oldLimit + 20)}
+                        onScroll={onScroll}
+                        onRowsRendered={onRowsRendered}
                         /*estimatedRowHeight={200}
                         rowHeight={50}*/
                     />
@@ -85,4 +97,4 @@ const GenericBaseTable = ({
     );
 };
 
-export default GenericBaseTable;
+export default React.forwardRef(GenericBaseTable);

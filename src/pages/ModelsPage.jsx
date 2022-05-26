@@ -1,7 +1,14 @@
 import React from 'react';
-import {Link, Outlet} from "react-router-dom";
+import {Link, NavLink, Outlet} from "react-router-dom";
 
 const ModelsPage = ({title = "Models"}) => {
+
+    const setActiveStyle = ({isActive}) => {
+        return {
+            color: isActive ? "red" : "",
+        };
+    }
+
     return (
         <div>
             <h1>{title}</h1>
@@ -11,9 +18,9 @@ const ModelsPage = ({title = "Models"}) => {
                     paddingBottom: "1rem",
                 }}
             >
-                <Link to="todos">Todos</Link> |{" "}
-                <Link to="users">Users</Link> |{" "}
-                <Link to="posts">Posts</Link>
+                <NavLink style={setActiveStyle} to="todos">Todos</NavLink> |{" "}
+                <NavLink style={setActiveStyle} to="users">Users</NavLink> |{" "}
+                <NavLink style={setActiveStyle} to="posts">Posts</NavLink>
             </nav>
             <Outlet/>
         </div>

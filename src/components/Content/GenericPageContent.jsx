@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Button, Form} from "react-bootstrap";
 import GenericTable from "../BootstrapTable/GenericTable";
 import GenericModalForm from "../BootstrapForm/GenericModalForm";
@@ -10,8 +10,15 @@ import {useSearchParams} from "react-router-dom";
 const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
 
     const [searchParams, setSearchParams] = useSearchParams();
+    const searchParamsObj = Object.fromEntries([...searchParams]);
+    const {filter, sortby, order, scrollto} = searchParamsObj;
 
-    const [localSortBy, setLocalSortBy] = useState({ key: 'id', order: 'asc' });
+    const [initScrollToRow, setInitScrollToRow] = useState(undefined);
+
+    const tableRef = useRef(null);
+    const isTableRefAvailable = (tableRef.current !== undefined);
+
+    const [localSortBy, setLocalSortBy] = useState({key: 'id', order: 'asc'});
     const [queryString, setQueryString] = useState('');
     const [dataList, setDataList] = useState(dataArray);
     const sortedAndFilteredList = useSortedAndFilteredList(dataList, localSortBy.key, queryString, localSortBy.order);
@@ -29,11 +36,30 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
     } = context ?? {};
 
     useEffect(() => {
-        const {filter, sortby, order} = Object.fromEntries([...searchParams]);
+        //const {filter, sortby, order} = Object.fromEntries([...searchParams]);
         //const {filter, sortby, sort} = searchParams.get("filter");
         handleQuery(filter ?? '');
         handleSortBy({key: sortby ? sortby : 'id', order: order ? order : 'asc'});
-    }, [searchParams])
+    }, [filter, sortby, order]);
+
+    useEffect(() => {
+        if (scrollto) {
+            const initRow = Math.floor(scrollto / 50);
+            handleLimit(initRow + 20);
+            // You need to wait while isFetching...
+            setInitScrollToRow(initRow);
+            console.log("Init Scroll Row : ", initRow);
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log("init, data.length, current : ", initScrollToRow, queryFindData.length, tableRef.current);
+        if (initScrollToRow && queryFindData.length > initScrollToRow && tableRef.current) {
+            tableRef.current.scrollToTop(initScrollToRow * 50);
+            console.log("Scroll to : ", initScrollToRow);
+            setInitScrollToRow(undefined);
+        }
+    }, [initScrollToRow && queryFindData.length > initScrollToRow && isTableRefAvailable]);
 
     const [show, setShow] = useState(false);
     const [markedItem, setMarkedItem] = useState(undefined);
@@ -74,6 +100,21 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
         //handleSortBy(sortBy); //далее useEffect срабатывает
     }
 
+    function handleScroll({scrollTop}) {
+        //console.log('Scroll Top: ', scrollTop);
+        setSearchParams({...searchParamsObj, scrollto: scrollTop});
+    }
+
+    function handleOnTableRendered() {
+        /*console.log("init, data.length, current : ", initScrollToRow, queryFindData.length, tableRef.current);
+        if (initScrollToRow && queryFindData.length > initScrollToRow && tableRef.current) {
+            tableRef.current.scrollToTop(initScrollToRow * 50);
+            console.log("Scroll to : ", initScrollToRow);
+            setInitScrollToRow(undefined);
+        }*/
+        console.log("Table rendered once more");
+    }
+
     //----- Функции CRUD для локального массива (вариант без API)
     function updateDataArray(updatedItem) {
         setDataList(dataList.map(item => item === markedItem ? updatedItem : item));
@@ -92,7 +133,7 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
 
             <Form.Control type="text" placeholder="Enter search text..."
                           value={searchParams.get("filter") || ""}
-                          /*onChange={e => handleQuery(e.target.value)}*/
+                /*onChange={e => handleQuery(e.target.value)}*/
                           onChange={(event) => {
                               const filter = event.target.value;
                               const {filter: oldFilter, ...otherOldParams} = Object.fromEntries([...searchParams]);
@@ -103,6 +144,7 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
             />
 
             <GenericBaseTable
+                ref={tableRef}
                 schema={schema}
                 dataList={queryFindData}
                 markedItem={markedItem}
@@ -111,6 +153,8 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
                 handleLimit={handleLimit}
                 handleRowClick={handleRowClick}
                 handleRowDoubleClick={handleRowDoubleClick}
+                onScroll={handleScroll}
+                onRowsRendered={handleOnTableRendered}
             />
 
             {/*<GenericTable
@@ -134,6 +178,9 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
                 <Button variant="primary" onClick={handlePlusButton}> + </Button>
             </div>
 
+            <div>
+                <Button variant="secondary" onClick={() => tableRef.current.scrollToTop(100)}> to 100 </Button>
+            </div>
         </div>
     );
 };
