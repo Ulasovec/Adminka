@@ -36,33 +36,30 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
     } = context ?? {};
 
     useEffect(() => {
-        //const {filter, sortby, order} = Object.fromEntries([...searchParams]);
-        //const {filter, sortby, sort} = searchParams.get("filter");
         handleQuery(filter ?? '');
         handleSortBy({key: sortby ? sortby : 'id', order: order ? order : 'asc'});
     }, [filter, sortby, order]);
 
     useEffect(() => {
         if (scrollto) {
-            const initRow = Math.floor(scrollto / 50);
-            handleLimit(initRow + 20);
-            // You need to wait while isFetching...
-            setInitScrollToRow(initRow);
-            console.log("Init Scroll Row : ", initRow);
+            setInitScrollToRow(scrollto);
+            handleLimit(scrollto + 20);
         }
     }, [])
 
     useEffect(() => {
-        console.log("init, data.length, current : ", initScrollToRow, queryFindData.length, tableRef.current);
+        //console.log("init, data.length, current : ", initScrollToRow, queryFindData.length, tableRef.current);
         if (initScrollToRow && queryFindData.length > initScrollToRow && tableRef.current) {
-            tableRef.current.scrollToTop(initScrollToRow * 50);
-            console.log("Scroll to : ", initScrollToRow);
+            tableRef.current.scrollToTop(initScrollToRow);
+            //console.log("Scroll to : ", initScrollToRow);
             setInitScrollToRow(undefined);
         }
     }, [initScrollToRow && queryFindData.length > initScrollToRow && isTableRefAvailable]);
 
     const [show, setShow] = useState(false);
     const [markedItem, setMarkedItem] = useState(undefined);
+
+    //console.log('Search Params: ', JSON.stringify(searchParamsObj));
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -105,16 +102,6 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
         setSearchParams({...searchParamsObj, scrollto: scrollTop});
     }
 
-    function handleOnTableRendered() {
-        /*console.log("init, data.length, current : ", initScrollToRow, queryFindData.length, tableRef.current);
-        if (initScrollToRow && queryFindData.length > initScrollToRow && tableRef.current) {
-            tableRef.current.scrollToTop(initScrollToRow * 50);
-            console.log("Scroll to : ", initScrollToRow);
-            setInitScrollToRow(undefined);
-        }*/
-        console.log("Table rendered once more");
-    }
-
     //----- Функции CRUD для локального массива (вариант без API)
     function updateDataArray(updatedItem) {
         setDataList(dataList.map(item => item === markedItem ? updatedItem : item));
@@ -154,7 +141,6 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
                 handleRowClick={handleRowClick}
                 handleRowDoubleClick={handleRowDoubleClick}
                 onScroll={handleScroll}
-                onRowsRendered={handleOnTableRendered}
             />
 
             {/*<GenericTable
@@ -176,10 +162,6 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
             />
             <div>
                 <Button variant="primary" onClick={handlePlusButton}> + </Button>
-            </div>
-
-            <div>
-                <Button variant="secondary" onClick={() => tableRef.current.scrollToTop(100)}> to 100 </Button>
             </div>
         </div>
     );

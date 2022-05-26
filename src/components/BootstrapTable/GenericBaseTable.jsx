@@ -12,19 +12,17 @@ const GenericBaseTable = ({
                               handleSortBy,
                               handleRowClick,
                               handleRowDoubleClick,
-                              onScroll,
-                              onRowsRendered
+                              onScroll
                           }, ref) => {
 
     // Допущение - корневая структура схемы является объектом (object)! Не примитивный тип и не массив (array)!
 
+    const ROW_HEIGHT = 50;
+
     const tableRef = useRef(null);
     useImperativeHandle(ref, () => ({
-        scrollToTop: (pos) => {
-            if (tableRef.current) {
-                tableRef.current.scrollToTop(pos);
-                console.log("GenericBaseTable scrollTo Pos Num : ", pos);
-            }
+        scrollToTop: (rowNum) => {
+            tableRef.current.scrollToTop(rowNum * ROW_HEIGHT);
         }
     }));
 
@@ -86,8 +84,7 @@ const GenericBaseTable = ({
                         rowEventHandlers={rowEventHandlers}
                         onEndReachedThreshold={20}
                         onEndReached={({distanceFromEnd}) => handleLimit(oldLimit => oldLimit + 20)}
-                        onScroll={onScroll}
-                        onRowsRendered={onRowsRendered}
+                        onScroll={({scrollTop}) => onScroll({scrollTop: Math.floor(scrollTop / ROW_HEIGHT)})}
                         /*estimatedRowHeight={200}
                         rowHeight={50}*/
                     />
