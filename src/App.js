@@ -64,18 +64,11 @@ function App() {
                                 <Route index element={<div>Choose any single, please.</div>}/>
                             </Route>
 
-                            <Route path="/models/collections" element={<ModelsPage title="Collections"/>}>
-                                <Route path=":modelName" element={<ModelPage  title="Collection"/>}/>
+                            <Route path="/models/:modelsType" element={<ModelsPage/>}>
+                                <Route path=":modelName" element={<ModelPage/>}/>
                                 <Route index element={<div>Choose any model, please.</div>}/>
                             </Route>
-                            <Route path="/models/singles" element={<ModelsPage title="Singles"/>}>
-                                <Route path=":modelName" element={<ModelPage title="Single"/>}/>
-                                <Route index element={<div>Choose any model, please.</div>}/>
-                            </Route>
-                            <Route path="/models/components" element={<ModelsPage title="Components"/>}>
-                                <Route path=":modelName" element={<ModelPage title="Component"/>}/>
-                                <Route index element={<div>Choose any model, please.</div>}/>
-                            </Route>
+
                             <Route path="/directories" element={<h1>Data Tree</h1>}/>
                             <Route path="/logic" element={<h1>Calculator List</h1>}/>
                             <Route path="/about" element={<GenericPage/>}/>

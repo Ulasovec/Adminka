@@ -90,6 +90,17 @@ const homepageData = {
     description: "Here is description"
 }
 
+//---------------------------------------
+const myaddressSchema = {
+    title: "My Address",
+    type: "object",
+    required: ["city"],
+    properties: {
+        city: {type: "string", title: "Город"},
+        street: {type: "string", title: "Улица"},
+    }
+};
+
 
 //---------------------------------------
 
@@ -108,7 +119,12 @@ function getSingleData(name) {
     else return undefined
 }
 
+function getComponentSchema(name) {
+    if (name === 'myaddress') return myaddressSchema
+    else return undefined;
+}
+
 export {
     testSchema1, testUiSchema1, testDataArray1, homepageData,
-    getSingleSchema, getSingleUiSchema, getSingleData
+    getSingleSchema, getSingleUiSchema, getSingleData, getComponentSchema
 }
