@@ -92,8 +92,7 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
     }
 
     function interceptorHandleSortBy(sortBy) {
-        const oldParams = Object.fromEntries([...searchParams]);
-        setSearchParams({...oldParams, sortby: sortBy.key, order: sortBy.order});
+        setSearchParams({...searchParamsObj, sortby: sortBy.key, order: sortBy.order});
         //handleSortBy(sortBy); //далее useEffect срабатывает
     }
 
@@ -123,7 +122,7 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
                 /*onChange={e => handleQuery(e.target.value)}*/
                           onChange={(event) => {
                               const filter = event.target.value;
-                              const {filter: oldFilter, ...otherOldParams} = Object.fromEntries([...searchParams]);
+                              const {filter: oldFilter, ...otherOldParams} = searchParamsObj;
                               if (filter) setSearchParams({...otherOldParams, filter});
                               else setSearchParams(otherOldParams);
                               //handleQuery(filter); //далее useEffect срабатывает
