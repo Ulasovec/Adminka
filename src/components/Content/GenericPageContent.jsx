@@ -23,6 +23,8 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
     const [dataList, setDataList] = useState(dataArray);
     const sortedAndFilteredList = useSortedAndFilteredList(dataList, localSortBy.key, queryString, localSortBy.order);
 
+    useEffect(() => setDataList(dataArray), [dataArray]);
+
     const context = useGenericContext();
     const {
         queryFindData = sortedAndFilteredList,
