@@ -7,7 +7,7 @@ import GenericBaseTable from "../BootstrapTable/GenericBaseTable";
 import {useSortedAndFilteredList} from "../../hooks/SortedFilter/SortFilter";
 import {useSearchParams} from "react-router-dom";
 
-const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
+const GenericPageContent = ({dataArray = [], setDataArray, schema, uiSchema}) => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const searchParamsObj = Object.fromEntries([...searchParams]);
@@ -103,15 +103,21 @@ const GenericPageContent = ({dataArray = [], schema, uiSchema}) => {
 
     //----- Функции CRUD для локального массива (вариант без API)
     function updateDataArray(updatedItem) {
-        setDataList(dataList.map(item => item === markedItem ? updatedItem : item));
+        const modifiedDataList = dataList.map(item => item === markedItem ? updatedItem : item);
+        setDataList(modifiedDataList);
+        if (setDataArray) setDataArray(modifiedDataList);
     }
 
     function addToDataArray(itemToAdd) {
-        setDataList([itemToAdd, ...dataList]);
+        const modifiedDataList = [itemToAdd, ...dataList];
+        setDataList(modifiedDataList);
+        if (setDataArray) setDataArray(modifiedDataList);
     }
 
     function deleteFromDataArray(itemToDelete) {
-        setDataList(dataList.filter(item => item !== itemToDelete));
+        const modifiedDataList = dataList.filter(item => item !== itemToDelete);
+        setDataList(modifiedDataList);
+        if (setDataArray) setDataArray(modifiedDataList);
     }
 
     return (
