@@ -14,6 +14,8 @@ class SchemaUtils {
         mygeo: getComponentSchema
     }
 
+    static EMPTY_SCHEMA = {type: 'object', required: [], properties: {}};
+
     static getAllModelNames(modelType) {
         if (modelType === 'collections') return ['todos', 'users', 'posts'];
         else if (modelType === 'singles') return ['homepage', 'mysettings', 'contacts'];
@@ -85,7 +87,7 @@ class SchemaUtils {
         return this.models.find(model => model.modelName === modelName).modelSchema;
     }
 
-    addModelSchema({modelName, modelType, modelSchema}) {
+    addModelSchema({modelName, modelType, modelSchema = SchemaUtils.EMPTY_SCHEMA}) {
         if (!this.models.find(model => model.modelName === modelName))
             this.models = [...this.models, {modelName, modelType, modelSchema}];
     }

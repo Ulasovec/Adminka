@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import {getSchema, getUiSchema, todosSchema, todosUiSchema} from "../schemas/FakeApiSchemas";
 import {SchemaUtils, schemaUtilsDB} from "../schemas/SchemaUtils";
 import GenericPageContent from "../components/Content/GenericPageContent";
@@ -9,6 +9,7 @@ import {Button} from "react-bootstrap";
 
 const ModelPage = () => {
     const {modelName, modelsType: modelType} = useParams();
+    const navigate = useNavigate();
     const schema = useMemo(() => schemaUtilsDB.getModelSchema(modelName.toLowerCase()), [modelName]);
     const initModelData = useMemo(() => SchemaUtils.schemaToModelData(schema), [modelName]);
     const [modelData, setModelData] = useState(initModelData);
@@ -17,6 +18,11 @@ const ModelPage = () => {
     function handleUpdateModelData() {
         const modelSchema = SchemaUtils.ModelDataToSchema(modelData);
         schemaUtilsDB.updateModelSchema({modelName, modelType, modelSchema});
+    }
+
+    function handleDeleteModel() {
+        schemaUtilsDB.deleteModelSchema(modelName);
+        navigate("..");
     }
 
     if (!schema) return <div>Sorry... Model <strong>{modelName}</strong> is unavailable!</div>
@@ -41,7 +47,12 @@ const ModelPage = () => {
                 uiSchema={{}}
             />
             <hr/>
-            <Button onClick={handleUpdateModelData}>Update schema</Button>
+            <div>
+                <Button variant="primary" onClick={handleUpdateModelData}>Update model</Button>
+                <Button variant="secondary" className="m-3" onClick={() => setModelData(initModelData)}>Reset</Button>
+                <Button variant="danger" className="m-3" onClick={handleDeleteModel}>Delete model</Button>
+            </div>
+
         </div>
     );
 };

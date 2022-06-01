@@ -1,17 +1,32 @@
 import React from 'react';
-import {Link, NavLink, Outlet, useParams} from "react-router-dom";
+import {Link, NavLink, Outlet, useParams, useNavigate} from "react-router-dom";
 import {SchemaUtils, schemaUtilsDB} from "../schemas/SchemaUtils";
-import {Button} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 
 const ModelsPage = () => {
 
     const allModelTypes = ['collections', 'singles', 'components'];
     const {modelsType} = useParams();
+    const navigate = useNavigate();
 
     const setActiveStyle = ({isActive}) => {
         return {
             color: isActive ? "red" : "",
         };
+    }
+
+    function onFormSubmit(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const formDataObj = Object.fromEntries(formData.entries());
+        //console.log(formDataObj);
+        const newModelName = formDataObj.newModelName;
+        schemaUtilsDB.addModelSchema({
+            modelName: newModelName,
+            modelType: modelsType,
+            modelSchema: undefined
+        });
+        navigate(`./${newModelName}`);
     }
 
     if (!allModelTypes.some((typeName) => modelsType === typeName))
@@ -34,7 +49,10 @@ const ModelsPage = () => {
                 {/*<NavLink style={setActiveStyle} to="todos">Todos</NavLink> |{" "}
                 <NavLink style={setActiveStyle} to="users">Users</NavLink> |{" "}
                 <NavLink style={setActiveStyle} to="posts">Posts</NavLink>*/}
-                <Button variant="outline-primary" size="sm">Add model</Button>
+                <Form onSubmit={onFormSubmit}>
+                    <Form.Control size="sm" type="text" name="newModelName" placeholder="Enter model name..."/>
+                    <Button type="submit" variant="outline-primary" size="sm">Add model</Button>
+                </Form>
             </nav>
             <Outlet/>
         </div>
