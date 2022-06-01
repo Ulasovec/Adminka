@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, NavLink, Outlet, useParams} from "react-router-dom";
-import {SchemaUtils} from "../schemas/SchemaUtils";
+import {SchemaUtils, schemaUtilsDB} from "../schemas/SchemaUtils";
 import {Button} from "react-bootstrap";
 
 const ModelsPage = () => {
@@ -26,7 +26,7 @@ const ModelsPage = () => {
                     paddingBottom: "1rem",
                 }}
             >
-                {SchemaUtils.getAllModelNames(modelsType.toLowerCase()).map(name => (
+                {schemaUtilsDB.getAllModelNames(modelsType.toLowerCase()).map(name => (
                     <React.Fragment key={name}>
                         <NavLink style={setActiveStyle} to={name}>{name}</NavLink>{' | '}
                     </React.Fragment>

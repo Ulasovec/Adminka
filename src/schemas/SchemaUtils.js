@@ -33,6 +33,7 @@ class SchemaUtils {
     }
 
     static schemaToModelData(schema) {
+        if (!schema) return undefined;
         const rootSchema = this.dereferenceSchema(schema, schema);
         const modelData = Object.entries(rootSchema.properties).map(([propKey, propValue], index) => {
             const subSchema = this.dereferenceSchema(propValue, schema);
@@ -50,6 +51,57 @@ class SchemaUtils {
         });
         return modelData;
     }
+
+    static ModelDataToSchema(modelData) {
+        const schema = {type: 'object', required: [], properties: {}};
+        modelData.forEach(({name, type, title, isRequired, minimum, maximum}) => {
+            schema.properties[name] = {type, title, minimum, maximum};
+            if (isRequired) schema.required.push(name);
+        });
+        return schema;
+    }
+
+    constructor() {
+        this.models = [
+            {modelName: 'todos', modelType: 'collections', modelSchema: getSchema('todos')},
+            {modelName: 'users', modelType: 'collections', modelSchema: getSchema('users')},
+            {modelName: 'posts', modelType: 'collections', modelSchema: getSchema('posts')},
+            {modelName: 'homepage', modelType: 'singles', modelSchema: getSingleSchema('homepage')},
+            {modelName: 'mysettings', modelType: 'singles', modelSchema: getSingleSchema('mysettings')},
+            {modelName: 'contacts', modelType: 'singles', modelSchema: getSingleSchema('contacts')},
+            {modelName: 'myaddress', modelType: 'components', modelSchema: getComponentSchema('myaddress')},
+            {modelName: 'mycompany', modelType: 'components', modelSchema: getComponentSchema('mycompany')},
+            {modelName: 'mygeo', modelType: 'components', modelSchema: getComponentSchema('mygeo')},
+        ];
+    }
+
+    getAllModelNames(modelType) {
+        return this.models
+            .filter(model => !modelType || model.modelType === modelType)
+            .map(model => model.modelName);
+    }
+
+    getModelSchema(modelName) {
+        return this.models.find(model => model.modelName === modelName).modelSchema;
+    }
+
+    addModelSchema({modelName, modelType, modelSchema}) {
+        if (!this.models.find(model => model.modelName === modelName))
+            this.models = [...this.models, {modelName, modelType, modelSchema}];
+    }
+
+    deleteModelSchema(modelName) {
+        this.models = this.models.filter(model => model.modelName !== modelName);
+    }
+
+    updateModelSchema({modelName, modelType, modelSchema}) {
+        this.models = this.models.map(model =>
+            model.modelName === modelName ? {modelName, modelType, modelSchema} : model
+        );
+        console.log({modelName, modelType, modelSchema})
+    }
 }
 
-export {SchemaUtils}
+const schemaUtilsDB = new SchemaUtils();
+
+export {SchemaUtils, schemaUtilsDB}

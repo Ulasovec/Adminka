@@ -1,20 +1,25 @@
-import React from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {getSchema, getUiSchema, todosSchema, todosUiSchema} from "../schemas/FakeApiSchemas";
-import {SchemaUtils} from "../schemas/SchemaUtils";
+import {SchemaUtils, schemaUtilsDB} from "../schemas/SchemaUtils";
 import GenericPageContent from "../components/Content/GenericPageContent";
 import {testDataArray1, testSchema1, testUiSchema1} from "../schemas/TestDataAndSchemas";
 import {modelTemplateSchema} from "../schemas/ModelTemplateSchema";
+import {Button} from "react-bootstrap";
 
 const ModelPage = () => {
-    const {modelName} = useParams();
-    const schema = SchemaUtils.getModelSchema(modelName.toLowerCase());
-    //const uiSchema = getUiSchema(modelName);
+    const {modelName, modelsType: modelType} = useParams();
+    const schema = useMemo(() => schemaUtilsDB.getModelSchema(modelName.toLowerCase()), [modelName]);
+    const initModelData = useMemo(() => SchemaUtils.schemaToModelData(schema), [modelName]);
+    const [modelData, setModelData] = useState(initModelData);
+    useEffect(() => setModelData(initModelData), [modelName]);
+
+    function handleUpdateModelData() {
+        const modelSchema = SchemaUtils.ModelDataToSchema(modelData);
+        schemaUtilsDB.updateModelSchema({modelName, modelType, modelSchema});
+    }
 
     if (!schema) return <div>Sorry... Model <strong>{modelName}</strong> is unavailable!</div>
-
-    const modelData = SchemaUtils.schemaToModelData(schema);
-    console.log('Model Data: ', modelData);
 
     return (
         <div>
@@ -31,9 +36,12 @@ const ModelPage = () => {
             <h2>Static data</h2>
             <GenericPageContent
                 dataArray={modelData}
+                setDataArray={setModelData}
                 schema={modelTemplateSchema}
                 uiSchema={{}}
             />
+            <hr/>
+            <Button onClick={handleUpdateModelData}>Update schema</Button>
         </div>
     );
 };
