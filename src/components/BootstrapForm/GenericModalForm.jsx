@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Modal} from "react-bootstrap";
-import Form from "@rjsf/bootstrap-4";
+//import Form from "@rjsf/bootstrap-4";
+import Form from "@rjsf/core";
 
 const GenericModalForm = ({show, schema, uiSchema, formData, handleClose, handleSubmit, handleDelete}) => {
     return (

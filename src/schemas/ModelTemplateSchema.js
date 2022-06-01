@@ -7,18 +7,24 @@ export const modelTemplateSchema = {
         "type"
     ],
     "properties": {
+        "id": {
+            "type": "integer",
+            "title": "Field's ID"
+        },
         "name": {
             "type": "string",
-            "title": "Field name",
+            "title": "Field's name",
             "minLength": 1
         },
         "title": {
             "type": "string",
-            "title": "Field title"
+            "title": "Field's title"
         },
         "type": {
             "type": "string",
-            "enum": ["string", "number", "integer", "boolean", "object"]
+            "title": "Field's type",
+            "enum": ["string", "number", "integer", "boolean", "object"],
+            "enumNames": ["Строка", "Число", "Целое", "Бинарное", "Объект"],
         },
         "minimum": {
             "type": "integer",

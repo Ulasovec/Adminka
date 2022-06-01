@@ -7,7 +7,7 @@ import GenericBaseTable from "../BootstrapTable/GenericBaseTable";
 import {useSortedAndFilteredList} from "../../hooks/SortedFilter/SortFilter";
 import {useSearchParams} from "react-router-dom";
 
-const GenericPageContent = ({dataArray = [], setDataArray, schema, uiSchema}) => {
+const GenericPageContent = ({dataArray = [], setDataArray = f => f, schema, uiSchema}) => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const searchParamsObj = Object.fromEntries([...searchParams]);
@@ -20,7 +20,11 @@ const GenericPageContent = ({dataArray = [], setDataArray, schema, uiSchema}) =>
 
     const [localSortBy, setLocalSortBy] = useState({key: 'id', order: 'asc'});
     const [queryString, setQueryString] = useState('');
-    const [dataList, setDataList] = useState(dataArray);
+
+    //const [dataList, setDataList] = useState(dataArray);
+    const dataList = dataArray;
+    const setDataList = setDataArray;
+
     const sortedAndFilteredList = useSortedAndFilteredList(dataList, localSortBy.key, queryString, localSortBy.order);
 
     const context = useGenericContext();
@@ -105,19 +109,19 @@ const GenericPageContent = ({dataArray = [], setDataArray, schema, uiSchema}) =>
     function updateDataArray(updatedItem) {
         const modifiedDataList = dataList.map(item => item === markedItem ? updatedItem : item);
         setDataList(modifiedDataList);
-        if (setDataArray) setDataArray(modifiedDataList);
+        //if (setDataArray) setDataArray(modifiedDataList);
     }
 
     function addToDataArray(itemToAdd) {
-        const modifiedDataList = [itemToAdd, ...dataList];
+        const modifiedDataList = [...dataList, itemToAdd];
         setDataList(modifiedDataList);
-        if (setDataArray) setDataArray(modifiedDataList);
+        //if (setDataArray) setDataArray(modifiedDataList);
     }
 
     function deleteFromDataArray(itemToDelete) {
         const modifiedDataList = dataList.filter(item => item !== itemToDelete);
         setDataList(modifiedDataList);
-        if (setDataArray) setDataArray(modifiedDataList);
+        //if (setDataArray) setDataArray(modifiedDataList);
     }
 
     return (

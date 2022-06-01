@@ -14,6 +14,7 @@ const ModelPage = () => {
     if (!schema) return <div>Sorry... Model <strong>{modelName}</strong> is unavailable!</div>
 
     const modelData = SchemaUtils.schemaToModelData(schema);
+    console.log('Model Data: ', modelData);
 
     return (
         <div>
