@@ -76,20 +76,37 @@ const homepageSchema = {
     type: "object",
     required: ["title"],
     properties: {
-        id: {type: "number", title: "Single ID"},
         title: {type: "string", title: "Название", default: "Домашняя страница"},
         description: {type: "string", title: "Описание", default: "Здесь описание страницы"},
+        date: {type: "string", title: "Дата обновления сайта", format: "date"}
     }
 };
 
 const homepageUiSchema = {};
 
 const homepageData = {
-    id: 1,
     title: "My Home Page",
-    description: "Here is description"
+    description: "Here is description",
+    date: "2021-08-01"
 }
 
+//-----------------------------------------
+const mysettingsSchema = {
+    title: "Settings",
+    type: "object",
+    required: ["theme", "width"],
+    properties: {
+        theme: {type: "string", title: "Тема оформления"},
+        isStickyHeader: {type: "boolean", title: "Липкий заголовок"},
+        width: {type: "integer", title: "Ширина контейнера"}
+    }
+};
+
+const mysettingsData = {
+    theme: "Light",
+    isStickyHeader: true,
+    width: 600
+}
 //---------------------------------------
 const myaddressSchema = {
     title: "My Address",
@@ -106,6 +123,7 @@ const myaddressSchema = {
 
 function getSingleSchema(name) {
     if (name === 'homepage') return homepageSchema
+    else if (name === 'mysettings') return mysettingsSchema
     else return undefined;
 }
 
@@ -116,6 +134,7 @@ function getSingleUiSchema(name) {
 
 function getSingleData(name) {
     if (name === 'homepage') return homepageData
+    else if (name === 'mysettings') return mysettingsData
     else return undefined
 }
 
@@ -125,6 +144,6 @@ function getComponentSchema(name) {
 }
 
 export {
-    testSchema1, testUiSchema1, testDataArray1, homepageData,
+    testSchema1, testUiSchema1, testDataArray1, homepageData, mysettingsData,
     getSingleSchema, getSingleUiSchema, getSingleData, getComponentSchema
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link, NavLink, Outlet} from "react-router-dom";
+import {schemaUtilsDB} from "../schemas/SchemaUtils";
 
 const ContentsSinglesPage = () => {
 
@@ -18,9 +19,14 @@ const ContentsSinglesPage = () => {
                     paddingBottom: "1rem",
                 }}
             >
-                <NavLink style={setActiveStyle} to="homepage">HomePage</NavLink> |{" "}
+                {schemaUtilsDB.getAllModelNames('singles').map(name => (
+                    <React.Fragment key={name}>
+                        <NavLink style={setActiveStyle} to={name}>{name}</NavLink>{' | '}
+                    </React.Fragment>
+                ))}
+                {/*<NavLink style={setActiveStyle} to="homepage">HomePage</NavLink> |{" "}
                 <NavLink style={setActiveStyle} to="mysettings">MySettings</NavLink> |{" "}
-                <NavLink style={setActiveStyle} to="contacts">Contacts</NavLink>
+                <NavLink style={setActiveStyle} to="contacts">Contacts</NavLink>*/}
             </nav>
             <Outlet/>
         </div>

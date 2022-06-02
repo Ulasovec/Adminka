@@ -19,13 +19,14 @@ const ModelsPage = () => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const formDataObj = Object.fromEntries(formData.entries());
-        //console.log(formDataObj);
-        const newModelName = formDataObj.newModelName;
+        console.log(formDataObj);
+        const newModelName = formDataObj.newModelName.toLowerCase();
         schemaUtilsDB.addModelSchema({
             modelName: newModelName,
             modelType: modelsType,
             modelSchema: undefined
         });
+        e.target.reset();
         navigate(`./${newModelName}`);
     }
 
@@ -49,8 +50,8 @@ const ModelsPage = () => {
                 {/*<NavLink style={setActiveStyle} to="todos">Todos</NavLink> |{" "}
                 <NavLink style={setActiveStyle} to="users">Users</NavLink> |{" "}
                 <NavLink style={setActiveStyle} to="posts">Posts</NavLink>*/}
-                <Form onSubmit={onFormSubmit}>
-                    <Form.Control size="sm" type="text" name="newModelName" placeholder="Enter model name..."/>
+                <Form className="mt-3" onSubmit={onFormSubmit}>
+                    <Form.Control size="sm" type="text" name="newModelName" required placeholder="Enter model name..."/>
                     <Button type="submit" variant="outline-primary" size="sm">Add model</Button>
                 </Form>
             </nav>

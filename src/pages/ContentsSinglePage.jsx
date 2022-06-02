@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {useParams} from "react-router-dom";
 import GenericPageContent from "../components/Content/GenericPageContent";
 import {getSchema, getUiSchema, todosSchema, todosUiSchema} from "../schemas/FakeApiSchemas";
@@ -6,15 +6,19 @@ import GenericPageRestApiWrapper from "../api/GenericPageRestApiWrapper";
 import {getSingleData, getSingleSchema, getSingleUiSchema} from "../schemas/TestDataAndSchemas";
 import {Button} from "react-bootstrap";
 import Form from "@rjsf/bootstrap-4";
+import {schemaUtilsDB} from "../schemas/SchemaUtils";
+import {localDataUtilsDB} from "../store/data/LocalDataUtils";
 
 const ContentsSinglePage = () => {
     const {modelName} = useParams();
-    const schema = getSingleSchema(modelName);
+    //const schema = getSingleSchema(modelName);
+    const schema = useMemo(() => schemaUtilsDB.getModelSchema(modelName.toLowerCase()), [modelName]);
     const uiSchema = getSingleUiSchema(modelName);
-    const data = getSingleData(modelName);
+    const data = localDataUtilsDB.getSingleData(modelName);
 
     function handleSubmit(newData) {
         console.log('Sumbited data: ', newData);
+        localDataUtilsDB.setSingleData(modelName, newData);
     }
 
     if (!schema) return <div>Sorry... Model <strong>{modelName}</strong> is unavailable!</div>
@@ -32,7 +36,7 @@ const ContentsSinglePage = () => {
                       onError={errors => console.log('Error :', errors)}
                 >
                     <Button type="submit" variant="primary" className="mt-3">
-                        Done
+                        Save
                     </Button>
                 </Form>
             </div>
