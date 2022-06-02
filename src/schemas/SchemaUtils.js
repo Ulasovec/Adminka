@@ -84,10 +84,11 @@ class SchemaUtils {
     }
 
     getModelSchema(modelName) {
-        return this.models.find(model => model.modelName === modelName).modelSchema;
+        return this.models.find(model => model.modelName === modelName)?.modelSchema;
     }
 
     addModelSchema({modelName, modelType, modelSchema = SchemaUtils.EMPTY_SCHEMA}) {
+        if (!modelSchema.title) modelSchema.title = modelName;
         if (!this.models.find(model => model.modelName === modelName))
             this.models = [...this.models, {modelName, modelType, modelSchema}];
     }

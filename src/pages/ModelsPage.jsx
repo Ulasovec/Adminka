@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, NavLink, Outlet, useParams, useNavigate} from "react-router-dom";
 import {SchemaUtils, schemaUtilsDB} from "../schemas/SchemaUtils";
-import {Button, Form} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
 const ModelsPage = () => {
 
@@ -51,8 +51,14 @@ const ModelsPage = () => {
                 <NavLink style={setActiveStyle} to="users">Users</NavLink> |{" "}
                 <NavLink style={setActiveStyle} to="posts">Posts</NavLink>*/}
                 <Form className="mt-3" onSubmit={onFormSubmit}>
-                    <Form.Control size="sm" type="text" name="newModelName" required placeholder="Enter model name..."/>
-                    <Button type="submit" variant="outline-primary" size="sm">Add model</Button>
+                    <Row>
+                        <Col>
+                            <Form.Control size="sm" type="text" name="newModelName" required placeholder="Enter model name..."/>
+                        </Col>
+                        <Col>
+                            <Button type="submit" variant="outline-primary" size="sm">Add model</Button>
+                        </Col>
+                    </Row>
                 </Form>
             </nav>
             <Outlet/>

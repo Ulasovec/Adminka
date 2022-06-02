@@ -32,7 +32,7 @@ export const useSorted = (list, sortBy, order = 'asc') => {
 export const useSortedAndFilteredList = (list, sortBy, query, order = 'asc') => {
     const sortedList = useSorted(list, sortBy, order);
     const sortedAndFilteredList = useMemo(
-        () => sortBy // && sortedList.length && typeof sortedList[0][sortBy] === 'string'
+        () => sortBy && sortedList.length && typeof sortedList[0][sortBy] !== 'undefined'
             ? sortedList.filter(item => item[sortBy].toString().toLowerCase().includes(query.toLowerCase()))
             : sortedList,
         [query, sortedList]

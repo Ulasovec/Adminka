@@ -39,7 +39,7 @@ const ModelPage = () => {
                 {JSON.stringify(modelData)}
             </div>
             <hr/>
-            <h2>Static data</h2>
+            <h3>Model fields</h3>
             <GenericPageContent
                 dataArray={modelData}
                 setDataArray={setModelData}

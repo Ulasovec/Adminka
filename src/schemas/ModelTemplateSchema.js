@@ -24,19 +24,96 @@ export const modelTemplateSchema = {
             "type": "string",
             "title": "Field's type",
             "enum": ["string", "number", "integer", "boolean", "object"],
-            "enumNames": ["Строка", "Число", "Целое", "Бинарное", "Объект"],
+            /*"enumNames": ["Строка", "Число", "Целое", "Бинарное", "Объект"],*/
         },
-        "minimum": {
+        /*"minimum": {
             "type": "integer",
             "title": "Minimum value"
         },
         "maximum": {
             "type": "integer",
             "title": "Maximum value"
-        },
+        },*/
         "isRequired": {
             "type": "boolean",
             "title": "Is required?"
+        }
+    },
+    "dependencies": {
+        "type": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                "boolean"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                "string"
+                            ]
+                        },
+                        "format": {
+                            "type": "string",
+                            "enum": ["email", "hostname", "date", "date-time", "time", "ipv4", "ipv6", "uri-reference", "json-pointer", "regex"],
+                        }
+                    },
+                    "required": []
+                },
+                {
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                "number"
+                            ]
+                        },
+                        "minimum": {
+                            "type": "number"
+                        },
+                        "maximum": {
+                            "type": "number"
+                        }
+                    },
+                    "required": []
+                },
+                {
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                "integer"
+                            ]
+                        },
+                        "minimum": {
+                            "type": "integer"
+                        },
+                        "maximum": {
+                            "type": "integer"
+                        }
+                    },
+                    "required": []
+                },
+                {
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                "object"
+                            ]
+                        },
+                        "componentRef": {
+                            "type": "string",
+                            "format": "uri-reference"
+                        }
+                    },
+                    "required": [
+                        "componentRef"
+                    ]
+                }
+            ]
         }
     }
 };
