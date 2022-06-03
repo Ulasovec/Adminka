@@ -118,6 +118,42 @@ const myaddressSchema = {
     }
 };
 
+const mycompanySchema = {
+    title: "My Company",
+    type: "object",
+    properties: {
+        name: {type: "string", title: "Название"},
+        address: {
+            title: "My Address",
+            type: "object",
+            required: ["city"],
+            properties: {
+                city: {type: "string", title: "Город"},
+                street: {type: "string", title: "Улица"},
+            }
+        },
+        geo: {"$ref": "#/definitions/Geo"}
+    },
+    definitions: {
+        Geo: {
+            title: "Geoposition",
+            type: "object",
+            properties: {
+                lat: {type: "number", title: "Широта"},
+                lon: {type: "number", title: "Долгота"}
+            }
+        }
+    }
+};
+
+const mygeoSchema = {
+    title: "Geoposition",
+    type: "object",
+    properties: {
+        lat: {type: "number", title: "Широта"},
+        lon: {type: "number", title: "Долгота"}
+    }
+};
 
 //---------------------------------------
 
@@ -140,6 +176,8 @@ function getSingleData(name) {
 
 function getComponentSchema(name) {
     if (name === 'myaddress') return myaddressSchema
+    else if (name === 'mycompany') return mycompanySchema
+    else if (name === 'mygeo') return mygeoSchema
     else return undefined;
 }
 

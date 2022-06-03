@@ -45,7 +45,7 @@ class SchemaUtils {
                     name: propKey,
                     title: subSchema.title ?? '',
                     type: subSchema.type,
-                    componentRef: JSON.stringify(propValue),
+                    componentRef: JSON.stringify(subSchema),
                     isRequired: rootSchema.required ? rootSchema.required.some((field => field === propKey)) : false,
                     format: subSchema.format,
                     minimum: subSchema.minimum,
@@ -86,8 +86,8 @@ class SchemaUtils {
             {modelName: 'mysettings', modelType: 'singles', modelSchema: getSingleSchema('mysettings')},
             {modelName: 'contacts', modelType: 'singles', modelSchema: getSingleSchema('contacts')},
             {modelName: 'myaddress', modelType: 'components', modelSchema: getComponentSchema('myaddress')},
-            /*{modelName: 'mycompany', modelType: 'components', modelSchema: getComponentSchema('mycompany')},
-            {modelName: 'mygeo', modelType: 'components', modelSchema: getComponentSchema('mygeo')},*/
+            {modelName: 'mycompany', modelType: 'components', modelSchema: getComponentSchema('mycompany')},
+            {modelName: 'mygeo', modelType: 'components', modelSchema: getComponentSchema('mygeo')},
         ];
     }
 
@@ -105,6 +105,7 @@ class SchemaUtils {
         if (!modelSchema.title) modelSchema.title = modelName;
         if (!this.models.find(model => model.modelName === modelName))
             this.models = [...this.models, {modelName, modelType, modelSchema}];
+        console.log('All Models: ', this.models)
     }
 
     deleteModelSchema(modelName) {
