@@ -41,11 +41,13 @@ class SchemaUtils {
             const subSchema = this.dereferenceSchema(propValue, schema);
             return (
                 {
-                    id: index,
+                    rowId: index,
                     name: propKey,
                     title: subSchema.title ?? '',
                     type: subSchema.type,
+                    componentRef: JSON.stringify(propValue),
                     isRequired: rootSchema.required ? rootSchema.required.some((field => field === propKey)) : false,
+                    format: subSchema.format,
                     minimum: subSchema.minimum,
                     maximum: subSchema.maximum
                 }
@@ -55,9 +57,21 @@ class SchemaUtils {
     }
 
     static ModelDataToSchema(modelData) {
-        const schema = {type: 'object', required: [], properties: {}};
-        modelData.forEach(({name, type, title, isRequired, minimum, maximum}) => {
-            schema.properties[name] = {type, title, minimum, maximum};
+        const schema = SchemaUtils.EMPTY_SCHEMA;
+        modelData.forEach(({name, type, title, isRequired, minimum, maximum, format, componentRef}) => {
+            switch (type) {
+                case 'boolean':
+                    schema.properties[name] = {type, title}; break;
+                case 'string':
+                    schema.properties[name] = {type, title, format}; break;
+                case 'number':
+                case 'integer':
+                    schema.properties[name] = {type, title, minimum, maximum}; break;
+                case 'object':
+                    schema.properties[name] = JSON.parse(componentRef); break;
+                default:
+                    schema.properties[name] = {type, title}; break;
+            }
             if (isRequired) schema.required.push(name);
         });
         return schema;
@@ -72,8 +86,8 @@ class SchemaUtils {
             {modelName: 'mysettings', modelType: 'singles', modelSchema: getSingleSchema('mysettings')},
             {modelName: 'contacts', modelType: 'singles', modelSchema: getSingleSchema('contacts')},
             {modelName: 'myaddress', modelType: 'components', modelSchema: getComponentSchema('myaddress')},
-            {modelName: 'mycompany', modelType: 'components', modelSchema: getComponentSchema('mycompany')},
-            {modelName: 'mygeo', modelType: 'components', modelSchema: getComponentSchema('mygeo')},
+            /*{modelName: 'mycompany', modelType: 'components', modelSchema: getComponentSchema('mycompany')},
+            {modelName: 'mygeo', modelType: 'components', modelSchema: getComponentSchema('mygeo')},*/
         ];
     }
 
@@ -98,6 +112,7 @@ class SchemaUtils {
     }
 
     updateModelSchema({modelName, modelType, modelSchema}) {
+        if (!modelSchema.title) modelSchema.title = modelName;
         this.models = this.models.map(model =>
             model.modelName === modelName ? {modelName, modelType, modelSchema} : model
         );

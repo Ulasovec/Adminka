@@ -7,9 +7,10 @@ export const modelTemplateSchema = {
         "type"
     ],
     "properties": {
-        "id": {
+        "rowId": {
             "type": "integer",
-            "title": "Field's ID"
+            "title": "Index",
+            "readOnly": true
         },
         "name": {
             "type": "string",
@@ -106,7 +107,7 @@ export const modelTemplateSchema = {
                         },
                         "componentRef": {
                             "type": "string",
-                            "format": "uri-reference"
+                            /*"format": "uri-reference"*/
                         }
                     },
                     "required": [

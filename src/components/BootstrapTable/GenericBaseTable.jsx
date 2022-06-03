@@ -76,6 +76,7 @@ const GenericBaseTable = ({
                         height={height}
                         columns={columns}
                         data={dataList}
+                        rowKey={rootProperties.id ? 'id' : 'rowId'}
                         sortBy={sortBy}
                         onColumnSort={sortBy => {
                             tableRef.current.scrollToTop(0);

@@ -13,16 +13,32 @@ const ModelPage = () => {
     const schema = useMemo(() => schemaUtilsDB.getModelSchema(modelName.toLowerCase()), [modelName]);
     const initModelData = useMemo(() => SchemaUtils.schemaToModelData(schema), [modelName]);
     const [modelData, setModelData] = useState(initModelData);
-    useEffect(() => setModelData(initModelData), [modelName]);
+    useEffect(() => {
+        setModelData(initModelData);
+        const components = schemaUtilsDB.getAllModelNames('components');
+        modelTemplateSchema.dependencies.type.oneOf[4].properties.componentRef.enum =
+            components.map(modelName => JSON.stringify(schemaUtilsDB.getModelSchema(modelName)));
+        modelTemplateSchema.dependencies.type.oneOf[4].properties.componentRef.enumNames = components;
+    }, [modelName]);
 
-    function handleUpdateModelData() {
+    function handleUpdateModelSchema() {
         const modelSchema = SchemaUtils.ModelDataToSchema(modelData);
+        if (schema['$defs']) modelSchema['$defs'] = schema['$defs'];
+        if (schema['definitions']) modelSchema['definitions'] = schema['definitions'];
         schemaUtilsDB.updateModelSchema({modelName, modelType, modelSchema});
     }
 
-    function handleDeleteModel() {
+    function handleDeleteModelSchema() {
         schemaUtilsDB.deleteModelSchema(modelName);
         navigate("..");
+    }
+
+    function handleSetModelData(modifiedModelData) {
+        const indexedData = modifiedModelData.map((item, index) => {
+            item.rowId = index;
+            return item;
+        });
+        setModelData(indexedData);
     }
 
     if (!schema) return <div>Sorry... Model <strong>{modelName}</strong> is unavailable!</div>
@@ -42,17 +58,16 @@ const ModelPage = () => {
             <h3>Model fields</h3>
             <GenericPageContent
                 dataArray={modelData}
-                setDataArray={setModelData}
+                setDataArray={handleSetModelData}
                 schema={modelTemplateSchema}
                 uiSchema={{}}
             />
             <hr/>
             <div>
-                <Button variant="primary" onClick={handleUpdateModelData}>Update model</Button>
+                <Button variant="primary" onClick={handleUpdateModelSchema}>Update model</Button>
                 <Button variant="secondary" className="m-3" onClick={() => setModelData(initModelData)}>Reset</Button>
-                <Button variant="danger" className="m-3" onClick={handleDeleteModel}>Delete model</Button>
+                <Button variant="danger" className="m-3" onClick={handleDeleteModelSchema}>Delete model</Button>
             </div>
-
         </div>
     );
 };
