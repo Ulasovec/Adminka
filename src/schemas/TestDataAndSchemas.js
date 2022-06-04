@@ -109,7 +109,7 @@ const mysettingsData = {
 }
 //---------------------------------------
 const myaddressSchema = {
-    title: "My Address",
+    /*title: "My Address",*/
     type: "object",
     required: ["city"],
     properties: {
@@ -117,7 +117,7 @@ const myaddressSchema = {
         street: {type: "string", title: "Улица"},
         houseNumber: {type: "integer", title: "Номер дома"},
         geoLocation: {
-            title: "Geoposition",
+            /*title: "Geoposition",*/
             type: "object",
             properties: {
                 lat: {type: "number", title: "Широта"},
@@ -128,13 +128,13 @@ const myaddressSchema = {
 };
 
 const mycompanySchema = {
-    title: "My Company",
+    /*title: "My Company",*/
     type: "object",
     properties: {
         name: {type: "string", title: "Название"},
         email: {type: "string", title: "E-mail", format: "email"},
         address: {
-            title: "My Address",
+            /*title: "My Address",*/
             type: "object",
             required: ["city"],
             properties: {
@@ -142,7 +142,7 @@ const mycompanySchema = {
                 street: {type: "string", title: "Улица"},
                 houseNumber: {type: "integer", title: "Номер дома"},
                 geoLocation: {
-                    title: "Geoposition",
+                    /*title: "Geoposition",*/
                     type: "object",
                     properties: {
                         lat: {type: "number", title: "Широта"},
@@ -155,7 +155,7 @@ const mycompanySchema = {
 };
 
 const mygeoSchema = {
-    title: "Geoposition",
+    /*title: "Geoposition",*/
     type: "object",
     properties: {
         lat: {type: "number", title: "Широта"},

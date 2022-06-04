@@ -112,7 +112,7 @@ class SchemaUtils {
 
     addModelSchema({modelName, modelType, modelSchema = SchemaUtils.getEmptySchema()}) {
         // Title скрывает имя поля в случае объектов //
-        if (!modelSchema.title) modelSchema.title = modelName;
+        //if (!modelSchema.title) modelSchema.title = modelName;
         if (!this.models.find(model => model.modelName === modelName))
             this.models = [...this.models, {modelName, modelType, modelSchema}];
         console.log('All Models: ', this.models);
@@ -124,7 +124,7 @@ class SchemaUtils {
 
     updateModelSchema({modelName, modelType, modelSchema}) {
         // Title скрывает имя поля в случае объектов //
-        if (!modelSchema.title) modelSchema.title = modelName;
+        //if (!modelSchema.title) modelSchema.title = modelName;
         this.models = this.models.map(model =>
             model.modelName === modelName ? {modelName, modelType, modelSchema} : model
         );

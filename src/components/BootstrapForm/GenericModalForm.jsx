@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Modal} from "react-bootstrap";
-//import Form from "@rjsf/bootstrap-4";
-import Form from "@rjsf/core";
+import Form from "@rjsf/bootstrap-4";
+//import Form from "@rjsf/core";
 
 const GenericModalForm = ({show, schema, uiSchema, formData, handleClose, handleSubmit, handleDelete}) => {
     return (
@@ -14,9 +14,9 @@ const GenericModalForm = ({show, schema, uiSchema, formData, handleClose, handle
                 <Form schema={schema}
                       uiSchema={uiSchema}
                       formData={formData}
-                      onChange={e => console.log('Changed :', e.formData)}
+                      //onChange={e => console.log('Changed :', e.formData)}
                       onSubmit={e => handleSubmit(e.formData)}
-                      onError={errors => console.log('Error :', errors)}
+                      onError={errors => console.log('Form Error :', errors)}
                 >
                     {formData
                         ? <div>

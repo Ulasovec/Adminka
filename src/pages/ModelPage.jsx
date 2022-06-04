@@ -6,6 +6,7 @@ import GenericPageContent from "../components/Content/GenericPageContent";
 import {testDataArray1, testSchema1, testUiSchema1} from "../schemas/TestDataAndSchemas";
 import {modelTemplateSchema} from "../schemas/ModelTemplateSchema";
 import {Button} from "react-bootstrap";
+import toast from "react-hot-toast";
 
 const ModelPage = () => {
     const {modelName, modelsType: modelType} = useParams();
@@ -26,10 +27,13 @@ const ModelPage = () => {
         if (schema['$defs']) modelSchema['$defs'] = schema['$defs'];
         if (schema['definitions']) modelSchema['definitions'] = schema['definitions'];
         schemaUtilsDB.updateModelSchema({modelName, modelType, modelSchema});
+        toast.success("Updated!");
+        navigate("..");
     }
 
     function handleDeleteModelSchema() {
         schemaUtilsDB.deleteModelSchema(modelName);
+        toast.success("Deleted!");
         navigate("..");
     }
 
@@ -48,13 +52,18 @@ const ModelPage = () => {
             <h2 style={{padding: "10px 0"}}>Model name: <strong>{modelName}</strong></h2>
 
             <div>
-                {JSON.stringify(schema)}
+                <strong>
+                    Initial json-schema:
+                </strong>
+                <p>
+                    {JSON.stringify(schema)}
+                </p>
             </div>
             <hr/>
-            <div>
+            {/*<div>
                 {JSON.stringify(modelData)}
             </div>
-            <hr/>
+            <hr/>*/}
             <h3>Model fields</h3>
             <GenericPageContent
                 dataArray={modelData}

@@ -8,6 +8,7 @@ import {Button} from "react-bootstrap";
 import Form from "@rjsf/bootstrap-4";
 import {schemaUtilsDB} from "../schemas/SchemaUtils";
 import {localDataUtilsDB} from "../store/data/LocalDataUtils";
+import toast from "react-hot-toast";
 
 const ContentsSinglePage = () => {
     const {modelName} = useParams();
@@ -19,6 +20,7 @@ const ContentsSinglePage = () => {
     function handleSubmit(newData) {
         console.log('Sumbited data: ', newData);
         localDataUtilsDB.setSingleData(modelName, newData);
+        toast.success("Saved!");
     }
 
     if (!schema) return <div>Sorry... Model <strong>{modelName}</strong> is unavailable!</div>
@@ -31,9 +33,9 @@ const ContentsSinglePage = () => {
                 <Form schema={schema}
                       uiSchema={uiSchema}
                       formData={data}
-                      onChange={e => console.log('Changed :', e.formData)}
+                      //onChange={e => console.log('Changed :', e.formData)}
                       onSubmit={e => handleSubmit(e.formData)}
-                      onError={errors => console.log('Error :', errors)}
+                      onError={errors => console.log('Form Error :', errors)}
                 >
                     <Button type="submit" variant="primary" className="mt-3">
                         Save

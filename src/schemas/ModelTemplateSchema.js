@@ -25,6 +25,7 @@ export const modelTemplateSchema = {
             "type": "string",
             "title": "Field's type",
             "enum": ["string", "number", "integer", "boolean", "object"],
+            "enumNames": ["string", "number", "integer", "boolean", "Component"],
             /*"enumNames": ["Строка", "Число", "Целое", "Бинарное", "Объект"],*/
         },
         /*"minimum": {
@@ -107,6 +108,7 @@ export const modelTemplateSchema = {
                         },
                         "componentRef": {
                             "type": "string",
+                            "title": "Component"
                             /*"format": "uri-reference"*/
                         }
                     },
