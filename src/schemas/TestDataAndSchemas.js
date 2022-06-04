@@ -115,6 +115,15 @@ const myaddressSchema = {
     properties: {
         city: {type: "string", title: "Город"},
         street: {type: "string", title: "Улица"},
+        houseNumber: {type: "integer", title: "Номер дома"},
+        geoLocation: {
+            title: "Geoposition",
+            type: "object",
+            properties: {
+                lat: {type: "number", title: "Широта"},
+                lon: {type: "number", title: "Долгота"}
+            }
+        }
     }
 };
 
@@ -123,6 +132,7 @@ const mycompanySchema = {
     type: "object",
     properties: {
         name: {type: "string", title: "Название"},
+        email: {type: "string", title: "E-mail", format: "email"},
         address: {
             title: "My Address",
             type: "object",
@@ -130,17 +140,15 @@ const mycompanySchema = {
             properties: {
                 city: {type: "string", title: "Город"},
                 street: {type: "string", title: "Улица"},
-            }
-        },
-        geo: {"$ref": "#/definitions/Geo"}
-    },
-    definitions: {
-        Geo: {
-            title: "Geoposition",
-            type: "object",
-            properties: {
-                lat: {type: "number", title: "Широта"},
-                lon: {type: "number", title: "Долгота"}
+                houseNumber: {type: "integer", title: "Номер дома"},
+                geoLocation: {
+                    title: "Geoposition",
+                    type: "object",
+                    properties: {
+                        lat: {type: "number", title: "Широта"},
+                        lon: {type: "number", title: "Долгота"}
+                    }
+                }
             }
         }
     }

@@ -14,7 +14,11 @@ class SchemaUtils {
         mygeo: getComponentSchema
     }
 
-    static EMPTY_SCHEMA = {type: 'object', required: [], properties: {}};
+    static #EMPTY_SCHEMA = '{"type": "object", "required": [], "properties": {}}';
+
+    static getEmptySchema() {
+        return JSON.parse(SchemaUtils.#EMPTY_SCHEMA);
+    }
 
     static getAllModelNames(modelType) {
         if (modelType === 'collections') return ['todos', 'users', 'posts'];
@@ -45,7 +49,7 @@ class SchemaUtils {
                     name: propKey,
                     title: subSchema.title ?? '',
                     type: subSchema.type,
-                    componentRef: JSON.stringify(subSchema),
+                    componentRef: JSON.stringify(propValue),
                     isRequired: rootSchema.required ? rootSchema.required.some((field => field === propKey)) : false,
                     format: subSchema.format,
                     minimum: subSchema.minimum,
@@ -57,20 +61,25 @@ class SchemaUtils {
     }
 
     static ModelDataToSchema(modelData) {
-        const schema = SchemaUtils.EMPTY_SCHEMA;
+        const schema = SchemaUtils.getEmptySchema();
         modelData.forEach(({name, type, title, isRequired, minimum, maximum, format, componentRef}) => {
             switch (type) {
                 case 'boolean':
-                    schema.properties[name] = {type, title}; break;
+                    schema.properties[name] = {type, title};
+                    break;
                 case 'string':
-                    schema.properties[name] = {type, title, format}; break;
+                    schema.properties[name] = {type, title, format};
+                    break;
                 case 'number':
                 case 'integer':
-                    schema.properties[name] = {type, title, minimum, maximum}; break;
+                    schema.properties[name] = {type, title, minimum, maximum};
+                    break;
                 case 'object':
-                    schema.properties[name] = JSON.parse(componentRef); break;
+                    schema.properties[name] = JSON.parse(componentRef);
+                    break;
                 default:
-                    schema.properties[name] = {type, title}; break;
+                    schema.properties[name] = {type, title};
+                    break;
             }
             if (isRequired) schema.required.push(name);
         });
@@ -101,11 +110,12 @@ class SchemaUtils {
         return this.models.find(model => model.modelName === modelName)?.modelSchema;
     }
 
-    addModelSchema({modelName, modelType, modelSchema = SchemaUtils.EMPTY_SCHEMA}) {
+    addModelSchema({modelName, modelType, modelSchema = SchemaUtils.getEmptySchema()}) {
+        // Title скрывает имя поля в случае объектов //
         if (!modelSchema.title) modelSchema.title = modelName;
         if (!this.models.find(model => model.modelName === modelName))
             this.models = [...this.models, {modelName, modelType, modelSchema}];
-        console.log('All Models: ', this.models)
+        console.log('All Models: ', this.models);
     }
 
     deleteModelSchema(modelName) {
@@ -113,6 +123,7 @@ class SchemaUtils {
     }
 
     updateModelSchema({modelName, modelType, modelSchema}) {
+        // Title скрывает имя поля в случае объектов //
         if (!modelSchema.title) modelSchema.title = modelName;
         this.models = this.models.map(model =>
             model.modelName === modelName ? {modelName, modelType, modelSchema} : model
